@@ -1,0 +1,110 @@
+.industries {
+    background-color: var(--bg-color);
+    position: relative;
+    overflow: hidden;
+}
+
+.marquee-container {
+    width: 100%;
+    overflow: hidden;
+    margin-top: 60px;
+    position: relative;
+}
+
+.marquee-container::before,
+.marquee-container::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    width: 100px;
+    height: 100%;
+    z-index: 2;
+    pointer-events: none;
+}
+
+.marquee-container::before {
+    left: 0;
+    background: linear-gradient(to right, var(--bg-color), transparent);
+}
+
+.marquee-container::after {
+    right: 0;
+    background: linear-gradient(to left, var(--bg-color), transparent);
+}
+
+.marquee-track {
+    display: flex;
+    gap: 30px;
+    width: max-content;
+    animation: scroll 40s linear infinite;
+}
+
+/* Pause on hover for better UX */
+.marquee-track:hover {
+    animation-play-state: paused;
+}
+
+@keyframes scroll {
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(-50%);
+    }
+}
+
+.marquee-item {
+    background: rgba(20, 40, 80, 0.4);
+    border: 1px solid rgba(39, 199, 184, 0.2);
+    border-radius: 20px;
+    /* Rounded card shape */
+    padding: 30px 40px;
+    min-width: 220px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(5px);
+}
+
+.marquee-item:hover {
+    background: rgba(39, 199, 184, 0.1);
+    border-color: var(--primary-color);
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(39, 199, 184, 0.2);
+}
+
+.marquee-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
+.marquee-icon {
+    font-size: 3.5rem;
+}
+
+.marquee-text {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #fff;
+    text-align: center;
+    white-space: nowrap;
+}
+
+@media (max-width: 768px) {
+    .marquee-item {
+        min-width: 180px;
+        padding: 20px 30px;
+    }
+
+    .marquee-icon {
+        font-size: 2.5rem;
+    }
+
+    .marquee-text {
+        font-size: 1.1rem;
+    }
+}

@@ -1,0 +1,143 @@
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    padding: 20px 0;
+    transition: var(--transition-speed);
+}
+
+.navbar.scrolled {
+    background: rgba(5, 5, 5, 0.8);
+    backdrop-filter: blur(10px);
+    padding: 15px 0;
+    border-bottom: 1px solid var(--glass-border);
+}
+
+.navbar-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo-container {
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    position: relative;
+}
+
+.logo-text {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: -1px;
+    line-height: 1;
+    z-index: 2;
+}
+
+.logo-text .highlight {
+    color: var(--primary-color);
+}
+
+.logo-arrow {
+    width: 100%;
+    height: 15px;
+    margin-top: -5px;
+    /* Pull closer to text */
+    overflow: visible;
+}
+
+.logo-arrow path {
+    stroke-dasharray: 200;
+    stroke-dashoffset: 200;
+    animation: drawArrow 4s ease-in-out infinite;
+}
+
+/* Remove hover effect since it's now continuous */
+.logo-container:hover .logo-arrow path {
+    animation: drawArrow 4s ease-in-out infinite;
+}
+
+@keyframes drawArrow {
+    0% {
+        stroke-dashoffset: 200;
+        opacity: 0;
+    }
+
+    10% {
+        opacity: 1;
+    }
+
+    40% {
+        stroke-dashoffset: 0;
+        opacity: 1;
+    }
+
+    60% {
+        stroke-dashoffset: 0;
+        opacity: 1;
+    }
+
+    90% {
+        stroke-dashoffset: -200;
+        opacity: 0;
+    }
+
+    100% {
+        stroke-dashoffset: -200;
+        opacity: 0;
+    }
+}
+
+.nav-links {
+    display: flex;
+    gap: 30px;
+}
+
+.nav-links a {
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--text-color);
+    transition: color 0.3s;
+    position: relative;
+}
+
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--primary-color);
+    transition: width 0.3s;
+}
+
+.nav-links a:hover {
+    color: var(--primary-color);
+}
+
+.nav-links a:hover::after {
+    width: 100%;
+}
+
+.cta-btn {
+    background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+    color: #fff;
+    padding: 12px 30px;
+    border-radius: 30px;
+    font-weight: 600;
+    transition: var(--transition-speed);
+    box-shadow: 0 0 20px rgba(39, 199, 184, 0.3);
+    text-decoration: none;
+    /* Ensure no underline for anchor */
+    display: inline-block;
+    /* Ensure it respects padding/margin */
+}
+
+.cta-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 30px rgba(39, 199, 184, 0.5);
+}
