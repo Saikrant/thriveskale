@@ -22,7 +22,7 @@ const Navbar = () => {
             <div className="container navbar-container">
                 <a href="#" className="logo-container">
                     <div className="logo-text">
-                        thrive<span className="highlight">Skale</span>
+                        thrivv<span className="highlight">Skale</span>
                     </div>
                     <svg className="logo-arrow" viewBox="0 0 200 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M5 10H190M190 10L180 5M190 10L180 15" stroke="var(--primary-color)" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />

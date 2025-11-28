@@ -1,7 +1,7 @@
 export const workflow = {
     start: {
         id: 'start',
-        message: (data) => `Hi ${data.name || 'there'}! I'm the ThriveSkale AI assistant. I received your message about "${data.message?.substring(0, 30)}${data.message?.length > 30 ? '...' : ''}".`,
+        message: (data) => `Hi ${data.name || 'there'}! I'm the ThrivvSkale AI assistant. I received your message about "${data.message?.substring(0, 30)}${data.message?.length > 30 ? '...' : ''}".`,
         next: 'phone_verification',
         delay: 1000
     },

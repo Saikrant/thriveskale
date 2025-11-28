@@ -107,7 +107,7 @@ const AIAgent = ({ initialData, onClose }) => {
                     <div className="agent-identity">
                         <div className="agent-avatar">🤖</div>
                         <div className="agent-info">
-                            <h3>ThriveSkale AI</h3>
+                            <h3>ThrivvSkale AI</h3>
                             <span>Online • Typically replies instantly</span>
                         </div>
                     </div>
