@@ -47,13 +47,24 @@ export const workflow = {
     closing_options: {
         id: 'closing_options',
         message: "Is there anything else I can help you with?",
-        options: ["No, that's all", "Book a specific time"],
-        next: (input) => input.toLowerCase().includes('book') ? 'booking_coordination' : 'final_closing',
+        options: ["No, that's all", "Book a specific time", "Send details via WhatsApp"],
+        next: (input) => {
+            if (input.toLowerCase().includes('book')) return 'booking_coordination';
+            if (input.toLowerCase().includes('whatsapp')) return 'whatsapp_connect';
+            return 'final_closing';
+        },
         delay: 1000
     },
     booking_coordination: {
         id: 'booking_coordination',
         message: "Our team will coordinate a time that works best for you during the call. We look forward to speaking with you!",
+        end: true,
+        delay: 1000
+    },
+    whatsapp_connect: {
+        id: 'whatsapp_connect',
+        message: "Opening WhatsApp... You can send your details directly to our team there.",
+        action: 'open_whatsapp',
         end: true,
         delay: 1000
     },

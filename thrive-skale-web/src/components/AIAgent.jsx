@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './AIAgent.css';
 import { workflow } from './workflowConfig';
+import { generateWhatsAppLink } from '../utils/whatsappUtils';
 
 const AIAgent = ({ initialData, onClose }) => {
     const [messages, setMessages] = useState([]);
@@ -83,6 +84,13 @@ const AIAgent = ({ initialData, onClose }) => {
             addMessage('agent', messageText, node.options);
 
             setIsTyping(false);
+
+            // Handle Actions
+            if (node.action === 'open_whatsapp') {
+                const ownerNumber = '916302193115'; // Replace with actual number
+                const link = generateWhatsAppLink(ownerNumber, currentData);
+                window.open(link, '_blank');
+            }
 
             // Auto-advance if no input/options required and there is a next node
             if (!node.input && !node.options && node.next) {

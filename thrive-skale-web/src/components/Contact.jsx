@@ -48,7 +48,7 @@ const Contact = () => {
                             <span className="icon">📞</span>
                             <div>
                                 <h4>Phone</h4>
-                                <p>+91 98765 43210</p>
+                                <p>+91 6302193115</p>
                             </div>
                         </div>
                         <div className="info-item">
