@@ -29,8 +29,8 @@ const AIAgent = ({ initialData, onClose }) => {
         processNode('start', initialData);
     }, []);
 
-    const addMessage = (type, text, options = null) => {
-        setMessages(prev => [...prev, { id: Date.now(), type, text, options }]);
+    const addMessage = (type, text, options = null, action = null) => {
+        setMessages(prev => [...prev, { id: Date.now(), type, text, options, action }]);
     };
 
     const handleSend = () => {
@@ -81,16 +81,18 @@ const AIAgent = ({ initialData, onClose }) => {
 
         setTimeout(() => {
             const messageText = typeof node.message === 'function' ? node.message(currentData) : node.message;
-            addMessage('agent', messageText, node.options);
 
-            setIsTyping(false);
-
+            let action = null;
             // Handle Actions
             if (node.action === 'open_whatsapp') {
                 const ownerNumber = '916302193115'; // Replace with actual number
                 const link = generateWhatsAppLink(ownerNumber, currentData);
-                window.open(link, '_blank');
+                action = { label: 'Connect on WhatsApp 💬', url: link };
             }
+
+            addMessage('agent', messageText, node.options, action);
+
+            setIsTyping(false);
 
             // Auto-advance if no input/options required and there is a next node
             if (!node.input && !node.options && node.next) {
@@ -126,6 +128,16 @@ const AIAgent = ({ initialData, onClose }) => {
                     {messages.map((msg) => (
                         <div key={msg.id} className={`message ${msg.type}`}>
                             {msg.text}
+                            {msg.action && (
+                                <a
+                                    href={msg.action.url}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="whatsapp-btn"
+                                >
+                                    {msg.action.label}
+                                </a>
+                            )}
                             {msg.options && (
                                 <div className="options-container">
                                     {msg.options.map((opt, idx) => (

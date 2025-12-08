@@ -166,15 +166,17 @@
 }
 
 .hero-values {
-    display: none;
-    grid-template-columns: repeat(2, 1fr);
+    display: grid;
+    grid-template-columns: 1fr;
     gap: 20px;
     max-width: 500px;
+    margin-top: 40px;
+    width: 100%;
 }
 
-@media (min-width: 992px) {
+@media (min-width: 768px) {
     .hero-values {
-        display: grid;
+        grid-template-columns: repeat(2, 1fr);
     }
 }
 

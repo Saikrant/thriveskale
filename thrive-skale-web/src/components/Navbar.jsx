@@ -4,6 +4,7 @@ import './Navbar.css';
 const Navbar = () => {
     const [scrolled, setScrolled] = useState(false);
     const [activeLink, setActiveLink] = useState('hero');
+    const [isOpen, setIsOpen] = useState(false);
 
     useEffect(() => {
         const handleScroll = () => {
@@ -49,10 +50,18 @@ const Navbar = () => {
         setActiveLink(id);
     };
 
+    const toggleMenu = () => {
+        setIsOpen(!isOpen);
+    };
+
+    const closeMenu = () => {
+        setIsOpen(false);
+    };
+
     return (
         <nav className={`navbar ${scrolled ? 'scrolled' : ''}`}>
             <div className="container navbar-container">
-                <a href="#" className="logo-container">
+                <a href="#" className="logo-container" onClick={closeMenu}>
                     <div className="logo-text">
                         thrivv<span className="highlight">Skale</span>
                     </div>
@@ -60,14 +69,25 @@ const Navbar = () => {
                         <path d="M5 10H190M190 10L180 5M190 10L180 15" stroke="var(--primary-color)" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
                     </svg>
                 </a>
-                <ul className="nav-links">
-                    <li><a href="#hero" className={activeLink === 'hero' ? 'active' : ''} onClick={() => handleLinkClick('hero')}>Home</a></li>
-                    <li><a href="#reality-vision" className={activeLink === 'reality-vision' ? 'active' : ''} onClick={() => handleLinkClick('reality-vision')}>Why Us</a></li>
-                    <li><a href="#services" className={activeLink === 'services' ? 'active' : ''} onClick={() => handleLinkClick('services')}>Services</a></li>
-                    <li><a href="#industries" className={activeLink === 'industries' ? 'active' : ''} onClick={() => handleLinkClick('industries')}>Industries</a></li>
-                    <li><a href="#contact" className={activeLink === 'contact' ? 'active' : ''} onClick={() => handleLinkClick('contact')}>Contact</a></li>
-                </ul>
-                <a href="#contact" className="cta-btn">Book a Call</a>
+
+                <div className={`hamburger ${isOpen ? 'active' : ''}`} onClick={toggleMenu}>
+                    <span className="bar"></span>
+                    <span className="bar"></span>
+                    <span className="bar"></span>
+                </div>
+
+                <div className={`nav-menu ${isOpen ? 'active' : ''}`}>
+                    <ul className="nav-links">
+                        <li><a href="#hero" className={activeLink === 'hero' ? 'active' : ''} onClick={() => { handleLinkClick('hero'); closeMenu(); }}>Home</a></li>
+                        <li><a href="#reality-vision" className={activeLink === 'reality-vision' ? 'active' : ''} onClick={() => { handleLinkClick('reality-vision'); closeMenu(); }}>Why Us</a></li>
+                        <li><a href="#services" className={activeLink === 'services' ? 'active' : ''} onClick={() => { handleLinkClick('services'); closeMenu(); }}>Services</a></li>
+                        <li><a href="#industries" className={activeLink === 'industries' ? 'active' : ''} onClick={() => { handleLinkClick('industries'); closeMenu(); }}>Industries</a></li>
+                        <li><a href="#contact" className={activeLink === 'contact' ? 'active' : ''} onClick={() => { handleLinkClick('contact'); closeMenu(); }}>Contact</a></li>
+                    </ul>
+                    <a href="#contact" className="cta-btn mobile-cta" onClick={closeMenu}>Book a Call</a>
+                </div>
+
+                <a href="#contact" className="cta-btn desktop-cta">Book a Call</a>
             </div>
         </nav>
     );
