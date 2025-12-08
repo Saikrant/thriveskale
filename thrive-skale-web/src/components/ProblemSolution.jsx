@@ -37,7 +37,7 @@ const ProblemSolution = () => {
         <section id="reality-vision" className="problem-solution section-padding">
             <div className="container">
                 <h2 className="section-title text-center">
-                    Reality <span className="gradient-text">vs.</span> Vision
+                    Reality <span className="gradient-text">vs</span> Vision
                 </h2>
                 <p className="section-subtitle text-center">
                     Transforming business struggles into engineered growth.

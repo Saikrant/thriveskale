@@ -1,7 +1,7 @@
 import React from 'react';
 import './Services.css';
 
-const Services = () => {
+const Services = ({ onServiceSelect }) => {
     const [selectedService, setSelectedService] = React.useState(null);
 
     const services = [
@@ -121,21 +121,15 @@ const Services = () => {
                     <div className="service-modal glass-panel" onClick={(e) => e.stopPropagation()}>
                         <button className="close-modal-btn" onClick={closeModal}>&times;</button>
 
-                        <div className="modal-content-grid">
-                            <div className="modal-visual">
-                                <div className={`visual-container ${selectedService.visualClass}`}>
-                                    {/* Visual elements will be rendered via CSS based on class */}
-                                    <div className="visual-element"></div>
-                                    <div className="visual-element"></div>
-                                    <div className="visual-element"></div>
-                                </div>
-                            </div>
-
-                            <div className="modal-info">
+                        <div className="modal-info">
+                            <div className="modal-header">
                                 <div className="modal-icon">{selectedService.icon}</div>
                                 <h2>{selectedService.title}</h2>
-                                <p className="modal-description">{selectedService.details}</p>
+                            </div>
 
+                            <p className="modal-description">{selectedService.details}</p>
+
+                            <div className="modal-benefits">
                                 <h4>Key Benefits</h4>
                                 <ul className="modal-features">
                                     {selectedService.features.map((feature, idx) => (
@@ -144,14 +138,17 @@ const Services = () => {
                                         </li>
                                     ))}
                                 </ul>
-
-                                <button className="cta-btn primary modal-cta" onClick={() => {
-                                    closeModal();
-                                    document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
-                                }}>
-                                    Get Started with {selectedService.title}
-                                </button>
                             </div>
+
+                            <button className="cta-btn primary modal-cta" onClick={() => {
+                                if (onServiceSelect) {
+                                    onServiceSelect(selectedService.title);
+                                }
+                                closeModal();
+                                document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
+                            }}>
+                                Get Started with {selectedService.title}
+                            </button>
                         </div>
                     </div>
                 </div>

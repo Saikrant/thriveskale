@@ -14,30 +14,39 @@ const Hero = () => {
             <div className="container hero-container">
                 <div className="hero-content">
                     <h1 className="hero-title">
-                        Your growth, <br />
-                        <span className="gradient-text">Engineered</span>
+                        Scale Your Business with <br />
+                        <span className="gradient-text">Intelligence & Design</span>
                     </h1>
                     <p className="hero-subtitle">
-                        We fuse stunning web design, data-driven marketing, and next-gen AI agents to build your digital empire.
+                        We build high-converting websites and deploy AI agents that work 24/7 to grow your revenue.
                     </p>
                     <div className="hero-cta">
-                        <a href="#services" className="cta-btn primary">Explore Services</a>
-                        <a href="#contact" className="cta-btn secondary">Get a Quote</a>
+                        <a href="#contact" className="cta-btn primary">Start Your Transformation</a>
+                        <a href="#services" className="cta-btn secondary">View Our Work</a>
                     </div>
                 </div>
 
-                <div className="hero-stats">
-                    <div className="stat-card glass float-1">
-                        <h3>AI</h3>
-                        <p>Custom Solutions</p>
+                <div className="hero-values">
+                    <div className="value-card glass">
+                        <div className="value-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+                        </div>
+                        <h3>3x</h3>
+                        <p>Revenue Growth</p>
                     </div>
-                    <div className="stat-card glass float-2">
+                    <div className="value-card glass">
+                        <div className="value-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                        </div>
                         <h3>24/7</h3>
-                        <p>AI Support Agents</p>
+                        <p>Auto-Pilot Sales</p>
                     </div>
-                    <div className="stat-card glass float-3">
+                    <div className="value-card glass">
+                        <div className="value-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
+                        </div>
                         <h3>100%</h3>
-                        <p>Digital Growth</p>
+                        <p>Custom Built</p>
                     </div>
                 </div>
             </div>

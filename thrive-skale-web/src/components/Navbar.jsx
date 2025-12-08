@@ -3,6 +3,7 @@ import './Navbar.css';
 
 const Navbar = () => {
     const [scrolled, setScrolled] = useState(false);
+    const [activeLink, setActiveLink] = useState('hero');
 
     useEffect(() => {
         const handleScroll = () => {
@@ -17,6 +18,37 @@ const Navbar = () => {
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
+    useEffect(() => {
+        const sections = ['hero', 'reality-vision', 'services', 'industries', 'contact'];
+
+        const observerOptions = {
+            root: null,
+            rootMargin: '-45% 0px -45% 0px', // Trigger when the section is in the middle 10% of the viewport
+            threshold: 0
+        };
+
+        const observerCallback = (entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    setActiveLink(entry.target.id);
+                }
+            });
+        };
+
+        const observer = new IntersectionObserver(observerCallback, observerOptions);
+
+        sections.forEach((id) => {
+            const element = document.getElementById(id);
+            if (element) observer.observe(element);
+        });
+
+        return () => observer.disconnect();
+    }, []);
+
+    const handleLinkClick = (id) => {
+        setActiveLink(id);
+    };
+
     return (
         <nav className={`navbar ${scrolled ? 'scrolled' : ''}`}>
             <div className="container navbar-container">
@@ -29,11 +61,11 @@ const Navbar = () => {
                     </svg>
                 </a>
                 <ul className="nav-links">
-                    <li><a href="#hero">Home</a></li>
-                    <li><a href="#reality-vision">Why Us</a></li>
-                    <li><a href="#industries">Industries</a></li>
-                    <li><a href="#services">Services</a></li>
-                    <li><a href="#contact">Contact</a></li>
+                    <li><a href="#hero" className={activeLink === 'hero' ? 'active' : ''} onClick={() => handleLinkClick('hero')}>Home</a></li>
+                    <li><a href="#reality-vision" className={activeLink === 'reality-vision' ? 'active' : ''} onClick={() => handleLinkClick('reality-vision')}>Why Us</a></li>
+                    <li><a href="#services" className={activeLink === 'services' ? 'active' : ''} onClick={() => handleLinkClick('services')}>Services</a></li>
+                    <li><a href="#industries" className={activeLink === 'industries' ? 'active' : ''} onClick={() => handleLinkClick('industries')}>Industries</a></li>
+                    <li><a href="#contact" className={activeLink === 'contact' ? 'active' : ''} onClick={() => handleLinkClick('contact')}>Contact</a></li>
                 </ul>
                 <a href="#contact" className="cta-btn">Book a Call</a>
             </div>

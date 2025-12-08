@@ -10,15 +10,17 @@ import Footer from './components/Footer';
 import SmoothScroll from './components/SmoothScroll';
 
 function App() {
+  const [contactService, setContactService] = useState(null);
+
   return (
     <div className="app">
       <SmoothScroll />
       <Navbar />
       <Hero />
       <ProblemSolution />
-      <Services />
+      <Services onServiceSelect={setContactService} />
       <Industries />
-      <Contact />
+      <Contact initialService={contactService} />
       <Footer />
     </div>
   );

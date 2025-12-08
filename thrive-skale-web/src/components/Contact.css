@@ -5,12 +5,10 @@
 }
 
 .contact-container {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 50px;
-    max-width: 1000px;
+    display: flex;
+    justify-content: center;
+    max-width: 800px;
     margin: 0 auto;
-    align-items: start;
 }
 
 .contact-info {
@@ -62,58 +60,116 @@
 }
 
 .contact-form {
-    padding: 40px;
+    padding: 50px;
     width: 100%;
+    background: rgba(10, 10, 10, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    backdrop-filter: blur(20px);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
 }
 
 .contact-form h3 {
-    font-size: 1.8rem;
-    margin-bottom: 30px;
+    font-size: 2rem;
+    margin-bottom: 40px;
     text-align: center;
+    background: linear-gradient(90deg, #fff, rgba(255, 255, 255, 0.7));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
-.form-group {
-    margin-bottom: 20px;
+.floating-group {
+    position: relative;
+    margin-bottom: 30px;
 }
 
-.form-group input,
-.form-group textarea {
+.floating-group input,
+.floating-group textarea,
+.floating-group select {
     width: 100%;
-    padding: 15px;
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid var(--glass-border);
-    border-radius: 8px;
+    padding: 15px 0;
+    font-size: 1.1rem;
     color: #fff;
-    font-family: inherit;
-    font-size: 1rem;
-    transition: var(--transition-speed);
-}
-
-.form-group input:focus,
-.form-group textarea:focus {
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
     outline: none;
-    border-color: var(--primary-color);
-    background: rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+    border-radius: 0;
 }
 
-.form-group textarea {
+.floating-group select {
+    cursor: pointer;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2327c7b8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 0 center;
+    background-size: 16px;
+    padding-right: 20px;
+}
+
+.floating-group label {
+    position: absolute;
+    top: 15px;
+    left: 0;
+    font-size: 1.1rem;
+    color: rgba(255, 255, 255, 0.5);
+    pointer-events: none;
+    transition: all 0.3s ease;
+}
+
+.floating-group input:focus,
+.floating-group textarea:focus,
+.floating-group select:focus {
+    border-bottom-color: var(--primary-color);
+}
+
+.floating-group input:focus~label,
+.floating-group input:not(:placeholder-shown)~label,
+.floating-group textarea:focus~label,
+.floating-group textarea:not(:placeholder-shown)~label,
+.floating-group select:focus~label,
+.floating-group select.has-value~label {
+    top: -10px;
+    font-size: 0.85rem;
+    color: var(--primary-color);
+}
+
+.floating-group textarea {
     resize: vertical;
+    min-height: 100px;
 }
 
 .submit-btn {
     width: 100%;
-    padding: 15px;
+    padding: 18px;
     background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
-    color: #fff;
-    border-radius: 8px;
-    font-weight: 600;
+    color: #000;
+    border: none;
+    border-radius: 50px;
+    font-weight: 700;
     font-size: 1.1rem;
-    transition: var(--transition-speed);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 10px;
+    box-shadow: 0 5px 20px rgba(39, 199, 184, 0.3);
 }
 
 .submit-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(39, 199, 184, 0.3);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(39, 199, 184, 0.5);
+}
+
+/* Dropdown styling */
+.floating-group select option {
+    background: #1a1a1a;
+    color: #fff;
+    padding: 10px;
 }
 
 @media (max-width: 768px) {
