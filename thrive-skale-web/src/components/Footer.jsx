@@ -27,7 +27,7 @@ const Footer = () => {
                     <div className="footer-contact">
                         <p><strong>Founder:</strong> Sai Kranth</p>
                         <p><strong>Phone:</strong> +91 6302193115</p>
-                        <p><strong>Email:</strong> ksaikranth@thrivvskale.com</p>
+                        <p><strong>Email:</strong> info@thrivvskale.com</p>
                         <p><strong>Location:</strong> Hyderabad, India</p>
                     </div>
                 </div>
