@@ -33,7 +33,7 @@ const Footer = () => {
                 </div>
             </div>
             <div className="footer-bottom">
-                <p>&copy; {currentYear} ThrivvSkale Solutions Pvt Ltd. All rights reserved.</p>
+                <p>&copy; {currentYear} Thrivv Skale Private Limited. All rights reserved.</p>
             </div>
         </footer>
     );

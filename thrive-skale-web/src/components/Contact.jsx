@@ -42,32 +42,33 @@ const Contact = ({ initialService }) => {
 
                 <div className="contact-container">
                     <form className="contact-form glass" onSubmit={handleSubmit}>
-                        <h3>Start Your Journey</h3>
+                        <h3>Start Your Journey
+                        </h3>
 
                         <div className="form-group floating-group">
                             <input
                                 type="text"
-                                name="name"
-                                id="name"
+                                name="full_name"
+                                id="full_name"
                                 placeholder=" "
-                                value={formData.name}
+                                value={formData.full_name}
                                 onChange={handleChange}
                                 required
                             />
-                            <label htmlFor="name">Your Name</label>
+                            <label htmlFor="name">Full Name</label>
                         </div>
 
                         <div className="form-group floating-group">
                             <input
                                 type="email"
-                                name="email"
-                                id="email"
+                                name="business_email"
+                                id="business_email"
                                 placeholder=" "
-                                value={formData.email}
+                                value={formData.business_email}
                                 onChange={handleChange}
                                 required
                             />
-                            <label htmlFor="email">Your Email</label>
+                            <label htmlFor="email">Business Email</label>
                         </div>
 
                         <div className="form-group floating-group">
@@ -101,9 +102,16 @@ const Contact = ({ initialService }) => {
                             ></textarea>
                             <label htmlFor="message">Tell us about your project</label>
                         </div>
+                        🔒 This form is secure and used only to contact you regarding your enquiry.
 
                         <button type="submit" className="submit-btn">Send Message</button>
+                        <p className="form-disclaimer">
+                            By submitting this form, you agree to our
+                            <a href="/privacy-policy">Privacy Policy</a>.
+                        </p>
+
                     </form>
+
                 </div>
             </div>
 
