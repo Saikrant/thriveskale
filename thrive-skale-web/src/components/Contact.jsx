@@ -314,12 +314,12 @@ const Contact = ({ initialService }) => {
             // Build WhatsApp message
             const phone = '19704122140'; // +1 970-412-2140
             const message = [
-                `🚀 *New Lead from ThrivvSkale Website*`,
+                `*New Lead from ThrivvSkale Website*`,
                 ``,
-                `👤 *Name:* ${formData.name}`,
-                `📧 *Email:* ${formData.email}`,
-                `🎯 *Service:* ${formData.service}`,
-                `💬 *Message:* ${formData.message}`,
+                `*Name:* ${formData.name}`,
+                `*Email:* ${formData.email}`,
+                `*Service:* ${formData.service}`,
+                `*Message:* ${formData.message}`,
             ].join('\n');
 
             const waUrl = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
