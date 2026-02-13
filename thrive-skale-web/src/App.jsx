@@ -2,10 +2,13 @@ import { useState, useEffect, useRef } from 'react'
 import { Routes, Route, useLocation } from 'react-router-dom'
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
+import LaunchHero from './components/LaunchHero';
 import ProblemSolution from './components/ProblemSolution';
 import Industries from './components/Industries';
 import Services from './components/Services';
+import Pricing from './components/Pricing';
 import Contact from './components/Contact';
+import ScrollNavigator from './components/ScrollNavigator';
 
 import Footer from './components/Footer';
 import SmoothScroll from './components/SmoothScroll';
@@ -44,6 +47,7 @@ const ScrollToSection = () => {
       '/': 'hero',
       '/why-us': 'reality-vision',
       '/services': 'services',
+      '/pricing': 'pricing',
       '/industries': 'industries',
       '/contact': 'contact'
     };
@@ -72,9 +76,11 @@ function App() {
       <AbstractWaves />
       <ScrollToSection />
       <Hero />
+      <LaunchHero />
       <ProblemSolution />
       <Services onServiceSelect={setContactService} />
       <Industries />
+      <Pricing />
       <Contact initialService={contactService} />
     </>
   );
@@ -89,6 +95,7 @@ function App() {
         <MagneticButtons />
         <ParallaxManager />
         <TextReveal />
+        <ScrollNavigator />
         <Navbar />
         <Routes>
           <Route path="/" element={<MainContent />} />

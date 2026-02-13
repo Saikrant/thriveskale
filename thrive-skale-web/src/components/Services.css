@@ -82,7 +82,7 @@
 .svc-card {
     flex-shrink: 0;
     width: 380px;
-    height: 580px;
+    min-height: 520px;
     border-radius: 24px;
     border: 1px solid rgba(255, 255, 255, 0.05);
     backdrop-filter: blur(20px);
@@ -239,9 +239,9 @@
 /* ---- Navigation Dots ---- */
 .svc-dots {
     display: flex;
-    justify-content: center;
+    justify-content: flex-end;
     gap: 12px;
-    padding: 20px 0 0;
+    padding: 20px 60px 0;
     position: relative;
     z-index: 1;
 }
@@ -448,7 +448,7 @@
 
     .svc-card {
         width: 85vw;
-        height: 520px;
+        min-height: 480px;
     }
 
     .svc-card-inner {
@@ -543,6 +543,8 @@
 
     .svc-dots {
         gap: 4px;
+        justify-content: center;
+        padding: 20px 0 0;
     }
 
     /* Modal: full screen on mobile */
@@ -587,7 +589,7 @@
 @media (max-width: 480px) {
     .svc-card {
         width: 88vw;
-        height: 480px;
+        min-height: 440px;
     }
 
     .svc-card-inner {

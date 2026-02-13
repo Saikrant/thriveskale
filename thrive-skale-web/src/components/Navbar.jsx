@@ -10,7 +10,7 @@ const Navbar = () => {
 
     // Scroll spy - detect which section is in view
     useEffect(() => {
-        const sections = ['hero', 'reality-vision', 'services', 'industries', 'contact'];
+        const sections = ['hero', 'reality-vision', 'services', 'industries', 'pricing', 'contact'];
         const observers = [];
 
         sections.forEach((sectionId) => {
@@ -103,6 +103,7 @@ const Navbar = () => {
                         <li><a onClick={() => scrollToSection('reality-vision')} className={isActive('reality-vision') ? 'active' : ''}>Why Us</a></li>
                         <li><a onClick={() => scrollToSection('services')} className={isActive('services') ? 'active' : ''}>Services</a></li>
                         <li><a onClick={() => scrollToSection('industries')} className={isActive('industries') ? 'active' : ''}>Industries</a></li>
+                        <li><a onClick={() => scrollToSection('pricing')} className={isActive('pricing') ? 'active' : ''}>Pricing</a></li>
                         <li><a onClick={() => scrollToSection('contact')} className={isActive('contact') ? 'active' : ''}>Contact</a></li>
                     </ul>
                     {isOpen && (
