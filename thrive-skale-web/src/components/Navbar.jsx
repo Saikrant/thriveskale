@@ -5,7 +5,35 @@ import './Navbar.css';
 const Navbar = () => {
     const [scrolled, setScrolled] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
+    const [activeSection, setActiveSection] = useState('hero');
     const location = useLocation();
+
+    // Scroll spy - detect which section is in view
+    useEffect(() => {
+        const sections = ['hero', 'reality-vision', 'services', 'industries', 'contact'];
+        const observers = [];
+
+        sections.forEach((sectionId) => {
+            const element = document.getElementById(sectionId);
+            if (!element) return;
+
+            const observer = new IntersectionObserver(
+                (entries) => {
+                    entries.forEach((entry) => {
+                        if (entry.isIntersecting) {
+                            setActiveSection(sectionId);
+                        }
+                    });
+                },
+                { threshold: 0.3 }
+            );
+
+            observer.observe(element);
+            observers.push(observer);
+        });
+
+        return () => observers.forEach((obs) => obs.disconnect());
+    }, []);
 
     useEffect(() => {
         const handleScroll = () => {
@@ -37,7 +65,17 @@ const Navbar = () => {
         document.body.classList.remove('menu-open');
     };
 
-    const isActive = (path) => location.pathname === path;
+    const scrollToSection = (sectionId) => {
+        closeMenu();
+        const element = document.getElementById(sectionId);
+        if (element) {
+            element.scrollIntoView({ behavior: 'smooth' });
+        } else {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    };
+
+    const isActive = (sectionId) => activeSection === sectionId;
 
     return (
         <nav className={`navbar ${scrolled ? 'scrolled' : ''}`}>
@@ -61,19 +99,19 @@ const Navbar = () => {
                         </button>
                     )}
                     <ul className="nav-links">
-                        <li><Link to="/" className={isActive('/') ? 'active' : ''} onClick={closeMenu}>Home</Link></li>
-                        <li><Link to="/why-us" className={isActive('/why-us') ? 'active' : ''} onClick={closeMenu}>Why Us</Link></li>
-                        <li><Link to="/services" className={isActive('/services') ? 'active' : ''} onClick={closeMenu}>Services</Link></li>
-                        <li><Link to="/industries" className={isActive('/industries') ? 'active' : ''} onClick={closeMenu}>Industries</Link></li>
-                        <li><Link to="/contact" className={isActive('/contact') ? 'active' : ''} onClick={closeMenu}>Contact</Link></li>
+                        <li><a onClick={() => scrollToSection('hero')} className={isActive('hero') ? 'active' : ''}>Home</a></li>
+                        <li><a onClick={() => scrollToSection('reality-vision')} className={isActive('reality-vision') ? 'active' : ''}>Why Us</a></li>
+                        <li><a onClick={() => scrollToSection('services')} className={isActive('services') ? 'active' : ''}>Services</a></li>
+                        <li><a onClick={() => scrollToSection('industries')} className={isActive('industries') ? 'active' : ''}>Industries</a></li>
+                        <li><a onClick={() => scrollToSection('contact')} className={isActive('contact') ? 'active' : ''}>Contact</a></li>
                     </ul>
                     {isOpen && (
-                        <Link to="/contact" className="mobile-cta" onClick={closeMenu}>Book a Call</Link>
+                        <a onClick={() => scrollToSection('contact')} className="mobile-cta">Book a Call</a>
                     )}
                 </div>
 
                 <div className="nav-extras">
-                    <Link to="/contact" className="cta-btn">Book a Call</Link>
+                    <a onClick={() => scrollToSection('contact')} className="cta-btn">Book a Call</a>
                 </div>
             </div>
         </nav>

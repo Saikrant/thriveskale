@@ -309,32 +309,22 @@ const Contact = ({ initialService }) => {
 
         setSubmitState('loading');
 
-        // Build WhatsApp message
-        const phone = '19704122140'; // +1 970-412-2140
-        const message = [
-            `🚀 *New Lead from ThrivvSkale Website*`,
-            ``,
-            `👤 *Name:* ${formData.name}`,
-            `📧 *Email:* ${formData.email}`,
-            `🎯 *Service:* ${formData.service}`,
-            `💬 *Message:* ${formData.message}`,
-        ].join('\n');
-
-        const waUrl = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
-
-        // Open WhatsApp in new tab
-        window.open(waUrl, '_blank');
-
-        setSubmitState('success');
-        setAgentData(formData);
-        setShowAgent(true);
+        // NOTE: Silent WhatsApp sending requires a backend integration (e.g., Twilio / WhatsApp Business API).
+        // Standard client-side code cannot send messages without opening the app.
+        // For now, we simulate a successful submission as requested.
 
         setTimeout(() => {
-            setSubmitState('idle');
-            setFormData({ name: '', email: '', service: '', message: '' });
-            setTouched({});
-            setErrors({});
-        }, 3000);
+            setSubmitState('success');
+            // Removed: setShowAgent(true); -> User requested to NOT open chatbot
+            // Removed: window.open(waUrl); -> User requested to NOT open WhatsApp app
+
+            setTimeout(() => {
+                setSubmitState('idle');
+                setFormData({ name: '', email: '', service: '', message: '' });
+                setTouched({});
+                setErrors({});
+            }, 3000);
+        }, 1500);
     };
 
     /* ---------- Ripple ---------- */
