@@ -1,0 +1,94 @@
+.abstract-waves-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+    overflow: hidden;
+    background-color: var(--bg-color);
+}
+
+.waves-svg {
+    width: 100%;
+    height: 100%;
+    opacity: 0.8;
+}
+
+.wave-path {
+    transition: all 0.3s ease;
+}
+
+/* Animations for different waves */
+.wave-1 {
+    animation: waveFlow 20s infinite linear;
+}
+
+.wave-2 {
+    animation: waveFlow 25s infinite linear reverse;
+}
+
+.wave-3 {
+    animation: waveFlow 30s infinite linear;
+}
+
+.wave-4 {
+    animation: waveFlow 35s infinite linear reverse;
+}
+
+.wave-5 {
+    animation: waveFlow 40s infinite linear;
+}
+
+.wave-6 {
+    animation: waveFlow 45s infinite linear reverse;
+}
+
+.complex-wave-1 {
+    animation: waveFlowComplex 22s infinite ease-in-out;
+}
+
+.complex-wave-2 {
+    animation: waveFlowComplex 28s infinite ease-in-out reverse;
+}
+
+.complex-wave-3 {
+    animation: waveFlowComplex 34s infinite ease-in-out;
+}
+
+.complex-wave-4 {
+    animation: waveFlowComplex 40s infinite ease-in-out reverse;
+}
+
+@keyframes waveFlow {
+    0% {
+        stroke-dasharray: 1000;
+        stroke-dashoffset: 1000;
+        opacity: 0.1;
+    }
+
+    50% {
+        opacity: 0.3;
+    }
+
+    100% {
+        stroke-dasharray: 1000;
+        stroke-dashoffset: -1000;
+        opacity: 0.1;
+    }
+}
+
+@keyframes waveFlowComplex {
+
+    0%,
+    100% {
+        transform: scaleY(1) translateY(0);
+        opacity: 0.05;
+    }
+
+    50% {
+        transform: scaleY(1.2) translateY(-20px);
+        opacity: 0.15;
+    }
+}

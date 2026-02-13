@@ -14,6 +14,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
 }
 
 body {
@@ -22,6 +23,10 @@ body {
   color: var(--text-color);
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
+  -webkit-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  touch-action: manipulation;
 }
 
 a {
@@ -93,5 +98,214 @@ button {
 
   .section-subtitle {
     font-size: 1.2rem;
+  }
+}
+
+/* Reveal Animations */
+.reveal {
+  opacity: 0;
+  transition: all 0.8s cubic-bezier(0.2, 0.45, 0.3, 1);
+  will-change: transform, opacity;
+}
+
+.reveal.active {
+  opacity: 1;
+  transform: translate(0, 0) scale(1) !important;
+}
+
+.rev-up {
+  transform: translateY(40px);
+}
+
+.rev-down {
+  transform: translateY(-40px);
+}
+
+.rev-left {
+  transform: translateX(40px);
+}
+
+.rev-right {
+  transform: translateX(-40px);
+}
+
+/* Text Reveal Animation */
+.reveal-text {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: bottom;
+}
+
+.reveal-text span {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(100%);
+  transition: all 0.8s cubic-bezier(0.2, 0.45, 0.3, 1);
+}
+
+.reveal-text.active span {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Stagger Delays */
+.delay-1 {
+  transition-delay: 0.1s;
+}
+
+.delay-2 {
+  transition-delay: 0.2s;
+}
+
+.delay-3 {
+  transition-delay: 0.3s;
+}
+
+.delay-4 {
+  transition-delay: 0.4s;
+}
+
+.delay-5 {
+  transition-delay: 0.5s;
+}
+
+.delay-6 {
+  transition-delay: 0.6s;
+}
+
+.delay-7 {
+  transition-delay: 0.7s;
+}
+
+.delay-8 {
+  transition-delay: 0.8s;
+}
+
+/* =============================================
+   GLOBAL ENHANCEMENTS
+   ============================================= */
+
+/* Hide default cursor on desktop */
+@media (min-width: 769px) {
+  * {
+    cursor: none !important;
+  }
+}
+
+/* Scroll-triggered animate-in */
+.animate-in {
+  opacity: 0;
+  transform: translateY(50px);
+  transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1),
+    transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform, opacity;
+}
+
+.animate-in--visible {
+  opacity: 1;
+  transform: translateY(0) !important;
+}
+
+/* Text reveal character animations */
+.text-reveal {
+  display: inline-block;
+  overflow: hidden;
+}
+
+.text-reveal-char {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.text-reveal--visible .text-reveal-char {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Parallax base */
+.parallax-bg {
+  will-change: transform;
+}
+
+/* CSS containment for performance */
+.glass {
+  contain: content;
+  background: var(--glass-bg);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid var(--glass-border);
+  border-radius: 16px;
+}
+
+/* Lazy load images */
+img[loading="lazy"] {
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+img[loading="lazy"].loaded,
+img[loading="lazy"][complete] {
+  opacity: 1;
+}
+
+/* Reduced motion accessibility */
+@media (prefers-reduced-motion: reduce) {
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .animate-in {
+    opacity: 1;
+    transform: none;
+  }
+
+  .text-reveal-char {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Mobile simplifications */
+@media (max-width: 768px) {
+  .animate-in {
+    transform: translateY(20px);
+  }
+
+  .parallax-bg {
+    transform: none !important;
+    will-change: auto;
+  }
+
+  /* Safe area insets for notched devices */
+  body {
+    padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+  }
+
+  /* Performance: reduce blur filters on mobile */
+  .glass {
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
+
+  /* Disable will-change on mobile to reduce memory */
+  * {
+    will-change: auto !important;
+  }
+
+  /* Body scroll lock when modal/menu open */
+  body.menu-open,
+  body.modal-open {
+    overflow: hidden;
+    position: fixed;
+    width: 100%;
+    height: 100%;
   }
 }

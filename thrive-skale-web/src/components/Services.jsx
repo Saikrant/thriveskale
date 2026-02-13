@@ -1,8 +1,12 @@
-import React from 'react';
+import { useEffect, useRef, useState, useCallback } from 'react';
 import './Services.css';
 
 const Services = ({ onServiceSelect }) => {
-    const [selectedService, setSelectedService] = React.useState(null);
+    const scrollRef = useRef(null);
+    const sectionRef = useRef(null);
+    const cardsRef = useRef([]);
+    const [activeIndex, setActiveIndex] = useState(0);
+    const [selectedService, setSelectedService] = useState(null);
 
     const services = [
         {
@@ -17,8 +21,7 @@ const Services = ({ onServiceSelect }) => {
                 </svg>
             ),
             features: ["Custom UI/UX Design", "SEO Optimized Structure", "Fast Loading Speed", "Mobile Responsive"],
-            visualClass: "visual-website",
-            details: "Our website setup service goes beyond just templates. We architect a digital experience that aligns with your business goals. From wireframing to deployment, every step is optimized for speed, accessibility, and conversion."
+            details: "Our website setup service goes beyond just templates. We architect a digital experience that aligns with your business goals. From wireframing to deployment, every step is optimized for speed, accessibility, and conversion.",
         },
         {
             id: 2,
@@ -34,8 +37,7 @@ const Services = ({ onServiceSelect }) => {
                 </svg>
             ),
             features: ["Social Media Management", "Google & Meta Ads", "Content Strategy", "Analytics & Reporting"],
-            visualClass: "visual-marketing",
-            details: "We don't just run ads; we build funnels. Our comprehensive digital marketing strategy includes audience segmentation, A/B testing, and real-time analytics to ensure every dollar spent brings a return."
+            details: "We don't just run ads; we build funnels. Our comprehensive digital marketing strategy includes audience segmentation, A/B testing, and real-time analytics to ensure every dollar spent brings a return.",
         },
         {
             id: 3,
@@ -48,8 +50,7 @@ const Services = ({ onServiceSelect }) => {
                 </svg>
             ),
             features: ["iOS & Android Development", "Cross-Platform Solutions", "User-Centric Design", "Secure & Scalable"],
-            visualClass: "visual-mobile",
-            details: "From concept to app store, we handle it all. Our mobile apps are built with the latest frameworks to ensure native performance, offline capabilities, and a buttery-smooth user interface."
+            details: "From concept to app store, we handle it all. Our mobile apps are built with the latest frameworks to ensure native performance, offline capabilities, and a buttery-smooth user interface.",
         },
         {
             id: 4,
@@ -65,88 +66,180 @@ const Services = ({ onServiceSelect }) => {
                 </svg>
             ),
             features: ["AI Chatbots", "Workflow Automation", "CRM Integration", "Smart Data Insights"],
-            visualClass: "visual-ai",
-            details: "Unlock efficiency you didn't know existed. We deploy intelligent agents that can handle customer queries 24/7, automate data entry, and provide predictive insights to guide your decision-making."
-        }
+            details: "Unlock efficiency you didn't know existed. We deploy intelligent agents that can handle customer queries 24/7, automate data entry, and provide predictive insights to guide your decision-making.",
+        },
     ];
 
+    // Track scroll position for active dot
+    const handleScroll = useCallback(() => {
+        const container = scrollRef.current;
+        if (!container) return;
+        const cardWidth = 380 + 24; // card width + gap
+        const scrollLeft = container.scrollLeft;
+        const index = Math.round(scrollLeft / cardWidth);
+        setActiveIndex(Math.min(index, services.length - 1));
+    }, [services.length]);
+
+    // Scroll to a specific card
+    const scrollToCard = useCallback((index) => {
+        const container = scrollRef.current;
+        if (!container) return;
+        const cardWidth = 380 + 24;
+        container.scrollTo({ left: index * cardWidth, behavior: 'smooth' });
+    }, []);
+
+    // Keyboard navigation
+    const handleKeyDown = useCallback((e) => {
+        if (e.key === 'ArrowRight') {
+            scrollToCard(Math.min(activeIndex + 1, services.length - 1));
+        } else if (e.key === 'ArrowLeft') {
+            scrollToCard(Math.max(activeIndex - 1, 0));
+        }
+    }, [activeIndex, services.length, scrollToCard]);
+
+    // Scroll entrance animation
+    useEffect(() => {
+        const observer = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        cardsRef.current.forEach((card, i) => {
+                            if (card) {
+                                setTimeout(() => {
+                                    card.classList.add('svc-card--visible');
+                                }, i * 200);
+                            }
+                        });
+                        observer.unobserve(entry.target);
+                    }
+                });
+            },
+            { threshold: 0.3 }
+        );
+
+        if (sectionRef.current) observer.observe(sectionRef.current);
+        return () => observer.disconnect();
+    }, []);
+
+    // Modal handlers
     const openModal = (service) => {
         setSelectedService(service);
-        document.body.style.overflow = 'hidden'; // Prevent background scrolling
+        document.body.style.overflow = 'hidden';
+        if (window.__lenis) window.__lenis.stop();
     };
 
     const closeModal = () => {
         setSelectedService(null);
         document.body.style.overflow = 'auto';
+        if (window.__lenis) window.__lenis.start();
     };
 
     return (
-        <section id="services" className="section-padding services">
+        <section id="services" className="services-section" ref={sectionRef}>
             <div className="services-bg-glow"></div>
-            <div className="container">
-                <div className="section-header text-center">
-                    <h2 className="section-title">Our <span className="gradient-text">Expertise</span></h2>
-                    <p className="section-subtitle">Comprehensive solutions designed to scale your business. Click on a card to explore.</p>
-                </div>
 
-                <div className="services-grid">
-                    {services.map((service) => (
-                        <div key={service.id} className="service-card glass-panel" onClick={() => openModal(service)}>
-                            <div className="card-content">
-                                <div className="service-icon-wrapper">
+            {/* Header */}
+            <div className="svc-header">
+                <h2 className="svc-title">Our Expertise</h2>
+                <p className="svc-subtitle">
+                    Comprehensive solutions designed to scale your business.
+                    Click on a card to explore.
+                </p>
+            </div>
+
+            {/* Horizontal Scroll Container */}
+            <div
+                className="svc-scroll-wrap"
+                ref={scrollRef}
+                onScroll={handleScroll}
+                onKeyDown={handleKeyDown}
+                tabIndex={0}
+                role="region"
+                aria-label="Service cards carousel"
+            >
+                <div className="svc-scroll-track">
+                    {services.map((service, index) => (
+                        <div
+                            key={service.id}
+                            className="svc-card"
+                            ref={(el) => (cardsRef.current[index] = el)}
+                            onClick={() => openModal(service)}
+                            tabIndex={0}
+                            role="button"
+                            aria-label={`Explore ${service.title}`}
+                        >
+                            <div className="svc-card-inner">
+                                <div className="svc-icon-wrap">
                                     {service.icon}
                                 </div>
-                                <h3>{service.title}</h3>
-                                <p className="service-description">{service.description}</p>
 
-                                <ul className="service-features">
+                                <h3 className="svc-card-title">{service.title}</h3>
+
+                                <p className="svc-card-desc">{service.description}</p>
+
+                                <ul className="svc-features">
                                     {service.features.map((feature, idx) => (
-                                        <li key={idx}>
-                                            <span className="check-icon">✓</span> {feature}
+                                        <li key={idx} className="svc-feature-item" style={{ transitionDelay: `${idx * 100}ms` }}>
+                                            <span className="svc-check">✓</span>
+                                            {feature}
                                         </li>
                                     ))}
                                 </ul>
                             </div>
-                            <div className="hover-reveal">
-                                <span>Click me to learn more</span>
-                            </div>
+
+                            <div className="svc-card-shine"></div>
                         </div>
                     ))}
                 </div>
             </div>
 
+            {/* Navigation Dots */}
+            <div className="svc-dots" role="tablist" aria-label="Carousel navigation">
+                {services.map((_, index) => (
+                    <button
+                        key={index}
+                        className={`svc-dot ${activeIndex === index ? 'svc-dot--active' : ''}`}
+                        onClick={() => scrollToCard(index)}
+                        role="tab"
+                        aria-selected={activeIndex === index}
+                        aria-label={`Go to card ${index + 1}`}
+                    />
+                ))}
+            </div>
+
             {/* Service Detail Modal */}
             {selectedService && (
-                <div className="service-modal-overlay" onClick={closeModal}>
-                    <div className="service-modal glass-panel" onClick={(e) => e.stopPropagation()}>
-                        <button className="close-modal-btn" onClick={closeModal}>&times;</button>
+                <div className="svc-modal-overlay" onClick={closeModal}>
+                    <div className="svc-modal" onClick={(e) => e.stopPropagation()}>
+                        <button className="svc-modal-close" onClick={closeModal}>&times;</button>
 
-                        <div className="modal-info">
-                            <div className="modal-header">
-                                <div className="modal-icon">{selectedService.icon}</div>
+                        <div className="svc-modal-body">
+                            <div className="svc-modal-header">
+                                <div className="svc-modal-icon">{selectedService.icon}</div>
                                 <h2>{selectedService.title}</h2>
                             </div>
 
-                            <p className="modal-description">{selectedService.details}</p>
+                            <p className="svc-modal-desc">{selectedService.details}</p>
 
-                            <div className="modal-benefits">
+                            <div className="svc-modal-benefits">
                                 <h4>Key Benefits</h4>
-                                <ul className="modal-features">
+                                <ul className="svc-modal-features">
                                     {selectedService.features.map((feature, idx) => (
                                         <li key={idx}>
-                                            <span className="check-icon">✓</span> {feature}
+                                            <span className="svc-check">✓</span> {feature}
                                         </li>
                                     ))}
                                 </ul>
                             </div>
 
-                            <button className="cta-btn primary modal-cta" onClick={() => {
-                                if (onServiceSelect) {
-                                    onServiceSelect(selectedService.title);
-                                }
-                                closeModal();
-                                document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
-                            }}>
+                            <button
+                                className="cta-btn primary svc-modal-cta"
+                                onClick={() => {
+                                    if (onServiceSelect) onServiceSelect(selectedService.title);
+                                    closeModal();
+                                    document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+                                }}
+                            >
                                 Get Started with {selectedService.title}
                             </button>
                         </div>

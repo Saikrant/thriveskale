@@ -9,6 +9,16 @@ import Contact from './components/Contact';
 
 import Footer from './components/Footer';
 import SmoothScroll from './components/SmoothScroll';
+import AbstractWaves from './components/AbstractWaves';
+
+// Global enhancements
+import CustomCursor from './components/CustomCursor';
+import ScrollProgress from './components/ScrollProgress';
+import ScrollAnimations from './components/ScrollAnimations';
+import MagneticButtons from './components/MagneticButtons';
+import ParallaxManager from './components/ParallaxManager';
+import TextReveal from './components/TextReveal';
+import PageLoader from './components/PageLoader';
 
 // Helper component to handle scrolling based on route
 const ScrollToSection = () => {
@@ -45,6 +55,7 @@ function App() {
 
   const MainContent = () => (
     <>
+      <AbstractWaves />
       <ScrollToSection />
       <Hero />
       <ProblemSolution />
@@ -55,18 +66,26 @@ function App() {
   );
 
   return (
-    <div className="app">
-      <SmoothScroll />
-      <Navbar />
-      <Routes>
-        <Route path="/" element={<MainContent />} />
-        <Route path="/why-us" element={<MainContent />} />
-        <Route path="/services" element={<MainContent />} />
-        <Route path="/industries" element={<MainContent />} />
-        <Route path="/contact" element={<MainContent />} />
-      </Routes>
-      <Footer />
-    </div>
+    <PageLoader>
+      <div className="app">
+        <SmoothScroll />
+        <CustomCursor />
+        <ScrollProgress />
+        <ScrollAnimations />
+        <MagneticButtons />
+        <ParallaxManager />
+        <TextReveal />
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<MainContent />} />
+          <Route path="/why-us" element={<MainContent />} />
+          <Route path="/services" element={<MainContent />} />
+          <Route path="/industries" element={<MainContent />} />
+          <Route path="/contact" element={<MainContent />} />
+        </Routes>
+        <Footer />
+      </div>
+    </PageLoader>
   );
 }
 

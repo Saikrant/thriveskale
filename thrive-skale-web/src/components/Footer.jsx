@@ -1,28 +1,31 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+import useReveal from '../utils/useReveal';
 import './Footer.css';
 
 const Footer = () => {
+    useReveal();
     const currentYear = new Date().getFullYear();
 
     return (
         <footer className="footer">
             <div className="container footer-grid">
-                <div className="footer-col">
+                <div className="footer-col reveal rev-up">
                     <h3>ThrivvSkale</h3>
                     <p className="footer-tagline">Engineering your digital growth with AI-driven strategies and stunning design.</p>
                 </div>
 
-                <div className="footer-col">
+                <div className="footer-col reveal rev-up delay-2">
                     <h4>Quick Links</h4>
                     <ul className="footer-links">
-                        <li><a href="#hero">Home</a></li>
-                        <li><a href="#reality-vision">Why Us</a></li>
-                        <li><a href="#services">Services</a></li>
-                        <li><a href="#industries">Industries</a></li>
+                        <li><Link to="/">Home</Link></li>
+                        <li><Link to="/why-us">Why Us</Link></li>
+                        <li><Link to="/services">Services</Link></li>
+                        <li><Link to="/industries">Industries</Link></li>
                     </ul>
                 </div>
 
-                <div className="footer-col">
+                <div className="footer-col reveal rev-up delay-3">
                     <h4>Contact Us</h4>
                     <div className="footer-contact">
                         <p><strong>Founder:</strong> Sai Kranth</p>
@@ -32,7 +35,7 @@ const Footer = () => {
                     </div>
                 </div>
             </div>
-            <div className="footer-bottom">
+            <div className="footer-bottom reveal delay-4">
                 <p>&copy; {currentYear} Thrivv Skale Private Limited. All rights reserved.</p>
             </div>
         </footer>
