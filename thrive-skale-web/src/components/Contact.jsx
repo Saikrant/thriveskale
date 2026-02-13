@@ -158,13 +158,17 @@ const CustomDropdown = ({ value, onChange, error, isVisible }) => {
     const [open, setOpen] = useState(false);
     const ref = useRef(null);
 
-    // Close on outside click
+    // Close on outside click or touch
     useEffect(() => {
         const handleClick = (e) => {
             if (ref.current && !ref.current.contains(e.target)) setOpen(false);
         };
         document.addEventListener('mousedown', handleClick);
-        return () => document.removeEventListener('mousedown', handleClick);
+        document.addEventListener('touchstart', handleClick);
+        return () => {
+            document.removeEventListener('mousedown', handleClick);
+            document.removeEventListener('touchstart', handleClick);
+        };
     }, []);
 
     const cls = [
@@ -201,7 +205,7 @@ const CustomDropdown = ({ value, onChange, error, isVisible }) => {
                         role="option"
                         aria-selected={value === opt}
                         className={`ct-dropdown-option ${value === opt ? 'ct-dropdown-option--selected' : ''}`}
-                        onClick={() => { onChange(opt); setOpen(false); }}
+                        onPointerDown={(e) => { e.preventDefault(); onChange(opt); setOpen(false); }}
                     >
                         {opt}
                     </div>
@@ -305,19 +309,32 @@ const Contact = ({ initialService }) => {
 
         setSubmitState('loading');
 
-        // Simulate send
-        setTimeout(() => {
-            setSubmitState('success');
-            setAgentData(formData);
-            setShowAgent(true);
+        // Build WhatsApp message
+        const phone = '19704122140'; // +1 970-412-2140
+        const message = [
+            `🚀 *New Lead from ThrivvSkale Website*`,
+            ``,
+            `👤 *Name:* ${formData.name}`,
+            `📧 *Email:* ${formData.email}`,
+            `🎯 *Service:* ${formData.service}`,
+            `💬 *Message:* ${formData.message}`,
+        ].join('\n');
 
-            setTimeout(() => {
-                setSubmitState('idle');
-                setFormData({ name: '', email: '', service: '', message: '' });
-                setTouched({});
-                setErrors({});
-            }, 3000);
-        }, 1500);
+        const waUrl = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+
+        // Open WhatsApp in new tab
+        window.open(waUrl, '_blank');
+
+        setSubmitState('success');
+        setAgentData(formData);
+        setShowAgent(true);
+
+        setTimeout(() => {
+            setSubmitState('idle');
+            setFormData({ name: '', email: '', service: '', message: '' });
+            setTouched({});
+            setErrors({});
+        }, 3000);
     };
 
     /* ---------- Ripple ---------- */

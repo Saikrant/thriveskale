@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { Routes, Route, useLocation } from 'react-router-dom'
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
@@ -23,8 +23,23 @@ import PageLoader from './components/PageLoader';
 // Helper component to handle scrolling based on route
 const ScrollToSection = () => {
   const { pathname } = useLocation();
+  const isFirstMount = useRef(true);
+
+  // Prevent browser from restoring scroll on refresh
+  useEffect(() => {
+    if ('scrollRestoration' in window.history) {
+      window.history.scrollRestoration = 'manual';
+    }
+    window.scrollTo(0, 0);
+  }, []);
 
   useEffect(() => {
+    // Skip scroll-to-section on initial page load (refresh)
+    if (isFirstMount.current) {
+      isFirstMount.current = false;
+      return;
+    }
+
     const pathMap = {
       '/': 'hero',
       '/why-us': 'reality-vision',
@@ -37,7 +52,6 @@ const ScrollToSection = () => {
     if (sectionId) {
       const element = document.getElementById(sectionId);
       if (element) {
-        // We use a small timeout to ensure components are rendered
         setTimeout(() => {
           element.scrollIntoView({ behavior: 'smooth' });
         }, 100);
