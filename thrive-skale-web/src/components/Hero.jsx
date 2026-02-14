@@ -88,15 +88,8 @@ const Hero = () => {
                             <stop offset="0%" stopColor="#36b896" stopOpacity="0.3" />
                             <stop offset="100%" stopColor="#0a1628" stopOpacity="0.1" />
                         </linearGradient>
-                        <filter id="blobGlow">
-                            <feGaussianBlur stdDeviation="8" result="blur" />
-                            <feMerge>
-                                <feMergeNode in="blur" />
-                                <feMergeNode in="SourceGraphic" />
-                            </feMerge>
-                        </filter>
                     </defs>
-                    <path className="blob-path-1" fill="url(#blobGrad)" filter="url(#blobGlow)">
+                    <path className="blob-path-1" fill="url(#blobGrad)">
                         <animate
                             attributeName="d"
                             dur="8s"

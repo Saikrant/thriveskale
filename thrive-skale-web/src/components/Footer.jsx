@@ -1,10 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useCountry } from '../context/CountryContext';
 import useReveal from '../utils/useReveal';
 import './Footer.css';
 
 const Footer = () => {
     useReveal();
+    const { config } = useCountry();
     const currentYear = new Date().getFullYear();
 
     return (
@@ -28,10 +30,15 @@ const Footer = () => {
                 <div className="footer-col reveal rev-up delay-3">
                     <h4>Contact Us</h4>
                     <div className="footer-contact">
-                        <p><strong>Founder:</strong> Sai Kranth</p>
-                        <p><strong>Phone:</strong> +91 6302193115</p>
-                        <p><strong>Email:</strong> info@thrivvskale.com</p>
-                        <p><strong>Location:</strong> Hyderabad, India</p>
+                        <p><strong>Founder:</strong> {config.contact?.founder || 'Sai Kranth'}</p>
+                        <p>
+                            <strong>Phone:</strong>{' '}
+                            <a href={config.contact?.phone?.link || 'tel:+916302193115'} className="footer-link">
+                                {config.contact?.phone?.display || '+91 6302193115'}
+                            </a>
+                        </p>
+                        <p><strong>Email:</strong> {config.contact?.email || 'info@thrivvskale.com'}</p>
+                        <p><strong>Location:</strong> {config.contact?.location || 'Hyderabad, India'}</p>
                     </div>
                 </div>
             </div>

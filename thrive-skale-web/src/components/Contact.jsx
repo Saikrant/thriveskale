@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
+import { useCountry } from '../context/CountryContext';
 import './Contact.css';
 import AIAgent from './AIAgent';
 
@@ -219,6 +220,7 @@ const CustomDropdown = ({ value, onChange, error, isVisible }) => {
    CONTACT COMPONENT
    ============================================ */
 const Contact = ({ initialService }) => {
+    const { config } = useCountry();
     const [formData, setFormData] = useState({
         name: '',
         email: '',
@@ -312,7 +314,8 @@ const Contact = ({ initialService }) => {
         // Simulate API call delay for better UX
         setTimeout(() => {
             // Build WhatsApp message
-            const phone = '19704122140'; // +1 970-412-2140
+            // Use the country-specific WhatsApp number from config
+            const phone = config.contact.whatsappNumber;
             const message = [
                 `*New Lead from ThrivvSkale Website*`,
                 ``,

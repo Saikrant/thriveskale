@@ -22,6 +22,8 @@ import MagneticButtons from './components/MagneticButtons';
 import ParallaxManager from './components/ParallaxManager';
 import TextReveal from './components/TextReveal';
 import PageLoader from './components/PageLoader';
+import { CountryProvider } from './context/CountryContext';
+import './components/CountrySwitcher.css';
 
 // Helper component to handle scrolling based on route
 const ScrollToSection = () => {
@@ -87,25 +89,27 @@ function App() {
 
   return (
     <PageLoader>
-      <div className="app">
-        <SmoothScroll />
-        <CustomCursor />
-        <ScrollProgress />
-        <ScrollAnimations />
-        <MagneticButtons />
-        <ParallaxManager />
-        <TextReveal />
-        <ScrollNavigator />
-        <Navbar />
-        <Routes>
-          <Route path="/" element={<MainContent />} />
-          <Route path="/why-us" element={<MainContent />} />
-          <Route path="/services" element={<MainContent />} />
-          <Route path="/industries" element={<MainContent />} />
-          <Route path="/contact" element={<MainContent />} />
-        </Routes>
-        <Footer />
-      </div>
+      <CountryProvider>
+        <div className="app">
+          <SmoothScroll />
+          <CustomCursor />
+          <ScrollProgress />
+          <ScrollAnimations />
+          <MagneticButtons />
+          <ParallaxManager />
+          <TextReveal />
+          <ScrollNavigator />
+          <Navbar />
+          <Routes>
+            <Route path="/" element={<MainContent />} />
+            <Route path="/why-us" element={<MainContent />} />
+            <Route path="/services" element={<MainContent />} />
+            <Route path="/industries" element={<MainContent />} />
+            <Route path="/contact" element={<MainContent />} />
+          </Routes>
+          <Footer />
+        </div>
+      </CountryProvider>
     </PageLoader>
   );
 }

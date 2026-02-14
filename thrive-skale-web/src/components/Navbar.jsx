@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import { useCountry } from '../context/CountryContext';
+import { COUNTRY_CONFIG } from '../utils/countryConfig';
 import './Navbar.css';
 
 const Navbar = () => {
@@ -7,6 +9,7 @@ const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [activeSection, setActiveSection] = useState('hero');
     const location = useLocation();
+    const { country, switchCountry } = useCountry();
 
     // Scroll spy - detect which section is in view
     useEffect(() => {
@@ -77,6 +80,32 @@ const Navbar = () => {
 
     const isActive = (sectionId) => activeSection === sectionId;
 
+    /* ---- Country selector JSX (reused in desktop + mobile) ---- */
+    const CountrySelect = ({ className = '' }) => (
+        <div className={`country-selector-container ${className}`}>
+            <label htmlFor="country-selector" className="country-label" aria-label="Select country">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <circle cx="12" cy="12" r="10" />
+                    <line x1="2" y1="12" x2="22" y2="12" />
+                    <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+                </svg>
+            </label>
+            <select
+                id="country-selector"
+                className="country-select"
+                value={country}
+                onChange={(e) => switchCountry(e.target.value)}
+                aria-label="Select your country"
+            >
+                {Object.values(COUNTRY_CONFIG).map((cfg) => (
+                    <option key={cfg.code} value={cfg.code}>
+                        {cfg.flag} {cfg.name}
+                    </option>
+                ))}
+            </select>
+        </div>
+    );
+
     return (
         <nav className={`navbar ${scrolled ? 'scrolled' : ''}`}>
             <div className="container navbar-container">
@@ -107,11 +136,15 @@ const Navbar = () => {
                         <li><a onClick={() => scrollToSection('contact')} className={isActive('contact') ? 'active' : ''}>Contact</a></li>
                     </ul>
                     {isOpen && (
-                        <a onClick={() => scrollToSection('contact')} className="mobile-cta">Book a Call</a>
+                        <>
+                            <CountrySelect className="mobile-country-selector" />
+                            <a onClick={() => scrollToSection('contact')} className="mobile-cta">Book a Call</a>
+                        </>
                     )}
                 </div>
 
                 <div className="nav-extras">
+                    <CountrySelect />
                     <a onClick={() => scrollToSection('contact')} className="cta-btn">Book a Call</a>
                 </div>
             </div>

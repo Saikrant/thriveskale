@@ -1,7 +1,9 @@
 import { useEffect, useRef, useCallback, useState } from 'react';
+import { useCountry } from '../context/CountryContext';
 import './LaunchHero.css';
 
 const LaunchHero = () => {
+    const { config } = useCountry();
     const canvasRef = useRef(null);
     const animFrameRef = useRef(null);
     const [isVisible, setIsVisible] = useState(false);
@@ -169,9 +171,9 @@ const LaunchHero = () => {
 
                 {/* Offer banner */}
                 <div className="offer-banner">
-                    <div className="offer-label">LAUNCH OFFER</div>
-                    <div className="discount-amount">10% OFF</div>
-                    <div className="offer-detail">on Custom AI Agent Development</div>
+                    <div className="offer-label">{config.offers?.aiAgentLabel || 'LAUNCH OFFER'}</div>
+                    <div className="discount-amount">{config.offers?.aiAgentDiscount || '10% OFF'}</div>
+                    <div className="offer-detail">{config.offers?.aiAgentDetail || 'on Custom AI Agent Development'}</div>
                     <div className="offer-disclaimer">
                         Limited time offer • First 20 clients only
                     </div>
