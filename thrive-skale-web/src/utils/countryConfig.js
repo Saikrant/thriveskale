@@ -98,8 +98,8 @@ export const COUNTRY_CONFIG = {
             '* All prices are exclusive of GST. Custom packages available on request. Prices valid for Hyderabad-based projects.',
         contact: {
             phone: {
-                display: '+91 6302193115',
-                link: 'tel:+916302193115',
+                display: '+1 (970) 412-2140',
+                link: 'tel:+19704122140',
             },
             email: 'info@thrivvskale.com',
             office: 'Hyderabad Office',
@@ -109,7 +109,7 @@ export const COUNTRY_CONFIG = {
             timezone: 'Asia/Kolkata',
             founder: 'Sai Kranth',
             location: 'Hyderabad, India',
-            whatsappNumber: '916302193115',
+            whatsappNumber: '19704122140',
         },
         offers: {
             aiAgentsDiscount: '10%',

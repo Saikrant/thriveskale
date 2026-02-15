@@ -68,7 +68,7 @@ const Navbar = () => {
         document.body.classList.remove('menu-open');
     };
 
-    const scrollToSection = (sectionId) => {
+    const handleNavClick = (sectionId) => {
         closeMenu();
         const element = document.getElementById(sectionId);
         if (element) {
@@ -128,24 +128,24 @@ const Navbar = () => {
                         </button>
                     )}
                     <ul className="nav-links">
-                        <li><a onClick={() => scrollToSection('hero')} className={isActive('hero') ? 'active' : ''}>Home</a></li>
-                        <li><a onClick={() => scrollToSection('reality-vision')} className={isActive('reality-vision') ? 'active' : ''}>Why Us</a></li>
-                        <li><a onClick={() => scrollToSection('services')} className={isActive('services') ? 'active' : ''}>Services</a></li>
-                        <li><a onClick={() => scrollToSection('industries')} className={isActive('industries') ? 'active' : ''}>Industries</a></li>
-                        <li><a onClick={() => scrollToSection('pricing')} className={isActive('pricing') ? 'active' : ''}>Pricing</a></li>
-                        <li><a onClick={() => scrollToSection('contact')} className={isActive('contact') ? 'active' : ''}>Contact</a></li>
+                        <li><Link to="/" onClick={() => handleNavClick('hero')} className={isActive('hero') ? 'active' : ''}>Home</Link></li>
+                        <li><Link to="/why-us" onClick={() => handleNavClick('reality-vision')} className={isActive('reality-vision') ? 'active' : ''}>Why Us</Link></li>
+                        <li><Link to="/services" onClick={() => handleNavClick('services')} className={isActive('services') ? 'active' : ''}>Services</Link></li>
+                        <li><Link to="/industries" onClick={() => handleNavClick('industries')} className={isActive('industries') ? 'active' : ''}>Industries</Link></li>
+                        <li><Link to="/pricing" onClick={() => handleNavClick('pricing')} className={isActive('pricing') ? 'active' : ''}>Pricing</Link></li>
+                        <li><Link to="/contact" onClick={() => handleNavClick('contact')} className={isActive('contact') ? 'active' : ''}>Contact</Link></li>
                     </ul>
                     {isOpen && (
                         <>
                             <CountrySelect className="mobile-country-selector" />
-                            <a onClick={() => scrollToSection('contact')} className="mobile-cta">Book a Call</a>
+                            <Link to="/contact" onClick={() => handleNavClick('contact')} className="mobile-cta">Book a Call</Link>
                         </>
                     )}
                 </div>
 
                 <div className="nav-extras">
                     <CountrySelect />
-                    <a onClick={() => scrollToSection('contact')} className="cta-btn">Book a Call</a>
+                    <Link to="/contact" onClick={() => handleNavClick('contact')} className="cta-btn">Book a Call</Link>
                 </div>
             </div>
         </nav>

@@ -1,16 +1,21 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useCountry } from '../context/CountryContext';
 import './Contact.css';
 import AIAgent from './AIAgent';
 
 /* ============================================
-   SERVICE OPTIONS
+   BUSINESS TYPES
    ============================================ */
-const SERVICE_OPTIONS = [
-    'Website Setup',
-    'Digital Marketing',
-    'Mobile Applications',
-    'AI & Automation',
+const BUSINESS_TYPES = [
+    'Restaurant',
+    'Real Estate',
+    'Healthcare',
+    'Salon/Spa',
+    'Gym/Fitness',
+    'Retail',
+    'Education',
+    'Home Services',
     'Other',
 ];
 
@@ -155,7 +160,7 @@ const ParticleCanvas = () => {
 /* ============================================
    CUSTOM DROPDOWN
    ============================================ */
-const CustomDropdown = ({ value, onChange, error, isVisible }) => {
+const CustomDropdown = ({ value, onChange, error, isVisible, options, label }) => {
     const [open, setOpen] = useState(false);
     const ref = useRef(null);
 
@@ -196,11 +201,11 @@ const CustomDropdown = ({ value, onChange, error, isVisible }) => {
                 </svg>
             </button>
             <label className={`ct-label ${(open || value) ? 'ct-label--float' : ''}`}>
-                Service Interest
+                {label || 'Select Option'}
             </label>
             {error && <span className="ct-error-msg">{error}</span>}
             <div className="ct-dropdown-menu" role="listbox">
-                {SERVICE_OPTIONS.map((opt) => (
+                {options.map((opt) => (
                     <div
                         key={opt}
                         role="option"
@@ -219,31 +224,26 @@ const CustomDropdown = ({ value, onChange, error, isVisible }) => {
 /* ============================================
    CONTACT COMPONENT
    ============================================ */
-const Contact = ({ initialService }) => {
+const Contact = () => {
     const { config } = useCountry();
     const [formData, setFormData] = useState({
         name: '',
         email: '',
-        service: '',
+        phone: '',
+        businessType: '',
         message: '',
     });
     const [errors, setErrors] = useState({});
     const [touched, setTouched] = useState({});
-    const [submitState, setSubmitState] = useState('idle'); // idle | loading | success
+    const [isSubmitting, setIsSubmitting] = useState(false);
     const [fieldsVisible, setFieldsVisible] = useState(false);
 
     const [showAgent, setShowAgent] = useState(false);
     const [agentData, setAgentData] = useState(null);
 
+    const navigate = useNavigate();
     const formRef = useRef(null);
     const submitBtnRef = useRef(null);
-
-    // Apply initialService from App.jsx
-    useEffect(() => {
-        if (initialService) {
-            setFormData((prev) => ({ ...prev, service: initialService }));
-        }
-    }, [initialService]);
 
     // IntersectionObserver for staggered field entrance
     useEffect(() => {
@@ -269,6 +269,11 @@ const Contact = ({ initialService }) => {
             const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
             if (!re.test(value)) return 'Please enter a valid email';
         }
+        if (name === 'phone') {
+            const re = /^[+]?[0-9]{10,15}$/;
+            // Remove spaces/dashes for validation check
+            if (!re.test(value.replace(/[\s-]/g, ''))) return 'Please enter a valid phone number';
+        }
         return '';
     }, []);
 
@@ -288,63 +293,70 @@ const Contact = ({ initialService }) => {
         setErrors((prev) => ({ ...prev, [name]: err }));
     };
 
-    const handleServiceChange = (service) => {
-        setFormData((prev) => ({ ...prev, service }));
-        setTouched((prev) => ({ ...prev, service: true }));
-        setErrors((prev) => ({ ...prev, service: '' }));
+    const handleBusinessTypeChange = (value) => {
+        setFormData((prev) => ({ ...prev, businessType: value }));
+        setTouched((prev) => ({ ...prev, businessType: true }));
+        setErrors((prev) => ({ ...prev, businessType: '' }));
     };
 
     /* ---------- Submit ---------- */
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
         // Validate all
         const newErrors = {};
-        ['name', 'email', 'service', 'message'].forEach((key) => {
+        ['name', 'email', 'phone', 'businessType', 'message'].forEach((key) => {
             const err = validateField(key, formData[key]);
             if (err) newErrors[key] = err;
         });
         setErrors(newErrors);
-        setTouched({ name: true, email: true, service: true, message: true });
+        setTouched({ name: true, email: true, phone: true, businessType: true, message: true });
 
         if (Object.keys(newErrors).length > 0) return;
 
-        setSubmitState('loading');
+        setIsSubmitting(true);
 
-        // Simulate API call delay for better UX
-        setTimeout(() => {
-            // Build WhatsApp message
-            // Use the country-specific WhatsApp number from config
-            const phone = config.contact.whatsappNumber;
-            const message = [
-                `*New Lead from ThrivvSkale Website*`,
-                ``,
-                `*Name:* ${formData.name}`,
-                `*Email:* ${formData.email}`,
-                `*Service:* ${formData.service}`,
-                `*Message:* ${formData.message}`,
-            ].join('\n');
+        try {
+            // WHATSAPP INTEGRATION
+            // Format the message
+            const encodedMessage = encodeURIComponent(
+                `*New Inquiry from Website*\n\n` +
+                `*Name:* ${formData.name}\n` +
+                `*Email:* ${formData.email}\n` +
+                `*Phone:* ${formData.phone}\n` +
+                `*Industry:* ${formData.businessType}\n` +
+                `*Message:* ${formData.message}`
+            );
 
-            const waUrl = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+            const whatsappUrl = `https://wa.me/19704122140?text=${encodedMessage}`;
 
             // Open WhatsApp in new tab
-            window.open(waUrl, '_blank');
+            window.open(whatsappUrl, '_blank');
 
-            setSubmitState('success');
+            // Redirect to Thank You page
+            navigate('/thank-you');
 
-            setTimeout(() => {
-                setSubmitState('idle');
-                setFormData({ name: '', email: '', service: '', message: '' });
-                setTouched({});
-                setErrors({});
-            }, 3000);
-        }, 1500);
+            // Success UI
+            setFormData({ name: '', email: '', phone: '', businessType: '', message: '' });
+            setTouched({});
+            setErrors({});
+            // Optional: Redirect to thank you page anyway?
+            // Usually valid to just open WA.
+            // But let's redirect to thank you page as well for consistency?
+            // "revert to original" -> original likely didn't redirect to thank you page?
+            // It kept user on page.
+
+        } catch (error) {
+            console.error('Error:', error);
+        } finally {
+            setIsSubmitting(false);
+        }
     };
 
     /* ---------- Ripple ---------- */
     const handleRipple = (e) => {
         const btn = submitBtnRef.current;
-        if (!btn || submitState !== 'idle') return;
+        if (!btn || isSubmitting) return;
         const rect = btn.getBoundingClientRect();
         const size = Math.max(rect.width, rect.height) * 2;
         const x = e.clientX - rect.left - size / 2;
@@ -386,7 +398,7 @@ const Contact = ({ initialService }) => {
 
     /* ---------- Submit button text ---------- */
     const submitContent = () => {
-        if (submitState === 'loading') {
+        if (isSubmitting) {
             return (
                 <>
                     <span className="ct-submit-text" style={{ opacity: 0 }}>SEND MESSAGE</span>
@@ -394,10 +406,7 @@ const Contact = ({ initialService }) => {
                 </>
             );
         }
-        if (submitState === 'success') {
-            return <span className="ct-submit-text">✓ Message Sent!</span>;
-        }
-        return <span className="ct-submit-text">SEND MESSAGE</span>;
+        return <span className="ct-submit-text">SEND ON WHATSAPP</span>;
     };
 
     return (
@@ -431,6 +440,7 @@ const Contact = ({ initialService }) => {
                                     onBlur={handleBlur}
                                     autoComplete="name"
                                     aria-label="Full Name"
+                                    disabled={isSubmitting}
                                     aria-invalid={!!errors.name}
                                 />
                                 <label htmlFor="ct-name" className="ct-label">Full Name</label>
@@ -451,6 +461,7 @@ const Contact = ({ initialService }) => {
                                     onBlur={handleBlur}
                                     autoComplete="email"
                                     aria-label="Business Email"
+                                    disabled={isSubmitting}
                                     aria-invalid={!!errors.email}
                                 />
                                 <label htmlFor="ct-email" className="ct-label">Business Email</label>
@@ -458,16 +469,39 @@ const Contact = ({ initialService }) => {
                                 {errors.email && <span className="ct-error-msg">{errors.email}</span>}
                             </div>
 
-                            {/* Service Interest — Custom Dropdown */}
+                            {/* Phone Number - NEW */}
+                            <div className={fieldCls('phone')} style={{ '--field-index': 2 }}>
+                                <input
+                                    type="tel"
+                                    name="phone"
+                                    id="ct-phone"
+                                    className="ct-input"
+                                    placeholder=" "
+                                    value={formData.phone}
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
+                                    autoComplete="tel"
+                                    aria-label="Phone Number"
+                                    disabled={isSubmitting}
+                                    aria-invalid={!!errors.phone}
+                                />
+                                <label htmlFor="ct-phone" className="ct-label">Phone Number</label>
+                                {validationIcon('phone')}
+                                {errors.phone && <span className="ct-error-msg">{errors.phone}</span>}
+                            </div>
+
+                            {/* Business Type — Reusing Custom Dropdown Logic */}
                             <CustomDropdown
-                                value={formData.service}
-                                onChange={handleServiceChange}
-                                error={touched.service ? errors.service : ''}
+                                value={formData.businessType}
+                                onChange={handleBusinessTypeChange}
+                                error={touched.businessType ? errors.businessType : ''}
                                 isVisible={fieldsVisible}
+                                options={BUSINESS_TYPES}
+                                label="Select Your Industry"
                             />
 
                             {/* Project Message */}
-                            <div className={fieldCls('message')} style={{ '--field-index': 3 }}>
+                            <div className={fieldCls('message')} style={{ '--field-index': 4 }}>
                                 <textarea
                                     name="message"
                                     id="ct-message"
@@ -477,6 +511,7 @@ const Contact = ({ initialService }) => {
                                     onChange={handleChange}
                                     onBlur={handleBlur}
                                     aria-label="Tell us about your project"
+                                    disabled={isSubmitting}
                                     aria-invalid={!!errors.message}
                                 />
                                 <label htmlFor="ct-message" className="ct-label">Tell us about your project</label>
@@ -498,8 +533,8 @@ const Contact = ({ initialService }) => {
                             <button
                                 ref={submitBtnRef}
                                 type="submit"
-                                className={`ct-submit ${submitState === 'loading' ? 'ct-submit--loading' : ''} ${submitState === 'success' ? 'ct-submit--success' : ''}`}
-                                disabled={submitState !== 'idle'}
+                                className={`ct-submit ${isSubmitting ? 'ct-submit--loading' : ''}`}
+                                disabled={isSubmitting}
                                 onClick={handleRipple}
                             >
                                 {submitContent()}
