@@ -85,7 +85,7 @@ const AIAgent = ({ initialData, onClose }) => {
             let action = null;
             // Handle Actions
             if (node.action === 'open_whatsapp') {
-                const ownerNumber = '916302193115'; // Replace with actual number
+                const ownerNumber = '19704122140'; // Replace with actual number
                 const link = generateWhatsAppLink(ownerNumber, currentData);
                 action = { label: 'Connect on WhatsApp 💬', url: link };
             }

@@ -33,8 +33,8 @@ const Footer = () => {
                         <p><strong>Founder:</strong> {config.contact?.founder || 'Sai Kranth'}</p>
                         <p>
                             <strong>Phone:</strong>{' '}
-                            <a href={config.contact?.phone?.link || 'tel:+916302193115'} className="footer-link">
-                                {config.contact?.phone?.display || '+91 6302193115'}
+                            <a href={config.contact?.phone?.link || 'tel:+19704122140'} className="footer-link">
+                                {config.contact?.phone?.display || '+1 (970) 412-2140'}
                             </a>
                         </p>
                         <p><strong>Email:</strong> {config.contact?.email || 'info@thrivvskale.com'}</p>

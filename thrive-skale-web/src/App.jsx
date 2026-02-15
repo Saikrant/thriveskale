@@ -8,6 +8,7 @@ import Industries from './components/Industries';
 import Services from './components/Services';
 import Pricing from './components/Pricing';
 import Contact from './components/Contact';
+import ThankYou from './components/ThankYou';
 import ScrollNavigator from './components/ScrollNavigator';
 
 import Footer from './components/Footer';
@@ -28,23 +29,15 @@ import './components/CountrySwitcher.css';
 // Helper component to handle scrolling based on route
 const ScrollToSection = () => {
   const { pathname } = useLocation();
-  const isFirstMount = useRef(true);
 
   // Prevent browser from restoring scroll on refresh
   useEffect(() => {
     if ('scrollRestoration' in window.history) {
       window.history.scrollRestoration = 'manual';
     }
-    window.scrollTo(0, 0);
   }, []);
 
   useEffect(() => {
-    // Skip scroll-to-section on initial page load (refresh)
-    if (isFirstMount.current) {
-      isFirstMount.current = false;
-      return;
-    }
-
     const pathMap = {
       '/': 'hero',
       '/why-us': 'reality-vision',
@@ -58,6 +51,7 @@ const ScrollToSection = () => {
     if (sectionId) {
       const element = document.getElementById(sectionId);
       if (element) {
+        // Small delay to ensure layout is ready
         setTimeout(() => {
           element.scrollIntoView({ behavior: 'smooth' });
         }, 100);
@@ -70,22 +64,22 @@ const ScrollToSection = () => {
   return null;
 };
 
+const MainContent = ({ contactService, setContactService }) => (
+  <>
+    <AbstractWaves />
+    <ScrollToSection />
+    <Hero />
+    <LaunchHero />
+    <ProblemSolution />
+    <Services onServiceSelect={setContactService} />
+    <Industries />
+    <Pricing />
+    <Contact initialService={contactService} />
+  </>
+);
+
 function App() {
   const [contactService, setContactService] = useState(null);
-
-  const MainContent = () => (
-    <>
-      <AbstractWaves />
-      <ScrollToSection />
-      <Hero />
-      <LaunchHero />
-      <ProblemSolution />
-      <Services onServiceSelect={setContactService} />
-      <Industries />
-      <Pricing />
-      <Contact initialService={contactService} />
-    </>
-  );
 
   return (
     <PageLoader>
@@ -101,16 +95,19 @@ function App() {
           <ScrollNavigator />
           <Navbar />
           <Routes>
-            <Route path="/" element={<MainContent />} />
-            <Route path="/why-us" element={<MainContent />} />
-            <Route path="/services" element={<MainContent />} />
-            <Route path="/industries" element={<MainContent />} />
-            <Route path="/contact" element={<MainContent />} />
-          </Routes>
+            <Route path="/" element={<MainContent contactService={contactService} setContactService={setContactService} />} />
+            <Route path="/why-us" element={<MainContent contactService={contactService} setContactService={setContactService} />} />
+            <Route path="/services" element={<MainContent contactService={contactService} setContactService={setContactService} />} />
+            <Route path="/industries" element={<MainContent contactService={contactService} setContactService={setContactService} />} />
+            <Route path="/pricing" element={<MainContent contactService={contactService} setContactService={setContactService} />} />
+            <Route path="/contact" element={<MainContent contactService={contactService} setContactService={setContactService} />} />
+            <Route path="/thank-you" element={<ThankYou />} />
+            <Route path="*" element={<MainContent contactService={contactService} setContactService={setContactService} />} />
+          </Routes >
           <Footer />
-        </div>
-      </CountryProvider>
-    </PageLoader>
+        </div >
+      </CountryProvider >
+    </PageLoader >
   );
 }
 
