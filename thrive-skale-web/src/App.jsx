@@ -26,6 +26,8 @@ import PageLoader from './components/PageLoader';
 import { CountryProvider } from './context/CountryContext';
 import './components/CountrySwitcher.css';
 
+import * as gtag from './utils/gtag';
+
 // Helper component to handle scrolling based on route
 const ScrollToSection = () => {
   const { pathname } = useLocation();
@@ -78,8 +80,15 @@ const MainContent = ({ contactService, setContactService }) => (
   </>
 );
 
+
+
 function App() {
   const [contactService, setContactService] = useState(null);
+  const location = useLocation();
+
+  useEffect(() => {
+    gtag.pageview(location.pathname + location.search);
+  }, [location]);
 
   return (
     <PageLoader>

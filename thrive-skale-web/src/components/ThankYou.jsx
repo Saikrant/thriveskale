@@ -7,15 +7,6 @@ function ThankYou() {
     useEffect(() => {
         window.scrollTo(0, 0);
 
-        // This will be used for conversion tracking
-        if (typeof window.gtag === 'function') {
-            window.gtag('event', 'conversion', {
-                'send_to': 'AW-XXXXXXXXX/XXXXX', // Replace with your conversion ID
-                'value': 50.0,
-                'currency': 'INR'
-            });
-        }
-
         // Facebook Pixel
         if (typeof window.fbq === 'function') {
             window.fbq('track', 'Lead');
