@@ -1,8 +1,12 @@
-import React, { useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import './ThankYou.css';
 
 function ThankYou() {
+    const location = useLocation();
+    const [countdown, setCountdown] = useState(3);
+    const whatsappUrl = location.state?.whatsappUrl;
+
     // Track page view for Google Ads conversion
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -12,6 +16,24 @@ function ThankYou() {
             window.fbq('track', 'Lead');
         }
     }, []);
+
+    // Handle WhatsApp Auto-Redirect
+    useEffect(() => {
+        if (!whatsappUrl) return;
+
+        const timer = setInterval(() => {
+            setCountdown((prev) => prev - 1);
+        }, 1000);
+
+        const redirect = setTimeout(() => {
+            window.location.href = whatsappUrl;
+        }, 3000);
+
+        return () => {
+            clearInterval(timer);
+            clearTimeout(redirect);
+        };
+    }, [whatsappUrl]);
 
     return (
         <div className="thank-you-page">
@@ -30,6 +52,23 @@ function ThankYou() {
                     Your information has been received. We're excited to help grow your business!
                 </p>
 
+                {/* WhatsApp Redirect Message */}
+                {whatsappUrl && (
+                    <div className="whatsapp-redirect-msg" style={{
+                        marginTop: '20px',
+                        padding: '15px',
+                        background: 'rgba(37, 211, 102, 0.1)',
+                        borderRadius: '12px',
+                        border: '1px solid rgba(37, 211, 102, 0.2)'
+                    }}>
+                        <p style={{ color: '#25D366', fontWeight: 600, marginBottom: '5px' }}>
+                            Redirecting to WhatsApp in {countdown}...
+                        </p>
+                        <p style={{ fontSize: '0.9em', opacity: 0.8 }}>
+                            If you are not redirected automatically, <a href={whatsappUrl} className="redirect-link" style={{ textDecoration: 'underline', color: 'inherit' }}>click here</a>.
+                        </p>
+                    </div>
+                )}
 
                 {/* Back Home Button */}
                 <Link to="/" className="back-home-btn">

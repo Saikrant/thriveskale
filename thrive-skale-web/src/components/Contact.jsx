@@ -330,11 +330,8 @@ const Contact = () => {
 
             const whatsappUrl = `https://wa.me/19704122140?text=${encodedMessage}`;
 
-            // Open WhatsApp in new tab
-            window.open(whatsappUrl, '_blank');
-
-            // Redirect to Thank You page
-            navigate('/thank-you');
+            // Navigate to Thank You page with WhatsApp URL in state
+            navigate('/thank-you', { state: { whatsappUrl } });
 
             // Success UI
             setFormData({ name: '', email: '', phone: '', businessType: '', message: '' });
