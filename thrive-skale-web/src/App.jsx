@@ -1,8 +1,11 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef, lazy, Suspense } from 'react'
 import { Routes, Route, useLocation } from 'react-router-dom'
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
-import LaunchHero from './components/LaunchHero';
+// Lazy load heavy components
+const LaunchHero = lazy(() => import('./components/LaunchHero'));
+const ExploreAgents = lazy(() => import('./components/ExploreAgents'));
+
 import ProblemSolution from './components/ProblemSolution';
 import Industries from './components/Industries';
 import Services from './components/Services';
@@ -71,7 +74,9 @@ const MainContent = ({ contactService, setContactService }) => (
     <AbstractWaves />
     <ScrollToSection />
     <Hero />
-    <LaunchHero />
+    <Suspense fallback={null}>
+      <LaunchHero />
+    </Suspense>
     <ProblemSolution />
     <Services onServiceSelect={setContactService} />
     <Industries />
@@ -104,13 +109,20 @@ function App() {
           <ScrollNavigator />
           <Navbar />
           <Routes>
-            <Route path="/" element={<MainContent contactService={contactService} setContactService={setContactService} />} />
+            <Route path="/" element={
+              <MainContent contactService={contactService} setContactService={setContactService} />
+            } />
             <Route path="/why-us" element={<MainContent contactService={contactService} setContactService={setContactService} />} />
             <Route path="/services" element={<MainContent contactService={contactService} setContactService={setContactService} />} />
             <Route path="/industries" element={<MainContent contactService={contactService} setContactService={setContactService} />} />
             <Route path="/pricing" element={<MainContent contactService={contactService} setContactService={setContactService} />} />
             <Route path="/contact" element={<MainContent contactService={contactService} setContactService={setContactService} />} />
             <Route path="/thank-you" element={<ThankYou />} />
+            <Route path="/explore-agents" element={
+              <Suspense fallback={<PageLoader />}>
+                <ExploreAgents />
+              </Suspense>
+            } />
             <Route path="*" element={<MainContent contactService={contactService} setContactService={setContactService} />} />
           </Routes >
           <Footer />

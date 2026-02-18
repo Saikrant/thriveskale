@@ -1,4 +1,5 @@
 import { useEffect, useRef, useCallback, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { useCountry } from '../context/CountryContext';
 import './LaunchHero.css';
 
@@ -181,15 +182,13 @@ const LaunchHero = () => {
 
                 {/* CTA buttons */}
                 <div className="cta-buttons">
-                    <button
+                    <Link
+                        to="/explore-agents"
                         className="btn-launch-primary"
-                        onClick={() => {
-                            const el = document.getElementById('services');
-                            if (el) el.scrollIntoView({ behavior: 'smooth' });
-                        }}
+                        style={{ textDecoration: 'none', display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }}
                     >
-                        EXPLORE AI AGENTS <span aria-hidden="true">→</span>
-                    </button>
+                        EXPLORE AI AGENTS <span aria-hidden="true" style={{ marginLeft: '8px' }}>→</span>
+                    </Link>
                     <button
                         className="btn-launch-secondary"
                         onClick={() => {
