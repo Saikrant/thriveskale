@@ -62,7 +62,7 @@ const Hero = () => {
         const observer = new IntersectionObserver(
             ([entry]) => {
                 if (entry.isIntersecting) {
-                    video.play().catch(() => {});
+                    video.play().catch(() => { });
                 } else {
                     video.pause();
                 }
@@ -138,10 +138,10 @@ const Hero = () => {
 
                 {/* Social proof stats */}
                 <div className="hero-stats">
-                    <div className="hero-stat">
+                    {/* <div className="hero-stat">
                         <div className="hero-stat-value">250+</div>
                         <div className="hero-stat-label">Clients</div>
-                    </div>
+                    </div> */}
                     <div className="hero-stat">
                         <div className="hero-stat-value">8+</div>
                         <div className="hero-stat-label">Industries</div>
