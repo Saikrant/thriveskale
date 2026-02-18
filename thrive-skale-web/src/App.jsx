@@ -1,15 +1,15 @@
-import { useState, useEffect, useRef, lazy, Suspense } from 'react'
+import { useState, useEffect, lazy, Suspense } from 'react'
 import { Routes, Route, useLocation } from 'react-router-dom'
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
-// Lazy load heavy components
-const LaunchHero = lazy(() => import('./components/LaunchHero'));
+// Lazy load heavier components
 const ExploreAgents = lazy(() => import('./components/ExploreAgents'));
 
 import ProblemSolution from './components/ProblemSolution';
 import Industries from './components/Industries';
 import Services from './components/Services';
 import Pricing from './components/Pricing';
+import FAQ from './components/FAQ';
 import Contact from './components/Contact';
 import ThankYou from './components/ThankYou';
 import ScrollNavigator from './components/ScrollNavigator';
@@ -56,7 +56,6 @@ const ScrollToSection = () => {
     if (sectionId) {
       const element = document.getElementById(sectionId);
       if (element) {
-        // Small delay to ensure layout is ready
         setTimeout(() => {
           element.scrollIntoView({ behavior: 'smooth' });
         }, 100);
@@ -74,13 +73,11 @@ const MainContent = ({ contactService, setContactService }) => (
     <AbstractWaves />
     <ScrollToSection />
     <Hero />
-    <Suspense fallback={null}>
-      <LaunchHero />
-    </Suspense>
     <ProblemSolution />
     <Services onServiceSelect={setContactService} />
     <Industries />
     <Pricing />
+    <FAQ />
     <Contact initialService={contactService} />
   </>
 );
@@ -124,11 +121,11 @@ function App() {
               </Suspense>
             } />
             <Route path="*" element={<MainContent contactService={contactService} setContactService={setContactService} />} />
-          </Routes >
+          </Routes>
           <Footer />
-        </div >
-      </CountryProvider >
-    </PageLoader >
+        </div>
+      </CountryProvider>
+    </PageLoader>
   );
 }
 
