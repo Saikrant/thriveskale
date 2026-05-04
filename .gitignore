@@ -1,0 +1,12 @@
+.DS_Store
+**/.DS_Store
+node_modules/
+dist/
+thrive-skale-web/node_modules/
+thrive-skale-web/dist/
+thrive-skale-web-backup/
+*.log
+npm-debug.log
+.env
+.env.local
+.env.*.local
