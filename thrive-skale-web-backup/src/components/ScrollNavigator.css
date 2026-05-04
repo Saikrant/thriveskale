@@ -1,0 +1,131 @@
+/* =============================================
+   SCROLL NAVIGATOR — Floating dynamic indicator
+   ============================================= */
+
+.scroll-nav {
+    position: fixed;
+    bottom: 28px;
+    right: 28px;
+    z-index: 900;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    cursor: pointer;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+    pointer-events: none;
+}
+
+.scroll-nav--visible {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+.scroll-nav--hidden {
+    opacity: 0;
+    transform: translateY(10px);
+    pointer-events: none;
+}
+
+.scroll-nav-label {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.5);
+    transition: color 0.3s ease;
+    white-space: nowrap;
+}
+
+.scroll-nav:hover .scroll-nav-label {
+    color: #48d5b1;
+}
+
+.scroll-nav-arrow {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: rgba(15, 20, 35, 0.85);
+    border: 1px solid rgba(72, 213, 177, 0.35);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #48d5b1;
+    font-size: 16px;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    transition: transform 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
+}
+
+.scroll-nav:hover .scroll-nav-arrow {
+    background: rgba(72, 213, 177, 0.2);
+    box-shadow: 0 0 20px rgba(72, 213, 177, 0.2);
+}
+
+/* Down state — gentle bounce */
+.scroll-nav--down .scroll-nav-arrow {
+    animation: navBounceDown 2s ease-in-out infinite;
+}
+
+/* Up state — gentle bounce  */
+.scroll-nav--up .scroll-nav-arrow {
+    animation: navBounceUp 2s ease-in-out infinite;
+}
+
+@keyframes navBounceDown {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(4px);
+    }
+}
+
+@keyframes navBounceUp {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-4px);
+    }
+}
+
+/* Focus for keyboard users */
+.scroll-nav:focus-visible {
+    outline: 2px solid #48d5b1;
+    outline-offset: 4px;
+    border-radius: 8px;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+    .scroll-nav {
+        bottom: 16px;
+        right: 16px;
+    }
+
+    .scroll-nav-arrow {
+        width: 36px;
+        height: 36px;
+        font-size: 14px;
+    }
+
+    .scroll-nav-label {
+        font-size: 9px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .scroll-nav-arrow {
+        animation: none !important;
+    }
+}

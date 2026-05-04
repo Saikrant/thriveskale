@@ -71,6 +71,21 @@ export const CountryProvider = ({ children }) => {
         })();
     }, []);
 
+    /* ---- Notification toast logic ---- */
+    const showNotification = useCallback((message) => {
+        // Clear existing timer
+        if (notificationTimer.current) {
+            clearTimeout(notificationTimer.current);
+        }
+
+        setNotification(message);
+
+        notificationTimer.current = setTimeout(() => {
+            setNotification(null);
+            notificationTimer.current = null;
+        }, 3000);
+    }, []);
+
     /* ---- Manual switch ---- */
     const switchCountry = useCallback((code) => {
         if (!SUPPORTED_COUNTRIES.includes(code)) {
@@ -86,22 +101,7 @@ export const CountryProvider = ({ children }) => {
         // Show notification toast
         const cfg = COUNTRY_CONFIG[code];
         showNotification(`${cfg.flag} Switched to ${cfg.name}`);
-    }, [country]);
-
-    /* ---- Notification toast logic ---- */
-    const showNotification = useCallback((message) => {
-        // Clear existing timer
-        if (notificationTimer.current) {
-            clearTimeout(notificationTimer.current);
-        }
-
-        setNotification(message);
-
-        notificationTimer.current = setTimeout(() => {
-            setNotification(null);
-            notificationTimer.current = null;
-        }, 3000);
-    }, []);
+    }, [country, showNotification]);
 
     // Cleanup timer on unmount
     useEffect(() => {

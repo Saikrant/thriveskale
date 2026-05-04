@@ -209,6 +209,14 @@ const Industries = () => {
         return () => observer.disconnect();
     }, []);
 
+    const handleClosePanel = useCallback(() => {
+        setIsPanelOpen(false);
+        document.body.style.overflow = 'auto';
+        document.body.classList.remove('modal-open');
+        if (window.__lenis) window.__lenis.start();
+        setTimeout(() => setSelectedIndustry(null), 500);
+    }, []);
+
     // Escape key to close panel
     useEffect(() => {
         const onKey = (e) => {
@@ -216,7 +224,7 @@ const Industries = () => {
         };
         window.addEventListener('keydown', onKey);
         return () => window.removeEventListener('keydown', onKey);
-    }, [isPanelOpen]);
+    }, [isPanelOpen, handleClosePanel]);
 
     const handleLearnMore = useCallback((industry) => {
         setSelectedIndustry(industry);
@@ -224,14 +232,6 @@ const Industries = () => {
         document.body.style.overflow = 'hidden';
         document.body.classList.add('modal-open');
         if (window.__lenis) window.__lenis.stop();
-    }, []);
-
-    const handleClosePanel = useCallback(() => {
-        setIsPanelOpen(false);
-        document.body.style.overflow = 'auto';
-        document.body.classList.remove('modal-open');
-        if (window.__lenis) window.__lenis.start();
-        setTimeout(() => setSelectedIndustry(null), 500);
     }, []);
 
     // Touch swipe-to-close handlers for mobile panel

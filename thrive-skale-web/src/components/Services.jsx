@@ -121,17 +121,25 @@ const Services = ({ onServiceSelect }) => {
         return () => observer.disconnect();
     }, []);
 
+    useEffect(() => {
+        if (!selectedService) return undefined;
+
+        document.body.style.overflow = 'hidden';
+        if (window.__lenis) window.__lenis.stop();
+
+        return () => {
+            document.body.style.overflow = 'auto';
+            if (window.__lenis) window.__lenis.start();
+        };
+    }, [selectedService]);
+
     // Modal handlers
     const openModal = (service) => {
         setSelectedService(service);
-        document.body.style.overflow = 'hidden';
-        if (window.__lenis) window.__lenis.stop();
     };
 
     const closeModal = () => {
         setSelectedService(null);
-        document.body.style.overflow = 'auto';
-        if (window.__lenis) window.__lenis.start();
     };
 
     return (

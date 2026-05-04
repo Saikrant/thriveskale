@@ -1,5 +1,4 @@
 import { useState, useCallback, useEffect } from 'react';
-import { useCountry } from '../context/CountryContext';
 import './FAQ.css';
 
 const FAQ_DATA = [

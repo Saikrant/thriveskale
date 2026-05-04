@@ -1,0 +1,300 @@
+/* =============================================
+   PRICING SECTION — Hyderabad Market Rates
+   ============================================= */
+
+.pricing-section {
+    padding: 100px 0 80px;
+    position: relative;
+    background: linear-gradient(180deg, #0a1628 0%, #0f1b2e 50%, #0a1628 100%);
+    overflow: hidden;
+}
+
+/* Section header */
+.pricing-header {
+    text-align: center;
+    margin-bottom: 60px;
+    padding: 0 24px;
+}
+
+.pricing-title {
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 12px;
+}
+
+.pricing-title-accent {
+    background: linear-gradient(135deg, #48d5b1, #36b896);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.pricing-subtitle {
+    font-size: clamp(1rem, 2vw, 1.25rem);
+    color: rgba(255, 255, 255, 0.6);
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.6;
+}
+
+/* Category tabs */
+.pricing-tabs {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 48px;
+    padding: 0 24px;
+    flex-wrap: wrap;
+}
+
+.pricing-tab {
+    padding: 10px 24px;
+    border-radius: 24px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    background: rgba(255, 255, 255, 0.04);
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: inherit;
+}
+
+.pricing-tab:hover {
+    border-color: rgba(72, 213, 177, 0.4);
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.pricing-tab--active {
+    background: rgba(72, 213, 177, 0.15);
+    border-color: #48d5b1;
+    color: #48d5b1;
+}
+
+/* Cards container */
+.pricing-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+}
+
+/* Card */
+.pricing-card {
+    background: rgba(15, 25, 45, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 20px;
+    padding: 36px 28px;
+    display: flex;
+    flex-direction: column;
+    transition: border-color 0.3s ease, transform 0.3s ease;
+    position: relative;
+}
+
+.pricing-card:hover {
+    border-color: rgba(72, 213, 177, 0.3);
+    transform: translateY(-4px);
+}
+
+/* Popular card highlight */
+.pricing-card--popular {
+    border-color: #48d5b1;
+    background: linear-gradient(180deg,
+            rgba(72, 213, 177, 0.08) 0%,
+            rgba(15, 25, 45, 0.6) 40%);
+}
+
+.pricing-card--popular::before {
+    content: 'MOST POPULAR';
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #48d5b1;
+    color: #0a1628;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    padding: 4px 16px;
+    border-radius: 12px;
+}
+
+.pricing-plan-name {
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #48d5b1;
+    margin-bottom: 8px;
+}
+
+.pricing-price {
+    margin-bottom: 4px;
+}
+
+.pricing-currency {
+    font-size: 20px;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.7);
+    vertical-align: top;
+    line-height: 1;
+}
+
+.pricing-amount {
+    font-size: 44px;
+    font-weight: 900;
+    color: white;
+    line-height: 1;
+}
+
+.pricing-period {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.5);
+    margin-left: 2px;
+}
+
+.pricing-desc {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.5);
+    margin-bottom: 24px;
+    line-height: 1.5;
+}
+
+/* Feature list */
+.pricing-features {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 28px 0;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.pricing-feature {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.75);
+    line-height: 1.4;
+}
+
+.pricing-feature-icon {
+    color: #48d5b1;
+    font-size: 14px;
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+
+/* CTA button */
+.pricing-cta {
+    width: 100%;
+    padding: 14px 20px;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+    font-family: inherit;
+    border: none;
+}
+
+.pricing-cta--primary {
+    background: #48d5b1;
+    color: #0a1628;
+}
+
+.pricing-cta--primary:hover {
+    background: #5de0c1;
+    transform: translateY(-1px);
+}
+
+.pricing-cta--outline {
+    background: transparent;
+    color: #48d5b1;
+    border: 1px solid rgba(72, 213, 177, 0.4);
+}
+
+.pricing-cta--outline:hover {
+    background: rgba(72, 213, 177, 0.1);
+    border-color: #48d5b1;
+}
+
+.pricing-cta:focus-visible {
+    outline: 3px solid #48d5b1;
+    outline-offset: 3px;
+}
+
+/* Disclaimer */
+.pricing-disclaimer {
+    text-align: center;
+    margin-top: 40px;
+    padding: 0 24px;
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.4);
+    font-style: italic;
+}
+
+/* =============================================
+   RESPONSIVE
+   ============================================= */
+
+@media (max-width: 1024px) {
+    .pricing-cards {
+        gap: 20px;
+    }
+
+    .pricing-card {
+        padding: 28px 22px;
+    }
+
+    .pricing-amount {
+        font-size: 38px;
+    }
+}
+
+@media (max-width: 768px) {
+    .pricing-section {
+        padding: 60px 0 40px;
+    }
+
+    .pricing-cards {
+        grid-template-columns: 1fr;
+        max-width: 440px;
+        gap: 20px;
+        padding: 0 16px;
+    }
+
+    .pricing-card--popular {
+        order: -1;
+    }
+
+    .pricing-header {
+        margin-bottom: 32px;
+    }
+
+    .pricing-tabs {
+        margin-bottom: 32px;
+        gap: 6px;
+    }
+}
+
+@media (max-width: 480px) {
+    .pricing-section {
+        padding: 60px 0 50px;
+    }
+
+    .pricing-tab {
+        padding: 8px 16px;
+        font-size: 13px;
+    }
+
+    .pricing-amount {
+        font-size: 36px;
+    }
+}

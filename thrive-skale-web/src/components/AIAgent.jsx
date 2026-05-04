@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import './AIAgent.css';
 import { workflow } from './workflowConfig';
 import { generateWhatsAppLink } from '../utils/whatsappUtils';
@@ -12,67 +12,13 @@ const AIAgent = ({ initialData, onClose }) => {
     const [isConversationEnded, setIsConversationEnded] = useState(false);
     const messagesEndRef = useRef(null);
     const hasInitialized = useRef(false);
+    const processNodeRef = useRef(null);
 
-    const scrollToBottom = () => {
-        messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-    };
-
-    useEffect(() => {
-        scrollToBottom();
-    }, [messages, isTyping]);
-
-    useEffect(() => {
-        if (hasInitialized.current) return;
-        hasInitialized.current = true;
-
-        // Start the workflow
-        processNode('start', initialData);
+    const addMessage = useCallback((type, text, options = null, action = null) => {
+        setMessages((prev) => [...prev, { id: Date.now(), type, text, options, action }]);
     }, []);
 
-    const addMessage = (type, text, options = null, action = null) => {
-        setMessages(prev => [...prev, { id: Date.now(), type, text, options, action }]);
-    };
-
-    const handleSend = () => {
-        if (!inputValue.trim()) return;
-
-        const text = inputValue;
-        setInputValue('');
-        addMessage('user', text);
-        setIsTyping(true);
-
-        handleInput(text);
-    };
-
-    const handleOptionClick = (option) => {
-        addMessage('user', option);
-        setIsTyping(true);
-        handleInput(option);
-    };
-
-    const handleInput = (input) => {
-        const currentNode = workflow[currentNodeId];
-
-        // Update user data if the current node expects input
-        if (currentNode.input && currentNode.input.key) {
-            setUserData(prev => ({ ...prev, [currentNode.input.key]: input }));
-        }
-
-        // Determine next node
-        let nextNodeId = currentNode.next;
-        if (typeof nextNodeId === 'function') {
-            nextNodeId = nextNodeId(input);
-        }
-
-        if (nextNodeId) {
-            processNode(nextNodeId, { ...userData, [currentNode.input?.key]: input });
-        } else if (currentNode.end) {
-            setIsConversationEnded(true);
-            setIsTyping(false);
-        }
-    };
-
-    const processNode = (nodeId, currentData) => {
+    const processNode = useCallback((nodeId, currentData) => {
         const node = workflow[nodeId];
         if (!node) return;
 
@@ -83,31 +29,88 @@ const AIAgent = ({ initialData, onClose }) => {
             const messageText = typeof node.message === 'function' ? node.message(currentData) : node.message;
 
             let action = null;
-            // Handle Actions
             if (node.action === 'open_whatsapp') {
-                const ownerNumber = '19704122140'; // Replace with actual number
+                const ownerNumber = '19704122140';
                 const link = generateWhatsAppLink(ownerNumber, currentData);
                 action = { label: 'Connect on WhatsApp 💬', url: link };
             }
 
             addMessage('agent', messageText, node.options, action);
-
             setIsTyping(false);
 
-            // Auto-advance if no input/options required and there is a next node
             if (!node.input && !node.options && node.next) {
                 let nextNodeId = node.next;
                 if (typeof nextNodeId === 'function') {
-                    // Should not happen for auto-advance without input, but safe check
                     nextNodeId = nextNodeId('');
                 }
-                processNode(nextNodeId, currentData);
+                processNodeRef.current?.(nextNodeId, currentData);
             }
 
             if (node.end) {
                 setIsConversationEnded(true);
             }
         }, node.delay || 1000);
+    }, [addMessage]);
+
+    useEffect(() => {
+        processNodeRef.current = processNode;
+    }, [processNode]);
+
+    useEffect(() => {
+        messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    }, [messages, isTyping]);
+
+    useEffect(() => {
+        if (hasInitialized.current) return;
+    
+        hasInitialized.current = true;
+    
+        const timer = window.setTimeout(() => {
+            processNode('start', initialData);
+        }, 0);
+    
+        return () => window.clearTimeout(timer);
+    }, [initialData, processNode]);
+
+    const handleInput = (input) => {
+        const currentNode = workflow[currentNodeId];
+        if (!currentNode) return;
+
+        const nextUserData = currentNode.input?.key
+            ? { ...userData, [currentNode.input.key]: input }
+            : userData;
+
+        if (currentNode.input?.key) {
+            setUserData(nextUserData);
+        }
+
+        let nextNodeId = currentNode.next;
+        if (typeof nextNodeId === 'function') {
+            nextNodeId = nextNodeId(input);
+        }
+
+        if (nextNodeId) {
+            processNode(nextNodeId, nextUserData);
+        } else if (currentNode.end) {
+            setIsConversationEnded(true);
+            setIsTyping(false);
+        }
+    };
+
+    const handleSend = () => {
+        if (!inputValue.trim()) return;
+
+        const text = inputValue;
+        setInputValue('');
+        addMessage('user', text);
+        setIsTyping(true);
+        handleInput(text);
+    };
+
+    const handleOptionClick = (option) => {
+        addMessage('user', option);
+        setIsTyping(true);
+        handleInput(option);
     };
 
     return (
@@ -163,10 +166,10 @@ const AIAgent = ({ initialData, onClose }) => {
                     <input
                         type="text"
                         className="chat-input"
-                        placeholder={workflow[currentNodeId]?.input?.placeholder || "Type your message..."}
+                        placeholder={workflow[currentNodeId]?.input?.placeholder || 'Type your message...'}
                         value={inputValue}
                         onChange={(e) => setInputValue(e.target.value)}
-                        onKeyPress={(e) => e.key === 'Enter' && handleSend()}
+                        onKeyDown={(e) => e.key === 'Enter' && handleSend()}
                         disabled={isConversationEnded || !workflow[currentNodeId]?.input}
                     />
                     <button className="send-btn" onClick={handleSend} disabled={isConversationEnded || !workflow[currentNodeId]?.input}>

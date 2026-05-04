@@ -1,0 +1,137 @@
+/* Custom Cursor - Desktop only */
+.custom-cursor {
+    display: none;
+}
+
+@media (min-width: 769px) {
+    .custom-cursor {
+        display: block;
+        pointer-events: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 99999;
+        mix-blend-mode: difference;
+    }
+
+    .cursor-outer {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 32px;
+        height: 32px;
+        border: 2px solid #48d5b1;
+        border-radius: 50%;
+        pointer-events: none;
+        opacity: 0.5;
+        transition: width 0.3s ease-out, height 0.3s ease-out, opacity 0.3s ease-out, background-color 0.3s ease-out, border-color 0.3s ease-out;
+        will-change: transform;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transform: translate3d(-50%, -50%, 0);
+    }
+
+    .cursor-inner {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 4px;
+        height: 4px;
+        background: #48d5b1;
+        border-radius: 50%;
+        pointer-events: none;
+        opacity: 1;
+        transition: width 0.15s ease-out, height 0.15s ease-out, opacity 0.15s ease-out;
+        will-change: transform;
+        transform: translate3d(-50%, -50%, 0);
+    }
+
+    .cursor-label {
+        font-size: 8px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        color: #48d5b1;
+        opacity: 0;
+        transition: opacity 0.3s ease-out;
+        white-space: nowrap;
+    }
+
+    /* Hover clickable state */
+    .cursor-outer.hovering-clickable {
+        width: 48px;
+        height: 48px;
+        opacity: 1;
+        border-color: #48d5b1;
+    }
+
+    .cursor-outer.hovering-clickable .cursor-label {
+        opacity: 1;
+    }
+
+    .cursor-inner.hovering-clickable {
+        width: 8px;
+        height: 8px;
+    }
+
+    /* Hover text state */
+    .cursor-outer.hovering-text {
+        width: 16px;
+        height: 16px;
+        border-color: #ffffff;
+        border-width: 1px;
+    }
+
+    .cursor-inner.hovering-text {
+        width: 2px;
+        height: 16px;
+        border-radius: 1px;
+        background: #ffffff;
+    }
+
+    /* Click state */
+    .cursor-outer.clicking {
+        transform: translate3d(-50%, -50%, 0) scale(0.8);
+    }
+
+    .cursor-inner.clicking {
+        width: 10px;
+        height: 10px;
+        opacity: 0.6;
+    }
+
+    /* Ripple */
+    .cursor-ripple {
+        position: fixed;
+        width: 32px;
+        height: 32px;
+        border: 1px solid #48d5b1;
+        border-radius: 50%;
+        pointer-events: none;
+        animation: cursorRipple 0.6s ease-out forwards;
+        transform: translate3d(-50%, -50%, 0);
+    }
+
+    @keyframes cursorRipple {
+        0% {
+            width: 32px;
+            height: 32px;
+            opacity: 0.6;
+        }
+
+        100% {
+            width: 80px;
+            height: 80px;
+            opacity: 0;
+        }
+    }
+
+    /* Hidden state */
+    .cursor-outer.hidden,
+    .cursor-inner.hidden {
+        opacity: 0;
+        width: 0;
+        height: 0;
+    }
+}

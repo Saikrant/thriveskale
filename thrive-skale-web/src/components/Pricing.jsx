@@ -50,7 +50,7 @@ const Pricing = () => {
         });
     }, [activeCategory]);
 
-    const handleGetStarted = (planName) => {
+    const handleGetStarted = () => {
         const contactEl = document.getElementById('contact');
         if (contactEl) contactEl.scrollIntoView({ behavior: 'smooth' });
     };

@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useCountry } from '../context/CountryContext';
 import './Contact.css';
 import AIAgent from './AIAgent';
 
@@ -225,7 +224,6 @@ const CustomDropdown = ({ value, onChange, error, isVisible, options, label }) =
    CONTACT COMPONENT
    ============================================ */
 const Contact = () => {
-    const { config } = useCountry();
     const [formData, setFormData] = useState({
         name: '',
         email: '',
@@ -239,7 +237,7 @@ const Contact = () => {
     const [fieldsVisible, setFieldsVisible] = useState(false);
 
     const [showAgent, setShowAgent] = useState(false);
-    const [agentData, setAgentData] = useState(null);
+    const [agentData] = useState(null);
 
     const navigate = useNavigate();
     const formRef = useRef(null);

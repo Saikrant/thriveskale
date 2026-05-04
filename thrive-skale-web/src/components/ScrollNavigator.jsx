@@ -56,9 +56,10 @@ const ScrollNavigator = () => {
         };
 
         window.addEventListener('scroll', onScroll, { passive: true });
-        update(); // initial check
+        const initialFrame = requestAnimationFrame(update);
 
         return () => {
+            cancelAnimationFrame(initialFrame);
             window.removeEventListener('scroll', onScroll);
             clearTimeout(hideTimeout.current);
         };
