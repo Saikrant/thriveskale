@@ -2,21 +2,8 @@ import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Contact.css';
 import AIAgent from './AIAgent';
-
-/* ============================================
-   BUSINESS TYPES
-   ============================================ */
-const BUSINESS_TYPES = [
-    'Restaurant',
-    'Real Estate',
-    'Healthcare',
-    'Salon/Spa',
-    'Gym/Fitness',
-    'Retail',
-    'Education',
-    'Home Services',
-    'Other',
-];
+import { BUSINESS_TYPES, getTouchedContactFields, validateContactField, validateContactForm } from '../utils/contactValidation';
+import { buildContactWhatsAppUrl } from '../utils/contactLead';
 
 /* ============================================
    PARTICLE NETWORK CANVAS
@@ -261,19 +248,7 @@ const Contact = () => {
     }, []);
 
     /* ---------- Validation ---------- */
-    const validateField = useCallback((name, value) => {
-        if (!value || !value.trim()) return 'This field is required';
-        if (name === 'email') {
-            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!re.test(value)) return 'Please enter a valid email';
-        }
-        if (name === 'phone') {
-            const re = /^[+]?[0-9]{10,15}$/;
-            // Remove spaces/dashes for validation check
-            if (!re.test(value.replace(/[\s-]/g, ''))) return 'Please enter a valid phone number';
-        }
-        return '';
-    }, []);
+    const validateField = useCallback(validateContactField, []);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -302,31 +277,16 @@ const Contact = () => {
         e.preventDefault();
 
         // Validate all
-        const newErrors = {};
-        ['name', 'email', 'phone', 'businessType', 'message'].forEach((key) => {
-            const err = validateField(key, formData[key]);
-            if (err) newErrors[key] = err;
-        });
+        const newErrors = validateContactForm(formData);
         setErrors(newErrors);
-        setTouched({ name: true, email: true, phone: true, businessType: true, message: true });
+        setTouched(getTouchedContactFields());
 
         if (Object.keys(newErrors).length > 0) return;
 
         setIsSubmitting(true);
 
         try {
-            // WHATSAPP INTEGRATION
-            // Format the message
-            const encodedMessage = encodeURIComponent(
-                `*New Inquiry from Website*\n\n` +
-                `*Name:* ${formData.name}\n` +
-                `*Email:* ${formData.email}\n` +
-                `*Phone:* ${formData.phone}\n` +
-                `*Industry:* ${formData.businessType}\n` +
-                `*Message:* ${formData.message}`
-            );
-
-            const whatsappUrl = `https://wa.me/19704122140?text=${encodedMessage}`;
+            const whatsappUrl = buildContactWhatsAppUrl('19704122140', formData);
 
             // Navigate to Thank You page with WhatsApp URL in state
             navigate('/thank-you', { state: { whatsappUrl } });
