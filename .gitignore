@@ -6,7 +6,8 @@ thrive-skale-web/node_modules/
 thrive-skale-web/dist/
 thrive-skale-web-backup/
 *.log
-npm-debug.log
+*.zip
 .env
 .env.local
 .env.*.local
+npm-debug.log
