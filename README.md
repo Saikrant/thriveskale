@@ -6,7 +6,7 @@ I selected this project because it demonstrates practical frontend development s
 
 ## Live Demo
 
-Coming soon
+https://thrivvskale.com/
 
 ## GitHub Repository
 
