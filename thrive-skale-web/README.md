@@ -2,6 +2,8 @@
 
 ThrivvSkale is a modern React/Vite frontend application built for a digital services business. It showcases a responsive landing page, reusable UI components, animated sections, contact form validation, and an interactive AI-style lead assistant workflow.
 
+I selected this project because it demonstrates practical frontend development skills including component-based architecture, user experience design, form handling, state management, responsive layouts, and clean project organization.
+
 ## Live Demo
 
 Coming soon
@@ -30,7 +32,7 @@ https://github.com/Saikrant/thriveskale
 - WhatsApp lead handoff
 - Smooth animations and user interactions
 - Clean frontend folder structure
-
+- Tested utility functions for validation, lead scoring, service recommendation, and WhatsApp handoff
 
 ## Screenshots
 
@@ -56,6 +58,7 @@ https://github.com/Saikrant/thriveskale
 - User flow design
 - Clean code organization
 - Vite project setup
+- Frontend testing with Vitest
 
 ## Project Structure
 
@@ -86,13 +89,21 @@ These components create the main landing page experience. They are structured as
 
 ## How to Run Locally
 
-cd thrive-skale-web
-npm install
-npm run dev
+1. Go to the app folder:
 
-Open the local URL shown in the terminal, usually:
+   cd thrive-skale-web
 
-http://localhost:5173
+2. Install dependencies:
+
+   npm install
+
+3. Start the development server:
+
+   npm run dev
+
+4. Open the local URL shown in the terminal, usually:
+
+   http://localhost:5173
 
 ## How to Build
 
@@ -104,9 +115,16 @@ npm run build
 cd thrive-skale-web
 npm test
 
+## Current Verification
+
+- Build passes successfully
+- Test suite passes successfully: 19 tests across 5 test files
+- Lint command completes successfully
+- npm audit reports 0 vulnerabilities
+
 ## What I Focused On
 
-I focused on creating a polished frontend experience with clean navigation, reusable components, responsive layouts, smooth interactions, and practical business-focused user flows.
+I focused on creating a polished frontend experience with clean navigation, reusable components, responsive layouts, smooth interactions, practical business-focused user flows, and tested utility logic.
 
 ## Future Improvements
 
