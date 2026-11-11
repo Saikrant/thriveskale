@@ -3,7 +3,8 @@ import './LeadStack.css';
 
 /*
  * An exploded view of the lead engine: four flat layers stacked like a phone.
- * Scrolling the page normally spreads them apart (0 to about 480px of scroll).
+ * Scrolling the page normally spreads them apart (about 480px of scroll). On wide
+ * screens the stack sticks beside the form so you can watch it; this is plain CSS sticky.
  * Only a CSS variable (--p) changes; layers move with transform, so no layout work.
  * No pinning and no scroll hijack. With reduced motion the layers stay spread.
  * All text is sample content.
@@ -24,10 +25,16 @@ const LeadStack = () => {
             return undefined;
         }
 
+        const wide = window.matchMedia('(min-width: 901px)');
         let frame = 0;
         const update = () => {
             frame = 0;
-            const t = Math.min(Math.max(window.scrollY / RANGE_PX, 0), 1);
+            // Wide screens: the stack stays in view beside the form, so spread from the top.
+            // Phones: the stack sits below the form, so start when it nears the screen.
+            const startY = wide.matches
+                ? 0
+                : Math.max(0, el.getBoundingClientRect().top + window.scrollY - 0.7 * window.innerHeight);
+            const t = Math.min(Math.max((window.scrollY - startY) / RANGE_PX, 0), 1);
             el.style.setProperty('--p', String(START + (1 - START) * t));
         };
         const onScroll = () => {
@@ -36,8 +43,10 @@ const LeadStack = () => {
 
         update();
         window.addEventListener('scroll', onScroll, { passive: true });
+        window.addEventListener('resize', onScroll);
         return () => {
             window.removeEventListener('scroll', onScroll);
+            window.removeEventListener('resize', onScroll);
             if (frame) cancelAnimationFrame(frame);
         };
     }, []);

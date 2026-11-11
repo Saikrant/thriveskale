@@ -17,7 +17,12 @@
 
 .hero-copy { grid-area: copy; display: grid; gap: var(--s-4); }
 .hero-form { grid-area: form; }
-.hero-grid > .lead-stack { grid-area: chat; align-self: center; }
+.hero-grid > .lead-stack {
+    grid-area: chat;
+    align-self: start;
+    position: sticky;
+    top: 88px;
+}
 
 .hero-lead {
     font-size: 1.2rem;
@@ -43,6 +48,8 @@
         grid-template-areas: "copy" "form" "chat";
         row-gap: var(--s-5);
     }
+
+    .hero-grid > .lead-stack { position: static; }
 
     .hero-form { max-width: none; }
 }
