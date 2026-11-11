@@ -41,8 +41,8 @@ function ThankYou() {
                 {/* Success Icon */}
                 <div className="success-icon">
                     <svg width="80" height="80" viewBox="0 0 80 80" fill="none">
-                        <circle cx="40" cy="40" r="38" stroke="#48d5b1" strokeWidth="4" />
-                        <path d="M25 40L35 50L55 30" stroke="#48d5b1" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round" />
+                        <circle cx="40" cy="40" r="38" stroke="#1F6F78" strokeWidth="4" />
+                        <path d="M25 40L35 50L55 30" stroke="#1F6F78" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round" />
                     </svg>
                 </div>
 
@@ -61,7 +61,7 @@ function ThankYou() {
                         borderRadius: '12px',
                         border: '1px solid rgba(37, 211, 102, 0.2)'
                     }}>
-                        <p style={{ color: '#25D366', fontWeight: 600, marginBottom: '5px' }}>
+                        <p style={{ color: '#1E7F52', fontWeight: 600, marginBottom: '5px' }}>
                             Redirecting to WhatsApp in {countdown}...
                         </p>
                         <p style={{ fontSize: '0.9em', opacity: 0.8 }}>

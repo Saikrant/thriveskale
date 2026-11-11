@@ -2,14 +2,13 @@
    WHY THRIVVSKALE — Comparison Section
    ============================================= */
 
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap');
 
 .problem-solution {
     position: relative;
     padding: 100px 24px;
-    background: #060c1b;
-    color: #ffffff;
-    font-family: 'Outfit', sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--font-main);
     overflow: hidden;
 }
 
@@ -35,7 +34,7 @@
 .ps-label-line {
     width: 30px;
     height: 1px;
-    background: #48d5b1;
+    background: var(--accent);
 }
 
 .ps-label-text {
@@ -43,7 +42,7 @@
     font-weight: 800;
     letter-spacing: 0.2em;
     text-transform: uppercase;
-    color: #48d5b1;
+    color: var(--accent-text);
 }
 
 .ps-title {
@@ -51,7 +50,7 @@
     font-weight: 800;
     line-height: 1.1;
     letter-spacing: -0.02em;
-    color: #ffffff;
+    color: var(--ink);
 }
 
 /* ---- Comparison Grid ---- */
@@ -135,8 +134,8 @@
 
 /* ---- Left Card: Typical Agencies (Boring/Muted) ---- */
 .ps-card-left {
-    background: rgba(255, 255, 255, 0.015);
-    border: 1px solid rgba(255, 255, 255, 0.05);
+    background: rgba(23,40,58,0.012);
+    border: 1px solid rgba(23,40,58,0.04);
 }
 
 .ps-card-left .ps-icon-box {
@@ -150,23 +149,23 @@
 }
 
 .ps-card-left .ps-card-title {
-    color: rgba(255, 255, 255, 0.5);
+    color: rgba(23,40,58,0.8);
 }
 
 .ps-card-left .ps-card-subtitle {
-    color: rgba(255, 255, 255, 0.2);
+    color: rgba(23,40,58,0.59);
 }
 
 .ps-card-left .ps-list-item {
-    border-color: rgba(255, 255, 255, 0.03);
+    border-color: rgba(23,40,58,0.024);
 }
 
 .ps-card-left .ps-item-num {
-    color: rgba(255, 255, 255, 0.07);
+    color: rgba(23,40,58,0.499);
 }
 
 .ps-card-left .ps-item-text {
-    color: rgba(255, 255, 255, 0.35);
+    color: rgba(23,40,58,0.695);
 }
 
 /* Subtle red blob for left card */
@@ -184,39 +183,39 @@
 
 /* ---- Right Card: ThrivvSkale (Premium/Teal) ---- */
 .ps-card-right {
-    background: linear-gradient(160deg, rgba(72, 213, 177, 0.03) 0%, rgba(72, 213, 177, 0.01) 100%);
-    border: 1px solid rgba(72, 213, 177, 0.12);
-    box-shadow: 0 0 60px rgba(72, 213, 177, 0.02);
+    background: linear-gradient(160deg, rgba(226,162,74,0.03) 0%, rgba(226,162,74,0.01) 100%);
+    border: 1px solid rgba(226,162,74,0.12);
+    box-shadow: 0 0 60px rgba(226,162,74,0.02);
 }
 
 .ps-card-right .ps-icon-box {
-    background: rgba(72, 213, 177, 0.12);
+    background: rgba(226,162,74,0.12);
 }
 
 .ps-card-right .ps-icon-box svg {
-    color: #48d5b1;
+    color: var(--accent-text);
     width: 20px;
     height: 20px;
 }
 
 .ps-card-right .ps-card-title {
-    color: #ffffff;
+    color: var(--ink);
 }
 
 .ps-card-right .ps-card-subtitle {
-    color: rgba(72, 213, 177, 0.6);
+    color: rgba(138,82,15,0.6);
 }
 
 .ps-card-right .ps-list-item {
-    border-color: rgba(72, 213, 177, 0.06);
+    border-color: rgba(226,162,74,0.06);
 }
 
 .ps-card-right .ps-item-num {
-    color: rgba(72, 213, 177, 0.25);
+    color: rgba(138,82,15,0.25);
 }
 
 .ps-card-right .ps-item-text {
-    color: rgba(255, 255, 255, 0.9);
+    color: rgba(23,40,58,1);
     font-weight: 500;
 }
 
@@ -225,15 +224,15 @@
     position: absolute;
     top: 24px;
     right: 24px;
-    background: rgba(72, 213, 177, 0.1);
-    border: 1px solid rgba(72, 213, 177, 0.15);
+    background: rgba(226,162,74,0.1);
+    border: 1px solid rgba(226,162,74,0.15);
     padding: 4px 10px;
     border-radius: 20px;
     font-size: 9px;
     font-weight: 800;
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    color: #48d5b1;
+    color: var(--accent-text);
 }
 
 /* Teal glow for right card */
@@ -244,15 +243,15 @@
     right: -60px;
     width: 200px;
     height: 200px;
-    background: radial-gradient(circle, rgba(72, 213, 177, 0.08) 0%, transparent 70%);
+    background: radial-gradient(circle, rgba(226,162,74,0.08) 0%, transparent 70%);
     pointer-events: none;
     z-index: 0;
 }
 
 /* ---- CTA Strip ---- */
 .ps-cta {
-    background: linear-gradient(90deg, rgba(72, 213, 177, 0.06) 0%, rgba(72, 213, 177, 0.02) 100%);
-    border: 1px solid rgba(72, 213, 177, 0.1);
+    background: linear-gradient(90deg, rgba(226,162,74,0.06) 0%, rgba(226,162,74,0.02) 100%);
+    border: 1px solid rgba(226,162,74,0.1);
     border-radius: 16px;
     padding: 32px 40px;
     display: flex;
@@ -264,18 +263,18 @@
 .ps-cta-content h3 {
     font-size: 20px;
     font-weight: 700;
-    color: #ffffff;
+    color: var(--ink);
     margin: 0 0 6px;
 }
 
 .ps-cta-content p {
     font-size: 14px;
-    color: rgba(255, 255, 255, 0.4);
+    color: rgba(23,40,58,0.73);
 }
 
 .ps-cta-btn {
-    background: #48d5b1;
-    color: #060c1b;
+    background: var(--accent);
+    color: var(--ink);
     border: none;
     padding: 14px 28px;
     border-radius: 50px;
@@ -292,7 +291,7 @@
 
 .ps-cta-btn:hover {
     transform: translateY(-2px);
-    box-shadow: 0 4px 16px rgba(72, 213, 177, 0.3);
+    box-shadow: 0 4px 16px rgba(226,162,74,0.3);
 }
 
 /* ---- Responsive ---- */

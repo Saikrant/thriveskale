@@ -5,7 +5,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(5, 10, 20, 0.85);
+    background: rgba(242,244,243,0.85);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     z-index: 2000;
@@ -21,9 +21,9 @@
     height: 600px;
     max-height: 90vh;
     background: rgba(15, 25, 40, 0.95);
-    border: 1px solid rgba(0, 242, 255, 0.3);
+    border: 1px solid rgba(31,111,120,0.3);
     border-radius: 20px;
-    box-shadow: 0 0 60px rgba(0, 242, 255, 0.2);
+    box-shadow: 0 0 60px rgba(31,111,120,0.2);
     display: flex;
     flex-direction: column;
     overflow: hidden;
@@ -33,8 +33,8 @@
 
 .agent-header {
     padding: 20px;
-    background: linear-gradient(90deg, rgba(0, 242, 255, 0.1), transparent);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    background: linear-gradient(90deg, rgba(31,111,120,0.1), transparent);
+    border-bottom: 1px solid rgba(23,40,58,0.08);
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -49,14 +49,14 @@
 .agent-avatar {
     width: 40px;
     height: 40px;
-    background: rgba(0, 242, 255, 0.2);
+    background: rgba(31,111,120,0.2);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 1.2rem;
-    border: 1px solid rgba(0, 242, 255, 0.5);
-    box-shadow: 0 0 15px rgba(0, 242, 255, 0.3);
+    border: 1px solid rgba(31,111,120,0.5);
+    box-shadow: 0 0 15px rgba(31,111,120,0.3);
     position: relative;
 }
 
@@ -75,25 +75,25 @@
 .agent-info h3 {
     margin: 0;
     font-size: 1.1rem;
-    color: #fff;
+    color: var(--ink);
 }
 
 .agent-info span {
     font-size: 0.8rem;
-    color: #00f2ff;
+    color: var(--teal);
 }
 
 .close-agent-btn {
     background: none;
     border: none;
-    color: rgba(255, 255, 255, 0.5);
+    color: rgba(23,40,58,0.8);
     font-size: 1.5rem;
     cursor: pointer;
     transition: color 0.3s;
 }
 
 .close-agent-btn:hover {
-    color: #fff;
+    color: var(--ink);
 }
 
 .chat-messages {
@@ -117,24 +117,24 @@
 
 .message.agent {
     align-self: flex-start;
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(23,40,58,0.08);
     border-bottom-left-radius: 2px;
-    color: #fff;
+    color: var(--ink);
 }
 
 .message.user {
     align-self: flex-end;
-    background: linear-gradient(135deg, rgba(0, 242, 255, 0.2), rgba(0, 242, 255, 0.1));
-    border: 1px solid rgba(0, 242, 255, 0.2);
+    background: linear-gradient(135deg, rgba(31,111,120,0.2), rgba(31,111,120,0.1));
+    border: 1px solid rgba(31,111,120,0.2);
     border-bottom-right-radius: 2px;
-    color: #fff;
+    color: var(--ink);
 }
 
 .typing-indicator {
     display: flex;
     gap: 5px;
     padding: 10px 15px;
-    background: rgba(255, 255, 255, 0.05);
+    background: rgba(23,40,58,0.04);
     border-radius: 12px;
     align-self: flex-start;
     width: fit-content;
@@ -143,7 +143,7 @@
 .typing-dot {
     width: 6px;
     height: 6px;
-    background: rgba(255, 255, 255, 0.5);
+    background: rgba(23,40,58,0.4);
     border-radius: 50%;
     animation: typing 1.4s infinite ease-in-out;
 }
@@ -162,35 +162,35 @@
 
 .chat-input-area {
     padding: 20px;
-    background: rgba(0, 0, 0, 0.2);
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(23,40,58,0.07);
+    border-top: 1px solid rgba(23,40,58,0.08);
     display: flex;
     gap: 10px;
 }
 
 .chat-input {
     flex: 1;
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(23,40,58,0.04);
+    border: 1px solid rgba(23,40,58,0.08);
     border-radius: 25px;
     padding: 12px 20px;
-    color: #fff;
+    color: var(--ink);
     font-size: 1rem;
     outline: none;
     transition: border-color 0.3s;
 }
 
 .chat-input:focus {
-    border-color: #00f2ff;
+    border-color: var(--teal);
 }
 
 .send-btn {
     width: 45px;
     height: 45px;
     border-radius: 50%;
-    background: linear-gradient(135deg, #00f2ff, #00a8ff);
+    background: linear-gradient(135deg, var(--teal), #00a8ff);
     border: none;
-    color: #000;
+    color: var(--ink);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -210,9 +210,9 @@
 }
 
 .option-btn {
-    background: rgba(0, 242, 255, 0.1);
-    border: 1px solid rgba(0, 242, 255, 0.3);
-    color: #00f2ff;
+    background: rgba(31,111,120,0.1);
+    border: 1px solid rgba(31,111,120,0.3);
+    color: var(--teal);
     padding: 8px 16px;
     border-radius: 20px;
     cursor: pointer;
@@ -221,7 +221,7 @@
 }
 
 .option-btn:hover {
-    background: rgba(0, 242, 255, 0.2);
+    background: rgba(31,111,120,0.2);
     transform: translateY(-2px);
 }
 
@@ -273,7 +273,7 @@
     margin-top: 10px;
     padding: 10px 20px;
     background-color: #25D366;
-    color: #fff;
+    color: var(--ink);
     text-decoration: none;
     border-radius: 20px;
     font-weight: 600;

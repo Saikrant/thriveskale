@@ -173,13 +173,11 @@ const Industries = () => {
         }
     ];
 
+    // One quiet style for every tag; colour should not imply rank
+    const tagNeutral = { bg: 'rgba(23, 40, 58, 0.07)', color: '#17283A' };
     const tagColors = {
-        Premium: { bg: 'rgba(255, 215, 0, 0.2)', color: '#FFD700' },
-        Popular: { bg: 'rgba(239, 68, 68, 0.2)', color: '#ef4444' },
-        Trending: { bg: 'rgba(72, 213, 177, 0.2)', color: '#48d5b1' },
-        Essential: { bg: 'rgba(96, 165, 250, 0.2)', color: '#60a5fa' },
-        Emerging: { bg: 'rgba(168, 85, 247, 0.2)', color: '#a855f7' },
-        Growing: { bg: 'rgba(34, 197, 94, 0.2)', color: '#22c55e' },
+        Premium: tagNeutral, Popular: tagNeutral, Trending: tagNeutral,
+        Essential: tagNeutral, Emerging: tagNeutral, Growing: tagNeutral,
     };
 
     // Height pattern for masonry effect
