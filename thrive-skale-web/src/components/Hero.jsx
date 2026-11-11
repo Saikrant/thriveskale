@@ -1,32 +1,15 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { useCountry } from '../context/CountryContext';
 import useReveal from '../utils/useReveal';
 import './Hero.css';
 
-/* ── Asset paths ──
-   Place your video + poster in /public/assets/ (or wherever your static files live).
-   Adjust these paths to match your project structure.
-   
-   The video is 720p, muted, ~1.2 MB. It is only loaded on desktop-class
-   screens; phones, reduced-motion and data-saver users get the poster image.
-*/
-const HERO_VIDEO = '/assets/hero-bg.mp4';
+/* Static poster background (the autoplay video was removed for performance). */
 const HERO_POSTER = '/assets/hero-poster.jpg';
-
-const canPlayHeroVideo = () => {
-    if (typeof window === 'undefined') return false;
-    if (window.innerWidth < 768) return false;
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return false;
-    if (navigator.connection?.saveData) return false;
-    return true;
-};
 
 const Hero = () => {
     useReveal();
     const { config } = useCountry();
-    const videoRef = useRef(null);
-    const [showVideo] = useState(canPlayHeroVideo);
 
     /* Gentle mouse-follow for glow (desktop only, passive) */
     const glowRef = useRef(null);
@@ -68,26 +51,6 @@ const Hero = () => {
         };
     }, []);
 
-    /* Pause video when hero is out of viewport (performance) */
-    useEffect(() => {
-        const video = videoRef.current;
-        if (!showVideo || !video) return;
-
-        const observer = new IntersectionObserver(
-            ([entry]) => {
-                if (entry.isIntersecting) {
-                    video.play().catch(() => { });
-                } else {
-                    video.pause();
-                }
-            },
-            { threshold: 0.1 }
-        );
-
-        observer.observe(video);
-        return () => observer.disconnect();
-    }, [showVideo]);
-
     return (
         <section id="hero" className="hero">
             {/* Video background */}
@@ -96,20 +59,6 @@ const Hero = () => {
                 aria-hidden="true"
                 style={{ backgroundImage: `url(${HERO_POSTER})` }}
             >
-                {showVideo && (
-                    <video
-                        ref={videoRef}
-                        className="hero-video"
-                        autoPlay
-                        muted
-                        loop
-                        playsInline
-                        poster={HERO_POSTER}
-                        preload="metadata"
-                    >
-                        <source src={HERO_VIDEO} type="video/mp4" />
-                    </video>
-                )}
                 <div className="hero-video-overlay" />
             </div>
 

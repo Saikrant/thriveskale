@@ -185,13 +185,6 @@ button {
    GLOBAL ENHANCEMENTS
    ============================================= */
 
-/* Hide default cursor on desktop */
-@media (min-width: 769px) {
-  * {
-    cursor: none !important;
-  }
-}
-
 /* Scroll-triggered animate-in */
 .animate-in {
   opacity: 0;
