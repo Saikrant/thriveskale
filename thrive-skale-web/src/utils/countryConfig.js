@@ -97,18 +97,22 @@ export const LEAD_GROWTH = {
         { upToAdSpend: 150000, fee: 35000 },
     ],
     aboveTopTierPercent: 12,
+    /** Above the top band the fee is 12% of spend, but never less than this. */
+    minimumFeeAboveTopTier: 35000,
 };
 
 /**
  * Monthly Lead Growth fee for a given monthly ad spend (rupees, excl. GST).
- * Up to ₹60,000 → ₹25,000; up to ₹1,50,000 → ₹35,000; above that 12% of spend.
+ * Up to ₹60,000 → ₹25,000; above ₹60,000 up to ₹1,50,000 → ₹35,000;
+ * above ₹1,50,000 → 12% of ad spend, minimum ₹35,000 (so the fee never drops as spend rises).
  */
 export const leadGrowthFee = (adSpend) => {
     const spend = Number(adSpend);
     if (!Number.isFinite(spend) || spend < 0) throw new RangeError('adSpend must be a non-negative number');
     const tier = LEAD_GROWTH.tiers.find((t) => spend <= t.upToAdSpend);
     if (tier) return tier.fee;
-    return Math.round((spend * LEAD_GROWTH.aboveTopTierPercent) / 100);
+    const percentFee = Math.round((spend * LEAD_GROWTH.aboveTopTierPercent) / 100);
+    return Math.max(LEAD_GROWTH.minimumFeeAboveTopTier, percentFee);
 };
 
 /** Add-ons, grouped. `monthly` is a recurring fee; `setup` is one-time. */

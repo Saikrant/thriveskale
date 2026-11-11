@@ -18,7 +18,10 @@ const MonthlyPlans = () => {
                         <ul className="ticks">
                             {LEAD_GROWTH.includes.map((item) => <li key={item}>{item}</li>)}
                         </ul>
-                        <p className="small muted">Minimum {LEAD_GROWTH.minimumMonths} months. Ad spend is paid by you directly to Meta and Google.</p>
+                        <p className="small muted">
+                            Above ₹{formatINR(mid.upToAdSpend)} of ad spend: {LEAD_GROWTH.aboveTopTierPercent}% of ad spend, minimum {rupees(LEAD_GROWTH.minimumFeeAboveTopTier)}.
+                            Minimum {LEAD_GROWTH.minimumMonths} months. Ad spend is paid by you directly to Meta and Google.
+                        </p>
                     </div>
 
                     <div className="table-wrap">
@@ -29,8 +32,8 @@ const MonthlyPlans = () => {
                             </thead>
                             <tbody>
                                 <tr><td>Up to ₹{formatINR(low.upToAdSpend)}</td><td><strong>{rupees(low.fee)}</strong> <span className="muted small">{GST_NOTE}</span></td></tr>
-                                <tr><td>Up to ₹{formatINR(mid.upToAdSpend)}</td><td><strong>{rupees(mid.fee)}</strong> <span className="muted small">{GST_NOTE}</span></td></tr>
-                                <tr><td>Above ₹{formatINR(mid.upToAdSpend)}</td><td><strong>{LEAD_GROWTH.aboveTopTierPercent}% of ad spend</strong> <span className="muted small">{GST_NOTE}</span></td></tr>
+                                <tr><td>Above ₹{formatINR(low.upToAdSpend)}, up to ₹{formatINR(mid.upToAdSpend)}</td><td><strong>{rupees(mid.fee)}</strong> <span className="muted small">{GST_NOTE}</span></td></tr>
+                                <tr><td>Above ₹{formatINR(mid.upToAdSpend)}</td><td><strong>{LEAD_GROWTH.aboveTopTierPercent}% of ad spend, minimum {rupees(LEAD_GROWTH.minimumFeeAboveTopTier)}</strong> <span className="muted small">{GST_NOTE}</span></td></tr>
                             </tbody>
                         </table>
                     </div>

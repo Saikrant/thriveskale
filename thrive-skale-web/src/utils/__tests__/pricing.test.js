@@ -38,6 +38,7 @@ describe('pricing config', () => {
         expect(addOn('mobile-app')).toMatchObject({ quote: true });
         expect(addOn('mobile-app').monthly).toBeUndefined();
         expect(LEAD_GROWTH.minimumMonths).toBe(3);
+        expect(LEAD_GROWTH.minimumFeeAboveTopTier).toBe(35000);
     });
 
     it('uses 18% GST', () => {
@@ -67,10 +68,28 @@ describe('leadGrowthFee', () => {
         [60000, 25000],
         [60001, 35000],
         [150000, 35000],
-        [150001, 18000],
-        [200000, 24000],
+        [150001, 35000],
+        [200000, 35000],
+        [291666, 35000],
+        [300000, 36000],
+        [1000000, 120000],
     ])('ad spend %i → fee %i', (spend, fee) => {
         expect(leadGrowthFee(spend)).toBe(fee);
+    });
+
+    it('never decreases as ad spend increases', () => {
+        let previous = -1;
+        for (let spend = 0; spend <= 1500000; spend += 500) {
+            const fee = leadGrowthFee(spend);
+            expect(fee, `fee at ₹${spend}`).toBeGreaterThanOrEqual(previous);
+            previous = fee;
+        }
+        // Around each band edge, rupee by rupee
+        [60000, 150000, 291667].forEach((edge) => {
+            for (let spend = edge - 5; spend <= edge + 5; spend += 1) {
+                expect(leadGrowthFee(spend + 1)).toBeGreaterThanOrEqual(leadGrowthFee(spend));
+            }
+        });
     });
 
     it('rejects invalid ad spend', () => {
