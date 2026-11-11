@@ -12,7 +12,7 @@
     display: grid;
     place-items: center;
     perspective: 1100px;
-    contain: layout paint;
+    contain: layout;
 }
 
 .lead-stack-3d {
