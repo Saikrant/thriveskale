@@ -98,7 +98,7 @@ const ParticleCanvas = () => {
 
                 ctx.beginPath();
                 ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-                ctx.fillStyle = `rgba(72, 213, 177, ${p.alpha})`;
+                ctx.fillStyle = `rgba(31, 111, 120, ${p.alpha})`;
                 ctx.fill();
             }
 
@@ -114,7 +114,7 @@ const ParticleCanvas = () => {
                         ctx.beginPath();
                         ctx.moveTo(a.x, a.y);
                         ctx.lineTo(b.x, b.y);
-                        ctx.strokeStyle = `rgba(72, 213, 177, ${0.15 * (1 - d / 150)})`;
+                        ctx.strokeStyle = `rgba(31, 111, 120, ${0.15 * (1 - d / 150)})`;
                         ctx.lineWidth = 0.6;
                         ctx.stroke();
                     }
@@ -196,7 +196,7 @@ const CustomDropdown = ({ value, onChange, error, isVisible, options, label }) =
             >
                 <span>{value || ''}</span>
                 <svg className="ct-dropdown-chevron" viewBox="0 0 24 24" fill="none"
-                    stroke="#48d5b1" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    stroke="#1F6F78" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <polyline points="6 9 12 15 18 9" />
                 </svg>
             </button>
@@ -350,14 +350,14 @@ const Contact = () => {
         if (!touched[name]) return null;
         if (errors[name]) {
             return (
-                <span className="ct-validation-icon ct-validation-icon--show" style={{ color: '#ff4757' }}>
+                <span className="ct-validation-icon ct-validation-icon--show" style={{ color: '#B83232' }}>
                     ✕
                 </span>
             );
         }
         if (formData[name]) {
             return (
-                <span className="ct-validation-icon ct-validation-icon--show" style={{ color: '#2ed573' }}>
+                <span className="ct-validation-icon ct-validation-icon--show" style={{ color: '#1E7F52' }}>
                     ✓
                 </span>
             );
@@ -385,7 +385,7 @@ const Contact = () => {
                 <div className="ct-form-panel">
                     <div className="ct-header">
                         <h2 className="ct-title">
-                            Get in <span className="ct-title-accent">Touch</span>
+                            Get in Touch
                         </h2>
                         <p className="ct-subtitle">
                             Ready to engineer your growth? Let's talk.

@@ -149,7 +149,7 @@ const Pricing = () => {
             <div className="pricing-header">
                 <h2 className="pricing-title">
                     Transparent{' '}
-                    <span className="pricing-title-accent">Pricing</span>
+                    Pricing
                 </h2>
                 <p className="pricing-subtitle">
                     Competitive rates tailored for businesses of every size.

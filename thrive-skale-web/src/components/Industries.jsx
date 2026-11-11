@@ -173,15 +173,6 @@ const Industries = () => {
         }
     ];
 
-    const tagColors = {
-        Premium: { bg: 'rgba(255, 215, 0, 0.2)', color: '#FFD700' },
-        Popular: { bg: 'rgba(239, 68, 68, 0.2)', color: '#ef4444' },
-        Trending: { bg: 'rgba(72, 213, 177, 0.2)', color: '#48d5b1' },
-        Essential: { bg: 'rgba(96, 165, 250, 0.2)', color: '#60a5fa' },
-        Emerging: { bg: 'rgba(168, 85, 247, 0.2)', color: '#a855f7' },
-        Growing: { bg: 'rgba(34, 197, 94, 0.2)', color: '#22c55e' },
-    };
-
     // Height pattern for masonry effect
     const heights = [400, 480, 520, 450, 400, 480, 520, 450];
 
@@ -264,17 +255,16 @@ const Industries = () => {
             {/* Header */}
             <div className="ind-header">
                 <h2 className="ind-title">
-                    Who We <span className="ind-gradient">Empower</span>
+                    Industries we build for
                 </h2>
                 <p className="ind-subtitle">
-                    Tailored digital solutions for high-growth sectors.
+                    Open a card to see what we build for each kind of business.
                 </p>
             </div>
 
             {/* Masonry Grid */}
             <div className="ind-grid" ref={gridRef}>
                 {industries.map((ind, index) => {
-                    const tagStyle = tagColors[ind.tag] || tagColors.Growing;
                     return (
                         <div
                             key={index}
@@ -298,36 +288,14 @@ const Industries = () => {
                             {/* Gradient overlay */}
                             <div className="ind-card-overlay"></div>
 
-                            {/* Badge */}
-                            <span
-                                className="ind-badge"
-                                style={{ background: tagStyle.bg, color: tagStyle.color }}
-                            >
-                                {ind.tag}
-                            </span>
-
                             {/* Content */}
                             <div className="ind-card-content">
-                                <span className="ind-card-icon">{ind.icon}</span>
                                 <h3 className="ind-card-name">{ind.name}</h3>
                                 <p className="ind-card-category">{ind.category}</p>
-
-                                <div className="ind-card-stats">
-                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-                                        <circle cx="9" cy="7" r="4"></circle>
-                                        <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
-                                        <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
-                                    </svg>
-                                    <span>{ind.clients}</span>
-                                </div>
 
                                 {/* Learn More (reveals on hover) */}
                                 <button className="ind-learn-btn">
                                     Learn More
-                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                                        <path d="M5 12h14M12 5l7 7-7 7" />
-                                    </svg>
                                 </button>
                             </div>
                         </div>
