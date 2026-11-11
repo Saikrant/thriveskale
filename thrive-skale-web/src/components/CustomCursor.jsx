@@ -12,11 +12,18 @@ const CustomCursor = () => {
     const [cursorLabel, setCursorLabel] = useState('');
     const [isTouch, setIsTouch] = useState(false);
     const rafRef = useRef(null);
+    const startLoopRef = useRef(null);
+    const stateRef = useRef('default');
+
+    useEffect(() => {
+        stateRef.current = cursorState;
+    }, [cursorState]);
 
     const lerp = (start, end, factor) => start + (end - start) * factor;
 
     const handleMouseMove = useCallback((e) => {
         mousePos.current = { x: e.clientX, y: e.clientY };
+        startLoopRef.current?.();
     }, []);
 
     const handleMouseDown = useCallback(() => {
@@ -83,16 +90,24 @@ const CustomCursor = () => {
             innerPos.current.y = lerp(innerPos.current.y, mousePos.current.y, 1);
 
             if (outerRef.current) {
-                outerRef.current.style.transform = `translate3d(${outerPos.current.x}px, ${outerPos.current.y}px, 0) translate(-50%, -50%)${cursorState === 'clicking' ? ' scale(0.8)' : ''}`;
+                outerRef.current.style.transform = `translate3d(${outerPos.current.x}px, ${outerPos.current.y}px, 0) translate(-50%, -50%)${stateRef.current === 'clicking' ? ' scale(0.8)' : ''}`;
             }
             if (innerRef.current) {
                 innerRef.current.style.transform = `translate3d(${innerPos.current.x}px, ${innerPos.current.y}px, 0) translate(-50%, -50%)`;
             }
 
-            rafRef.current = requestAnimationFrame(animate);
+            // Stop the loop once the ring has caught up with the mouse;
+            // the next mousemove restarts it.
+            const settled =
+                Math.abs(outerPos.current.x - mousePos.current.x) < 0.1 &&
+                Math.abs(outerPos.current.y - mousePos.current.y) < 0.1;
+            rafRef.current = settled ? null : requestAnimationFrame(animate);
         };
 
-        rafRef.current = requestAnimationFrame(animate);
+        startLoopRef.current = () => {
+            if (rafRef.current == null) rafRef.current = requestAnimationFrame(animate);
+        };
+        startLoopRef.current();
 
         return () => {
             document.removeEventListener('mousemove', handleMouseMove);
@@ -100,8 +115,10 @@ const CustomCursor = () => {
             document.removeEventListener('mousedown', handleMouseDown);
             document.removeEventListener('mouseup', handleMouseUp);
             if (rafRef.current) cancelAnimationFrame(rafRef.current);
+            rafRef.current = null;
+            startLoopRef.current = null;
         };
-    }, [isTouch, handleMouseMove, handleMouseDown, handleMouseUp, cursorState]);
+    }, [isTouch, handleMouseMove, handleMouseDown, handleMouseUp]);
 
     if (isTouch) return null;
 

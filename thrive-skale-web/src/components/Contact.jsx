@@ -35,7 +35,7 @@ const ParticleCanvas = () => {
 
         // Init particles — fewer on mobile for performance
         const isMobile = window.innerWidth < 768;
-        const count = isMobile ? 40 : 100;
+        const count = isMobile ? 30 : 60;
         if (particlesRef.current.length === 0) {
             for (let i = 0; i < count; i++) {
                 particlesRef.current.push({
@@ -121,15 +121,28 @@ const ParticleCanvas = () => {
                 }
             }
 
-            animRef.current = requestAnimationFrame(draw);
+            animRef.current = isRunning ? requestAnimationFrame(draw) : null;
         };
 
-        draw();
+        // Only animate while the contact section is actually on screen
+        let isRunning = false;
+        const visibilityObs = new IntersectionObserver(([entry]) => {
+            if (entry.isIntersecting && !isRunning) {
+                isRunning = true;
+                animRef.current = requestAnimationFrame(draw);
+            } else if (!entry.isIntersecting) {
+                isRunning = false;
+                if (animRef.current) cancelAnimationFrame(animRef.current);
+                animRef.current = null;
+            }
+        });
+        visibilityObs.observe(canvas.parentElement);
 
         const resizeObs = new ResizeObserver(resize);
         resizeObs.observe(canvas.parentElement);
 
         return () => {
+            visibilityObs.disconnect();
             cancelAnimationFrame(animRef.current);
             canvas.parentElement.removeEventListener('mousemove', handleMouseMove);
             canvas.parentElement.removeEventListener('mouseleave', handleMouseLeave);
