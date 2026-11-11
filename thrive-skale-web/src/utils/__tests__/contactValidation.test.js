@@ -9,14 +9,14 @@ import {
 
 describe('contact validation', () => {
     it('normalizes phone numbers by removing spaces, parentheses, and dashes', () => {
-        expect(normalizePhoneNumber('(970) 412-2140')).toBe('9704122140');
-        expect(normalizePhoneNumber('+1 970-412-2140')).toBe('+19704122140');
+        expect(normalizePhoneNumber('90143 53465')).toBe('9014353465');
+        expect(normalizePhoneNumber('+91 90143-53465')).toBe('+919014353465');
     });
 
     it('accepts valid contact fields', () => {
         expect(validateContactField('name', 'Sai')).toBe('');
         expect(validateContactField('email', 'sai@example.com')).toBe('');
-        expect(validateContactField('phone', '(970) 412-2140')).toBe('');
+        expect(validateContactField('phone', '+91 90143 53465')).toBe('');
         expect(validateContactField('businessType', BUSINESS_TYPES[0])).toBe('');
         expect(validateContactField('message', 'I need a website')).toBe('');
     });

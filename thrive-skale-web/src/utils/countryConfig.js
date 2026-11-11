@@ -3,6 +3,22 @@
  * Currently supports United States (US) and India (IN).
  */
 
+/**
+ * Single source of truth for contact details (India-based team).
+ * Used by the footer, the contact form and the AI assistant, so a number
+ * only ever needs changing here. Address intentionally omitted for now.
+ */
+export const CONTACT = {
+    phone: {
+        display: '+91 90143 53465',
+        link: 'tel:+919014353465',
+    },
+    email: 'info@thrivvskale.com',
+    founder: 'Sai Kranth',
+    /** WhatsApp lead number (wa.me format: country code + number, no "+") */
+    whatsappNumber: '919014353465',
+};
+
 export const COUNTRY_CONFIG = {
     US: {
         code: 'US',
@@ -41,22 +57,7 @@ export const COUNTRY_CONFIG = {
         },
         pricingDisclaimer:
             '* All prices are in USD. Custom packages available on request.',
-        contact: {
-            phone: {
-                display: '+1 (970) 412-2140',
-                link: 'tel:+19704122140',
-            },
-            email: 'info@thrivvskale.com',
-            office: 'Fort Collins,Colorado,USA',
-            address: '1600 W Plum St, Fort Collins, CO 80521, United States',
-            addressHTML:
-                '1600 W Plum St<br>Fort Collins, CO 80521<br>United States',
-            hours: '9:00 AM - 6:00 PM PST',
-            timezone: 'Denver/Mountain Time',
-            founder: 'Sai Kranth',
-            location: 'Fort Collins, USA',
-            whatsappNumber: '19704122140',
-        },
+        contact: CONTACT,
         offers: {
             aiAgentsDiscount: '10%',
             description: 'Limited time launch offer',
@@ -74,9 +75,9 @@ export const COUNTRY_CONFIG = {
         pricing: {
             website: {
                 plans: [
-                    { name: 'Starter', price: '14,999', period: 'onwards' },
-                    { name: 'Business', price: '39,999', period: 'onwards' },
-                    { name: 'Enterprise', price: '89,999', period: 'onwards' },
+                    { name: 'Starter', price: '19,999', period: 'onwards' },
+                    { name: 'Business', price: '49,999', period: 'onwards' },
+                    { name: 'Enterprise', price: '1,29,999', period: 'onwards' },
                 ],
             },
             mobile: {
@@ -96,21 +97,7 @@ export const COUNTRY_CONFIG = {
         },
         pricingDisclaimer:
             '* All prices are exclusive of GST. Custom packages available on request. Prices valid for Hyderabad-based projects.',
-        contact: {
-            phone: {
-                display: '+1 (970) 412-2140',
-                link: 'tel:+19704122140',
-            },
-            email: 'info@thrivvskale.com',
-            office: 'Hyderabad Office',
-            address: 'Hyderabad, Telangana, India',
-            addressHTML: 'Hyderabad<br>Telangana<br>India',
-            hours: '10:00 AM - 7:00 PM IST',
-            timezone: 'Asia/Kolkata',
-            founder: 'Sai Kranth',
-            location: 'Hyderabad, India',
-            whatsappNumber: '19704122140',
-        },
+        contact: CONTACT,
         offers: {
             aiAgentsDiscount: '10%',
             description: 'Limited time launch offer',
@@ -119,7 +106,7 @@ export const COUNTRY_CONFIG = {
 };
 
 /** Default fallback country */
-export const DEFAULT_COUNTRY = 'US';
+export const DEFAULT_COUNTRY = 'IN';
 
 /** Supported country codes */
 export const SUPPORTED_COUNTRIES = Object.keys(COUNTRY_CONFIG);
