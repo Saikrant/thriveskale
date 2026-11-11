@@ -14,7 +14,6 @@ export const CONTACT = {
         link: 'tel:+919014353465',
     },
     email: 'info@thrivvskale.com',
-    founder: 'Sai Kranth',
     /** WhatsApp lead number (wa.me format: country code + number, no "+") */
     whatsappNumber: '919014353465',
 };
