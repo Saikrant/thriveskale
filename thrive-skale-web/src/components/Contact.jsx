@@ -6,6 +6,13 @@ import { CONTACT } from '../utils/countryConfig';
 import { trackLead } from '../utils/gtag';
 import './Contact.css';
 
+const DIRECT = [
+    { label: 'WhatsApp', value: CONTACT.phone.display, href: `https://wa.me/${CONTACT.whatsappNumber}`, external: true },
+    { label: 'Call', value: CONTACT.phone.display, href: CONTACT.phone.link },
+    { label: CONTACT.aakash.name, value: CONTACT.aakash.display, href: CONTACT.aakash.link },
+    { label: 'Email', value: CONTACT.email, href: `mailto:${CONTACT.email}` },
+];
+
 const EMPTY = { name: '', email: '', phone: '', businessType: '', message: '' };
 
 const Contact = () => {
@@ -58,7 +65,7 @@ const Contact = () => {
     );
 
     return (
-        <section id="contact" className="section">
+        <section id="contact" className="section section--haldi">
             <div className="container contact">
                 <div>
                     <div className="section-head">
@@ -109,26 +116,19 @@ const Contact = () => {
                     </form>
                 </div>
 
-                <aside className="card contact-direct" aria-labelledby="ct-direct-title">
+                <aside className="contact-direct" aria-labelledby="ct-direct-title">
                     <h3 id="ct-direct-title">Or reach us directly</h3>
-                    <dl className="stack">
-                        <div>
-                            <dt className="small muted">WhatsApp</dt>
-                            <dd><a href={`https://wa.me/${CONTACT.whatsappNumber}`} target="_blank" rel="noopener noreferrer">{CONTACT.phone.display}</a></dd>
-                        </div>
-                        <div>
-                            <dt className="small muted">Phone</dt>
-                            <dd><a href={CONTACT.phone.link}>{CONTACT.phone.display}</a></dd>
-                        </div>
-                        <div>
-                            <dt className="small muted">{CONTACT.aakash.name}</dt>
-                            <dd><a href={CONTACT.aakash.link}>{CONTACT.aakash.display}</a></dd>
-                        </div>
-                        <div>
-                            <dt className="small muted">Email</dt>
-                            <dd><a href={`mailto:${CONTACT.email}`}>{CONTACT.email}</a></dd>
-                        </div>
-                    </dl>
+                    <ul className="contact-rows">
+                        {DIRECT.map((row) => (
+                            <li key={row.label}>
+                                <a className="contact-row-link" href={row.href} {...(row.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}>
+                                    <span className="small muted">{row.label}</span>
+                                    <span className="contact-row-value">{row.value}</span>
+                                    <span className="contact-row-arrow" aria-hidden="true">→</span>
+                                </a>
+                            </li>
+                        ))}
+                    </ul>
                     <p className="small muted">Based in {CONTACT.city}.</p>
                 </aside>
             </div>

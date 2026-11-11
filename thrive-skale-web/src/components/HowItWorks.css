@@ -1,23 +1,128 @@
-.step-num {
-    width: 40px;
-    height: 40px;
+/* A connected flow of six steps. Across the page on wide screens, down it on narrow ones.
+   Coverage is shown with words (Included / Partly / Not included), not only colour. */
+.flow-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: var(--s-5);
+    margin-bottom: var(--s-5);
+}
+
+.flow-head .section-head { margin-bottom: 0; }
+
+.flow-picker { border: none; display: grid; gap: var(--s-2); }
+
+.flow-summary { margin-bottom: var(--s-6); }
+
+.flow {
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: var(--s-4);
+}
+
+.flow-step {
+    position: relative;
+    display: grid;
+    align-content: start;
+    gap: var(--s-4);
+}
+
+/* Connector line between nodes */
+.flow-step::before {
+    content: '';
+    position: absolute;
+    top: 21px;
+    left: 44px;
+    right: calc(-1 * var(--s-4));
+    height: 2px;
+    background: var(--line-strong);
+}
+
+.flow-step:last-child::before { display: none; }
+
+.flow-node {
+    position: relative;
+    z-index: 1;
+    width: 44px;
+    height: 44px;
     display: grid;
     place-items: center;
     border-radius: 50%;
-    background: var(--haldi);
-    color: var(--ink);
     font-family: var(--font-heading);
     font-size: 1.15rem;
     font-weight: 800;
-}
-
-.step-included {
-    margin-top: auto;
-    padding-top: var(--s-3);
-    border-top: 1px solid var(--line);
+    border: 2px solid var(--haldi);
+    background: var(--haldi);
     color: var(--ink);
+    transition: background-color 0.25s ease, border-color 0.25s ease, color 0.25s ease, transform 0.25s ease;
 }
 
-.step-included span { font-weight: 500; }
+.flow-body { display: grid; gap: var(--s-2); }
 
-.steps-note { margin-top: var(--s-5); }
+.flow-body h3 {
+    font-size: 1.1rem;
+    transition: color 0.25s ease;
+}
+
+.flow-text {
+    font-size: var(--text-small);
+    color: var(--muted);
+}
+
+.flow-status {
+    justify-self: start;
+    padding: 0 var(--s-2);
+    border-radius: 4px;
+    font-weight: 500;
+    background: var(--haldi-pale);
+    color: var(--ink);
+    transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+/* Partly covered */
+.flow-step--partial .flow-node {
+    background: var(--haldi-pale);
+}
+
+/* Not covered: quieter, still readable (muted on white 7.6:1) */
+.flow-step--none .flow-node {
+    background: var(--card);
+    border: 2px dashed var(--line-strong);
+    color: var(--muted);
+    transform: scale(0.9);
+}
+
+.flow-step--none h3 { color: var(--muted); }
+
+.flow-step--none .flow-status {
+    background: transparent;
+    color: var(--muted);
+    padding: 0;
+}
+
+@media (max-width: 1040px) {
+    .flow {
+        grid-template-columns: minmax(0, 1fr);
+        gap: var(--s-5);
+    }
+
+    .flow-step {
+        grid-template-columns: 44px minmax(0, 1fr);
+        gap: var(--s-4);
+    }
+
+    /* Vertical connector */
+    .flow-step::before {
+        top: 44px;
+        bottom: calc(-1 * var(--s-5));
+        left: 21px;
+        right: auto;
+        width: 2px;
+        height: auto;
+    }
+}
+
+@media (max-width: 640px) {
+    .segmented { display: grid; width: 100%; }
+}

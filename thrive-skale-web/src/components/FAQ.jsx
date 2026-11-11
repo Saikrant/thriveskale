@@ -1,4 +1,4 @@
-import { GST_NOTE, LEAD_GROWTH, PACKAGES, rupees } from '../utils/countryConfig';
+import { CONTACT, LEAD_GROWTH, PACKAGES, rupees } from '../utils/countryConfig';
 import './FAQ.css';
 
 const pkg = (id) => PACKAGES.find((p) => p.id === id);
@@ -11,7 +11,7 @@ const FAQ_DATA = [
     },
     {
         q: 'Which package should I choose?',
-        a: `Choose the ${pkg('lead-website').name} if you mainly need a website that sends enquiries to your WhatsApp. Choose the ${pkg('lead-system').name} if you also want a calculator, a CRM, automatic WhatsApp replies and ad tracking. Choose the ${pkg('online-store').name} if you want to sell products online.`,
+        a: `Choose the ${pkg('lead-website').name} if you mainly need a website that sends enquiries to your WhatsApp. Choose the ${pkg('lead-system').name} if you also want a simple lead tool (a quote request, booking form or calculator), a CRM, automatic WhatsApp replies and ad tracking. Complex tools are quoted separately. Choose the ${pkg('online-store').name} if you want to sell products online.`,
     },
     {
         q: 'How long does it take?',
@@ -19,7 +19,7 @@ const FAQ_DATA = [
     },
     {
         q: 'How do payments work?',
-        a: `You pay in stages. ${pkg('lead-website').name} (${rupees(pkg('lead-website').price)}): ${terms(pkg('lead-website'))}. ${pkg('lead-system').name} (${rupees(pkg('lead-system').price)}): ${terms(pkg('lead-system'))}. ${pkg('online-store').name} (from ${rupees(pkg('online-store').price)}): ${terms(pkg('online-store'))}. All prices are ${GST_NOTE.replace('+ ', 'plus ')}.`,
+        a: `You pay in stages. ${pkg('lead-website').name} (${rupees(pkg('lead-website').price)}): ${terms(pkg('lead-website'))}. ${pkg('lead-system').name} (${rupees(pkg('lead-system').price)}): ${terms(pkg('lead-system'))}. ${pkg('online-store').name} (from ${rupees(pkg('online-store').price)}): ${terms(pkg('online-store'))}. All prices exclude 18% GST.`,
     },
     {
         q: 'What will I pay to other companies?',
@@ -37,10 +37,20 @@ const FAQ_DATA = [
 
 const FAQ = () => (
     <section id="faq" className="section">
-        <div className="container">
-            <div className="section-head">
-                <h2>Questions</h2>
-                <p>Plain answers. If yours is not here, ask us on WhatsApp.</p>
+        <div className="container faq">
+            <div className="faq-side">
+                <div className="section-head">
+                    <h2>Questions</h2>
+                    <p>Plain answers. If yours is not here, ask us on WhatsApp.</p>
+                </div>
+                <a
+                    className="btn btn--secondary"
+                    href={`https://wa.me/${CONTACT.whatsappNumber}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    Ask on WhatsApp
+                </a>
             </div>
 
             <div className="faq-list">

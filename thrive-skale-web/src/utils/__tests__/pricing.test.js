@@ -1,8 +1,8 @@
 import { describe, expect, it } from 'vitest';
 import * as config from '../countryConfig';
 import {
-    ADD_ON_GROUPS, CONTACT, GST_RATE, LEAD_GROWTH, PACKAGES, PAID_DIRECTLY,
-    formatINR, leadGrowthFee, rupees,
+    ADD_ON_GROUPS, CONTACT, GST_RATE, LEAD_GROWTH, LEAD_TOOL_TEXT, PACKAGES, PAID_DIRECTLY,
+    addOnPriceText, formatINR, leadGrowthFee, rupees,
 } from '../countryConfig';
 
 const byId = (id) => PACKAGES.find((p) => p.id === id);
@@ -39,6 +39,29 @@ describe('pricing config', () => {
         expect(addOn('mobile-app').monthly).toBeUndefined();
         expect(LEAD_GROWTH.minimumMonths).toBe(3);
         expect(LEAD_GROWTH.minimumFeeAboveTopTier).toBe(35000);
+    });
+
+    it('describes the Lead System lead tool as one simple tool, with complex ones quoted', () => {
+        expect(byId('lead-system').includes).toContain(LEAD_TOOL_TEXT);
+        expect(LEAD_TOOL_TEXT).toBe('One simple lead tool of your choice (quote request, booking form or calculator); complex ones are quoted separately');
+        expect(JSON.stringify(PACKAGES)).not.toMatch(/smart calculator/i);
+    });
+
+    it('gives every add-on a price or "Ask for a quote"', () => {
+        const items = ADD_ON_GROUPS.flatMap((g) => g.items);
+        expect(items.length).toBeGreaterThan(0);
+        items.forEach((item) => {
+            const priced = [item.setup, item.oneTime, item.monthly].some((v) => Number.isInteger(v) && v > 0);
+            expect(priced || item.quote === true, item.id).toBe(true);
+            expect(addOnPriceText(item), item.id).not.toBe('');
+        });
+        expect(new Set(items.map((i) => i.id)).size).toBe(items.length);
+    });
+
+    it('formats add-on prices for the rate card', () => {
+        expect(addOnPriceText(addOn('whatsapp-ai'))).toBe('₹35,000 setup + ₹5,000 a month');
+        expect(addOnPriceText(addOn('local-seo'))).toBe('₹12,000 a month');
+        expect(addOnPriceText(addOn('mobile-app'))).toBe('Ask for a quote');
     });
 
     it('uses 18% GST', () => {

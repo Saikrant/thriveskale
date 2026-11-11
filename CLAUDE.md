@@ -16,8 +16,10 @@ Owner/CTO: Sai Kranth. A junior developer and a business person work alongside. 
 - Hero is a 3-field lead form that opens the WhatsApp thank-you flow, with a CSS-only sample chat that plays once.
 - Lead Growth fee (excl. GST): up to ₹60,000 ad spend ₹25,000; above ₹60,000 up to ₹1,50,000 ₹35,000; above ₹1,50,000 12% of ad spend, minimum ₹35,000 (`leadGrowthFee` in countryConfig.js; the fee must never drop as spend rises).
 - Offer: "lead engine" (website + lead capture + Zoho CRM + WhatsApp + ads). No Industries section and no stock photos until real Indian imagery exists.
+- Motion only on interaction (clicks, hovers, the How-it-works package switch, the ad-spend slider) plus the one-time hero chat. No scroll-in fade/slide animations.
+- Lead System includes "one simple lead tool" (quote request, booking form or calculator); complex tools are quoted separately. No separate calculator section.
 - Do not invent claims (client counts, response times, ratings).
 - Do not merge PR #4 (`redesign-light-theme`) without Sai Kranth's approval.
 
 ## Open items
-Google Ads lead conversion label: set `VITE_GADS_LEAD_LABEL` in Cloudflare Pages (no conversion is sent until then); Privacy Policy and Terms pages need owner/legal review; GitHub organization + repo transfer; CMS and leads admin/CRM; real Indian imagery to replace AI-generated Western images.
+Approved add-ons table (groups and prices) still to be added to `ADD_ON_GROUPS` in countryConfig.js; Google Ads lead conversion label: set `VITE_GADS_LEAD_LABEL` in Cloudflare Pages (no conversion is sent until then); Privacy Policy and Terms pages need owner/legal review; GitHub organization + repo transfer; CMS and leads admin/CRM; real Indian imagery to replace AI-generated Western images.

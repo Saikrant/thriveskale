@@ -1,36 +1,31 @@
-import { ADD_ON_GROUPS, rupees } from '../utils/countryConfig';
+import { ADD_ON_GROUPS, addOnPriceText } from '../utils/countryConfig';
+import './AddOns.css';
 
-const priceText = (item) => {
-    if (item.quote) return 'Ask for a quote';
-    const parts = [];
-    if (item.setup) parts.push(`${rupees(item.setup)} setup`);
-    if (item.monthly) parts.push(`${rupees(item.monthly)} a month`);
-    return parts.join(' + ');
-};
-
+/* A printed rate card: name, dotted leader, price. */
 const AddOns = () => (
     <section id="add-ons" className="section">
-        <div className="container">
+        <div className="container addons">
             <div className="section-head">
                 <h2>Add-ons</h2>
-                <p>Add these to any package. Prices exclude 18% GST.</p>
+                <p>Add any of these to a package. Prices exclude 18% GST.</p>
             </div>
 
-            <ul className="grid grid--4">
+            <div className="rate-card">
                 {ADD_ON_GROUPS.map((group) => (
-                    <li key={group.name} className="card">
-                        <h3>{group.name}</h3>
-                        <dl className="stack">
+                    <section key={group.name} className="rate-group" aria-labelledby={`rate-${group.name}`}>
+                        <h3 id={`rate-${group.name}`}>{group.name}</h3>
+                        <ul>
                             {group.items.map((item) => (
-                                <div key={item.id}>
-                                    <dt>{item.name}</dt>
-                                    <dd className="muted">{priceText(item)}</dd>
-                                </div>
+                                <li key={item.id} className="rate-row">
+                                    <span className="rate-name">{item.name}</span>
+                                    <span className="rate-leader" aria-hidden="true" />
+                                    <span className="rate-price">{addOnPriceText(item)}</span>
+                                </li>
                             ))}
-                        </dl>
-                    </li>
+                        </ul>
+                    </section>
                 ))}
-            </ul>
+            </div>
         </div>
     </section>
 );

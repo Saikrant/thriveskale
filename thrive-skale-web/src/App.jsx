@@ -7,7 +7,6 @@ import Packages from './components/Packages';
 import MonthlyPlans from './components/MonthlyPlans';
 import AddOns from './components/AddOns';
 import PaidDirectly from './components/PaidDirectly';
-import Calculator from './components/Calculator';
 import FAQ from './components/FAQ';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
@@ -48,7 +47,6 @@ const Home = () => (
         <MonthlyPlans />
         <AddOns />
         <PaidDirectly />
-        <Calculator />
         <FAQ />
         <Contact />
     </main>

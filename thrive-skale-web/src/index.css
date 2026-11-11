@@ -146,6 +146,11 @@ img, svg { display: block; max-width: 100%; }
   gap: var(--s-3);
 }
 
+/* Background bands give the page rhythm. Text contrast holds on all three:
+   cream (bg), white (card) and pale haldi; see the table at the top. */
+.section--white { background: var(--card); }
+.section--haldi { background: var(--haldi-pale); }
+
 .section-head p {
   font-size: 1.15rem;
   color: var(--muted);
@@ -163,6 +168,7 @@ img, svg { display: block; max-width: 100%; }
 
 /* ---------- Buttons: exactly two ---------- */
 .btn {
+  transition: background-color 0.15s ease, color 0.15s ease, transform 0.1s ease;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -174,7 +180,6 @@ img, svg { display: block; max-width: 100%; }
   font-size: 1.05rem;
   font-weight: 700;
   text-decoration: none;
-  transition: background-color 0.15s ease, color 0.15s ease;
 }
 
 .btn--primary {
@@ -199,6 +204,8 @@ img, svg { display: block; max-width: 100%; }
   background: var(--tint);
   color: var(--ink);
 }
+
+.btn:active { transform: translateY(1px); }
 
 .btn--block { width: 100%; }
 
@@ -265,6 +272,48 @@ img, svg { display: block; max-width: 100%; }
   border: solid var(--ink);
   border-width: 0 2.5px 2.5px 0;
   transform: rotate(45deg);
+}
+
+/* ---------- Segmented control (radio group) ---------- */
+.segmented {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: var(--s-1);
+  padding: var(--s-1);
+  background: var(--card);
+  border: 1px solid var(--line-strong);
+  border-radius: 10px;
+}
+
+.segmented label {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 var(--s-4);
+  border-radius: 7px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.segmented input {
+  position: absolute;
+  opacity: 0;
+  inset: 0;
+  cursor: pointer;
+}
+
+.segmented label:hover { background: var(--tint); }
+
+.segmented label:has(input:checked) {
+  background: var(--haldi);
+  color: var(--ink);
+}
+
+.segmented label:has(input:focus-visible) {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
 }
 
 /* ---------- Table ---------- */

@@ -21,6 +21,9 @@ export const CONTACT = {
     city: 'Hyderabad',
 };
 
+/** What the Lead System includes as its lead tool. Used on the site and in tests. */
+export const LEAD_TOOL_TEXT = 'One simple lead tool of your choice (quote request, booking form or calculator); complex ones are quoted separately';
+
 export const CURRENCY = { code: 'INR', symbol: '₹' };
 export const GST_RATE = 0.18;
 export const GST_NOTE = '+ 18% GST';
@@ -48,10 +51,10 @@ export const PACKAGES = [
         name: 'Lead System',
         price: 89999,
         recommended: true,
-        summary: 'The full lead engine: website, calculator, CRM and instant WhatsApp replies.',
+        summary: 'The full lead engine: website, lead tool, CRM and instant WhatsApp replies.',
         includes: [
             '12 to 16 page website',
-            'Smart calculator or quote tool',
+            LEAD_TOOL_TEXT,
             'Zoho CRM setup',
             'WhatsApp auto-reply',
             'Ad conversion tracking',
@@ -158,3 +161,13 @@ export const formatINR = (amount) => new Intl.NumberFormat('en-IN', { maximumFra
 
 /** "₹39,999" */
 export const rupees = (amount) => `${CURRENCY.symbol}${formatINR(amount)}`;
+
+/** Add-on price as shown on the rate card, e.g. "₹35,000 setup + ₹5,000 a month". */
+export const addOnPriceText = (item) => {
+    if (item.quote) return 'Ask for a quote';
+    const parts = [];
+    if (item.setup) parts.push(`${rupees(item.setup)} setup`);
+    if (item.oneTime) parts.push(`${rupees(item.oneTime)} one-time`);
+    if (item.monthly) parts.push(`${rupees(item.monthly)} a month`);
+    return parts.join(' + ');
+};

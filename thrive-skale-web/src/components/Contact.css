@@ -1,6 +1,6 @@
 .contact {
     display: grid;
-    grid-template-columns: minmax(0, 1.4fr) minmax(0, 0.6fr);
+    grid-template-columns: minmax(0, 1.3fr) minmax(0, 0.7fr);
     gap: var(--s-7);
     align-items: end;
 }
@@ -11,14 +11,51 @@
     gap: var(--s-4);
 }
 
-.contact-direct {
-    border-top: 4px solid var(--haldi);
+.contact-direct { display: grid; gap: var(--s-4); }
+
+.contact-rows { display: grid; gap: var(--s-2); }
+
+/* Large tap targets for calling, WhatsApp and email. */
+.contact-row-link {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-areas: "label arrow" "value arrow";
+    align-items: center;
+    column-gap: var(--s-3);
+    min-height: 64px;
+    padding: var(--s-2) var(--s-4);
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    color: var(--ink);
+    text-decoration: none;
+    transition: border-color 0.15s ease, transform 0.1s ease;
 }
 
-.contact-direct dd {
-    font-weight: 500;
+.contact-row-link .small { grid-area: label; }
+
+.contact-row-value {
+    grid-area: value;
+    font-family: var(--font-heading);
+    font-size: 1.15rem;
+    font-weight: 700;
     overflow-wrap: anywhere;
 }
+
+.contact-row-arrow {
+    grid-area: arrow;
+    font-size: 1.25rem;
+    color: var(--sindoor);
+    transition: transform 0.15s ease;
+}
+
+.contact-row-link:hover {
+    color: var(--ink);
+    border-color: var(--ink);
+}
+
+.contact-row-link:hover .contact-row-arrow { transform: translateX(3px); }
+.contact-row-link:active { transform: translateY(1px); }
 
 @media (max-width: 900px) {
     .contact { grid-template-columns: minmax(0, 1fr); align-items: start; }

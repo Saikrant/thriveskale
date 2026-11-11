@@ -1,17 +1,102 @@
 .monthly {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-    gap: var(--s-6);
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+    gap: var(--s-7);
+    padding: var(--s-6);
     align-items: start;
 }
 
 .monthly-about { display: grid; gap: var(--s-3); }
 
-.monthly strong {
+.fee { display: grid; gap: var(--s-2); }
+
+.fee-label { font-weight: 500; }
+
+.fee-spend {
     font-family: var(--font-heading);
-    font-weight: 700;
+    font-size: 2rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
 }
 
-@media (max-width: 760px) {
-    .monthly { grid-template-columns: minmax(0, 1fr); }
+.fee-track { position: relative; }
+
+/* Native range: keyboard (arrows, Page Up/Down, Home/End) and touch for free. */
+.fee-track input {
+    display: block;
+    width: 100%;
+    height: 44px;
+    margin: 0;
+    accent-color: var(--sindoor);
+    cursor: pointer;
+}
+
+.fee-tick {
+    position: absolute;
+    bottom: 6px;
+    /* Line up with the thumb centre: the thumb (~16px) travels inside the track */
+    left: calc(8px + (100% - 16px) * var(--p) / 100);
+    width: 2px;
+    height: 10px;
+    margin-left: -1px;
+    background: var(--ink);
+    pointer-events: none;
+}
+
+.fee-ends {
+    display: flex;
+    justify-content: space-between;
+}
+
+.fee-result {
+    margin-top: var(--s-3);
+    padding: var(--s-4);
+    background: var(--haldi-pale);
+    border: 1px solid var(--haldi);
+    border-radius: var(--radius);
+}
+
+.fee-result .price { transition: color 0.2s ease; }
+
+.fee-more {
+    padding: var(--s-2) var(--s-3);
+    border-radius: 6px;
+    border: 1px solid transparent;
+    transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.fee-more--on {
+    background: var(--card);
+    border-color: var(--sindoor);
+}
+
+.fee-bands {
+    display: grid;
+    gap: var(--s-1);
+    margin-top: var(--s-2);
+}
+
+.fee-bands li {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: var(--s-1) var(--s-4);
+    max-width: none;
+    padding: var(--s-2) var(--s-3);
+    border-left: 4px solid transparent;
+    border-radius: 4px;
+    font-size: var(--text-small);
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.fee-bands strong { font-weight: 500; }
+
+.fee-bands li.is-active {
+    background: var(--haldi-pale);
+    border-left-color: var(--haldi);
+}
+
+@media (max-width: 860px) {
+    .monthly { grid-template-columns: minmax(0, 1fr); gap: var(--s-6); padding: var(--s-5); }
 }
