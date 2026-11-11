@@ -124,7 +124,7 @@
 
 @media (max-width: 900px) {
     .lead-stack-scene { height: 400px; }
-    .lead-stack-3d { transform: translateY(40px) rotateX(16deg) rotateY(-32deg) scale(0.88); }
+    .lead-stack-3d { transform: translate(56px, 40px) rotateX(16deg) rotateY(-32deg) scale(0.8); }
 }
 
 @media (min-width: 901px) and (max-height: 720px) {
