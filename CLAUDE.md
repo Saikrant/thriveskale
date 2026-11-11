@@ -12,7 +12,7 @@ Owner/CTO: Sai Kranth. A junior developer and a business person work alongside. 
 ## Decisions so far
 - No US details anywhere. Founder line removed from contact/footer.
 - Performance: heavy effects (smooth scroll, custom cursor, video hero) were removed on purpose. Do not bring them back.
-- Palette "Pearl and Brass" and font Anek Latin are PLACEHOLDERS until the brand team chooses palette, font and logo. Keep colours as tokens in `src/index.css`.
+- Palette "Haldi & Ink" (light) and fonts Bricolage Grotesque + Hind are PLACEHOLDERS until the brand team chooses palette, font and logo. Keep colours as tokens in `src/index.css`.
 - Hero is a 3-field lead form that opens the WhatsApp thank-you flow, with a CSS-only sample chat that plays once.
 - Offer: "lead engine" (website + lead capture + Zoho CRM + WhatsApp + ads). No Industries section and no stock photos until real Indian imagery exists.
 - Do not invent claims (client counts, response times, ratings).
