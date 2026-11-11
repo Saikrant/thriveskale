@@ -1,0 +1,16 @@
+.pay {
+    margin-top: auto;
+    padding-top: var(--s-3);
+    border-top: 1px solid var(--line);
+}
+
+.pay-title { font-weight: 500; }
+
+.pay-steps { display: grid; gap: var(--s-1); }
+
+.pay-steps strong {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    display: inline-block;
+    min-width: 3ch;
+}

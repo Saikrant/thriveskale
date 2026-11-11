@@ -1,190 +1,48 @@
-/* Hero: headline left, lead form in a haldi card right. Stacks on mobile with the form directly under the headline. */
+/* Hero: copy and form on the left, sample chat on the right.
+   On mobile: headline, form, then chat. */
 .hero {
-    background: var(--color-bg);
-    padding: 8.5rem 0 4rem;
+    padding: var(--s-8) 0 var(--s-9);
 }
 
-.hero-inner {
+.hero-grid {
     display: grid;
-    grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
-    gap: clamp(2rem, 6vw, 5rem);
-    align-items: center;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 0.9fr);
+    grid-template-areas:
+        "copy chat"
+        "form chat";
+    column-gap: var(--s-8);
+    row-gap: var(--s-6);
+    align-items: start;
 }
 
-.hero-headline {
-    font-family: var(--font-heading);
-    font-weight: 800;
-    font-size: clamp(2.5rem, 6vw, 4.75rem);
-    line-height: 1.02;
-    letter-spacing: -0.03em;
-    color: var(--color-ink);
-    max-width: 12ch;
-}
+.hero-copy { grid-area: copy; display: grid; gap: var(--s-4); }
+.hero-form { grid-area: form; }
+.hero-grid > .chat { grid-area: chat; align-self: center; }
 
 .hero-lead {
-    margin-top: 1.25rem;
-    max-width: 42ch;
     font-size: 1.2rem;
-    line-height: 1.55;
-    color: var(--color-muted);
+    color: var(--muted);
+    max-width: 46ch;
 }
 
-/* Lead form: haldi block. Only ink text on haldi (8.9:1). */
 .hero-form {
-    background: var(--color-haldi);
-    color: var(--color-ink);
-    border-radius: 8px;
-    padding: 1.75rem 1.5rem 1.5rem;
-    display: grid;
-    gap: 1rem;
+    background: var(--haldi-pale);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: var(--s-5);
+    max-width: 480px;
 }
 
-.hero-form-title {
-    font-size: 1.4rem;
-    font-weight: 800;
-    color: var(--color-ink);
-}
+.hero-form-title { font-size: 1.4rem; }
 
-.hero-form-note {
-    font-size: 1rem;
-    line-height: 1.45;
-    color: var(--color-ink);
-    margin-top: -0.5rem;
-}
+@media (max-width: 900px) {
+    .hero { padding: var(--s-6) 0 var(--s-8); }
 
-.hero-field { display: grid; gap: 0.35rem; }
+    .hero-grid {
+        grid-template-columns: minmax(0, 1fr);
+        grid-template-areas: "copy" "form" "chat";
+        row-gap: var(--s-5);
+    }
 
-.hero-field span {
-    font-size: 1rem;
-    font-weight: 500;
-    color: var(--color-ink);
-}
-
-.hero-field input,
-.hero-field select {
-    font: inherit;
-    font-size: 1rem;
-    min-height: 48px;
-    padding: 0 0.85rem;
-    color: var(--color-ink);
-    background: var(--color-card);
-    border: 2px solid var(--color-ink);
-    border-radius: 6px;
-}
-
-.hero-field input::placeholder { color: var(--color-muted); }
-
-.hero-field input:focus-visible,
-.hero-field select:focus-visible {
-    outline: 3px solid var(--color-ink);
-    outline-offset: 2px;
-}
-
-.hero-field [aria-invalid="true"] { border-width: 3px; }
-
-/* Errors sit on haldi, so they use ink (sindoor on haldi fails contrast). */
-.hero-field em {
-    font-style: normal;
-    font-size: 0.95rem;
-    font-weight: 500;
-    color: var(--color-ink);
-}
-
-.hero-field em::before { content: '! '; font-weight: 700; }
-
-.hero-form-submit {
-    width: 100%;
-    min-height: 52px;
-    font-family: var(--font-heading);
-    font-size: 1.1rem;
-    font-weight: 700;
-    color: var(--color-on-sindoor);
-    background: var(--color-sindoor);
-    border-radius: 6px;
-    transition: background-color 0.2s ease;
-}
-
-.hero-form-submit:hover { background: var(--color-sindoor-hover); }
-
-.hero-form-submit:focus-visible {
-    outline: 3px solid var(--color-ink);
-    outline-offset: 3px;
-}
-
-/* Service tiles under the hero */
-.hero-services {
-    background: var(--color-bg);
-    padding: 0 0 4.5rem;
-}
-
-.hero-services-title {
-    font-size: clamp(1.5rem, 3vw, 2rem);
-    font-weight: 700;
-    margin-bottom: 1.25rem;
-}
-
-.hero-tiles {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 1rem;
-}
-
-.hero-tile {
-    background: var(--color-card);
-    border: 1px solid var(--color-line);
-    border-top: 6px solid var(--color-haldi);
-    border-radius: 8px;
-    padding: 1.5rem;
-    display: flex;
-    flex-direction: column;
-    gap: 0.6rem;
-}
-
-.hero-tile-name {
-    font-size: 1.35rem;
-    font-weight: 800;
-}
-
-.hero-tile-text {
-    color: var(--color-muted);
-    line-height: 1.55;
-    flex: 1;
-}
-
-.hero-tile-price {
-    color: var(--color-ink);
-    font-size: 1.05rem;
-}
-
-.hero-tile-price strong {
-    font-family: var(--font-heading);
-    font-size: 1.5rem;
-    font-weight: 800;
-}
-
-.hero-tile-price span { color: var(--color-muted); }
-
-.hero-tiles-link {
-    margin-top: 1.25rem;
-    background: none;
-    padding: 0.5rem 0;
-    min-height: 44px;
-    font-size: 1.05rem;
-    font-weight: 500;
-    color: var(--color-sindoor);
-    text-decoration: underline;
-    text-underline-offset: 4px;
-}
-
-.hero-tiles-link:hover { color: var(--color-sindoor-hover); }
-
-@media (max-width: 860px) {
-    .hero { padding: 6.5rem 0 3rem; }
-    .hero-inner { grid-template-columns: 1fr; gap: 1.75rem; }
-    .hero-headline { max-width: 14ch; }
-    .hero-tiles { grid-template-columns: 1fr; }
-}
-
-@media (max-width: 400px) {
-    .hero-form { padding: 1.5rem 1rem 1.25rem; }
+    .hero-form { max-width: none; }
 }

@@ -1,0 +1,159 @@
+/* Sample chat. Only opacity and transform animate, so it never triggers layout. */
+.chat {
+    background: var(--chat-bg);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    overflow: hidden;
+    contain: layout paint;
+}
+
+.chat-top {
+    display: flex;
+    align-items: center;
+    gap: var(--s-3);
+    padding: var(--s-3) var(--s-4);
+    background: var(--card);
+    border-bottom: 1px solid var(--line);
+}
+
+.chat-avatar {
+    width: 40px;
+    height: 40px;
+    flex-shrink: 0;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    background: var(--haldi);
+    color: var(--ink);
+    font-family: var(--font-heading);
+    font-weight: 700;
+}
+
+.chat-name { font-weight: 500; line-height: 1.3; }
+.chat-status { font-size: var(--text-small); color: var(--muted); line-height: 1.3; }
+
+.chat-body {
+    display: grid;
+    gap: var(--s-3);
+    padding: var(--s-5) var(--s-4);
+}
+
+.chat-msg {
+    position: relative;
+    max-width: 85%;
+    padding: var(--s-2) var(--s-3) var(--s-4);
+    border-radius: 10px;
+    color: var(--ink);
+    line-height: 1.45;
+    border: 1px solid var(--line);
+}
+
+.chat-msg time {
+    position: absolute;
+    right: var(--s-2);
+    bottom: 2px;
+    font-size: 0.8rem;
+    color: var(--muted);
+}
+
+.chat-msg--in {
+    justify-self: start;
+    background: var(--card);
+    border-top-left-radius: 2px;
+}
+
+.chat-msg--out {
+    justify-self: end;
+    background: var(--haldi-pale);
+    border-top-right-radius: 2px;
+}
+
+/* Typing dots share a grid cell with the first reply, so nothing moves. */
+.chat-slot {
+    display: grid;
+}
+
+.chat-slot > * {
+    grid-area: 1 / 1;
+}
+
+.chat-typing {
+    justify-self: end;
+    align-self: start;
+    display: inline-flex;
+    gap: 4px;
+    padding: var(--s-3);
+    background: var(--haldi-pale);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    opacity: 0;
+}
+
+.chat-typing i {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--muted);
+}
+
+.chat-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-2);
+    margin-top: var(--s-2);
+}
+
+.chat-actions span {
+    padding: 2px var(--s-3);
+    background: var(--card);
+    border: 1px solid var(--line-strong);
+    border-radius: 999px;
+    font-size: var(--text-small);
+    font-weight: 500;
+    color: var(--sindoor);
+}
+
+.chat-note {
+    justify-self: center;
+    text-align: center;
+    padding: var(--s-1) var(--s-3);
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    font-size: var(--text-small);
+    color: var(--ink);
+}
+
+/* Plays once on load (about 6 seconds), then stays still. */
+@media (prefers-reduced-motion: no-preference) {
+    .chat-msg,
+    .chat-note {
+        animation: chat-in 0.35s ease-out var(--d, 0s) backwards;
+    }
+
+    .chat-typing {
+        animation: chat-typing 1.2s ease 1.4s backwards;
+    }
+
+    .chat-typing i {
+        animation: chat-dot 0.6s ease-in-out 1.4s 2 alternate;
+    }
+
+    .chat-typing i:nth-child(2) { animation-delay: 1.55s; }
+    .chat-typing i:nth-child(3) { animation-delay: 1.7s; }
+}
+
+@keyframes chat-in {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: none; }
+}
+
+@keyframes chat-typing {
+    0% { opacity: 0; }
+    15%, 85% { opacity: 1; }
+    100% { opacity: 0; }
+}
+
+@keyframes chat-dot {
+    to { transform: translateY(-3px); }
+}

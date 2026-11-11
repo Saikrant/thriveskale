@@ -1,0 +1,14 @@
+.legal { border-top: none; }
+
+.legal-body {
+    max-width: 720px;
+    display: grid;
+    gap: var(--s-4);
+}
+
+.legal-body h1 { font-size: var(--text-h2); }
+
+.legal-body h2 {
+    font-size: var(--text-h3);
+    margin-top: var(--s-4);
+}

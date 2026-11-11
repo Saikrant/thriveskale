@@ -1,0 +1,23 @@
+.step-num {
+    width: 40px;
+    height: 40px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    background: var(--haldi);
+    color: var(--ink);
+    font-family: var(--font-heading);
+    font-size: 1.15rem;
+    font-weight: 800;
+}
+
+.step-included {
+    margin-top: auto;
+    padding-top: var(--s-3);
+    border-top: 1px solid var(--line);
+    color: var(--ink);
+}
+
+.step-included span { font-weight: 500; }
+
+.steps-note { margin-top: var(--s-5); }

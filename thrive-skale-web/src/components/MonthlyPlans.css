@@ -1,0 +1,17 @@
+.monthly {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: var(--s-6);
+    align-items: start;
+}
+
+.monthly-about { display: grid; gap: var(--s-3); }
+
+.monthly strong {
+    font-family: var(--font-heading);
+    font-weight: 700;
+}
+
+@media (max-width: 760px) {
+    .monthly { grid-template-columns: minmax(0, 1fr); }
+}
