@@ -1,120 +1,190 @@
-/* Hero: headline on the left, a rate card of real starting prices on the right. */
+/* Hero: headline left, lead form in a haldi card right. Stacks on mobile with the form directly under the headline. */
 .hero {
-    background: var(--paper);
-    padding: 9rem 0 5rem;
+    background: var(--color-bg);
+    padding: 8.5rem 0 4rem;
 }
 
 .hero-inner {
     display: grid;
-    grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
     gap: clamp(2rem, 6vw, 5rem);
-    align-items: start;
+    align-items: center;
 }
 
 .hero-headline {
-    font-weight: 700;
-    font-stretch: 112%;
-    font-size: clamp(2.3rem, 5vw, 4.2rem);
-    line-height: 1.06;
-    letter-spacing: -0.012em;
-    color: var(--ink);
-    max-width: 16ch;
-    text-wrap: balance;
+    font-family: var(--font-heading);
+    font-weight: 800;
+    font-size: clamp(2.5rem, 6vw, 4.75rem);
+    line-height: 1.02;
+    letter-spacing: -0.03em;
+    color: var(--color-ink);
+    max-width: 12ch;
 }
 
 .hero-lead {
-    margin-top: 1.5rem;
-    max-width: 46ch;
+    margin-top: 1.25rem;
+    max-width: 42ch;
     font-size: 1.2rem;
     line-height: 1.55;
-    color: var(--ink-muted);
+    color: var(--color-muted);
 }
 
-.hero-ctas {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.75rem;
-    margin-top: 2.25rem;
-}
-
-.hero-cta-primary,
-.hero-cta-secondary {
-    font-size: 1.05rem;
-    font-weight: 600;
-    padding: 0.85rem 1.5rem;
-    border-radius: 6px;
-    transition: background-color 0.2s ease, border-color 0.2s ease;
-}
-
-.hero-cta-primary {
-    background: var(--accent);
-    color: var(--ink);
-}
-
-.hero-cta-primary:hover {
-    background: #D9953A;
-}
-
-.hero-cta-secondary {
-    background: transparent;
-    color: var(--ink);
-    border: 1px solid rgba(23, 40, 58, 0.35);
-}
-
-.hero-cta-secondary:hover {
-    border-color: var(--ink);
-}
-
-.hero-cta-primary:focus-visible,
-.hero-cta-secondary:focus-visible {
-    outline: 2px solid var(--teal);
-    outline-offset: 3px;
-}
-
-/* Lead form */
+/* Lead form: haldi block. Only ink text on haldi (8.9:1). */
 .hero-form {
-    background: var(--surface);
-    border: 1px solid rgba(23, 40, 58, 0.14);
-    border-radius: 6px;
+    background: var(--color-haldi);
+    color: var(--color-ink);
+    border-radius: 8px;
     padding: 1.75rem 1.5rem 1.5rem;
     display: grid;
     gap: 1rem;
 }
 
-.hero-form-title { font-size: 1.3rem; font-weight: 700; color: var(--ink); }
-.hero-form-note { font-size: 0.95rem; line-height: 1.45; color: var(--ink-muted); margin-top: -0.5rem; }
+.hero-form-title {
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: var(--color-ink);
+}
+
+.hero-form-note {
+    font-size: 1rem;
+    line-height: 1.45;
+    color: var(--color-ink);
+    margin-top: -0.5rem;
+}
 
 .hero-field { display: grid; gap: 0.35rem; }
-.hero-field span { font-size: 0.95rem; font-weight: 600; color: var(--ink); }
+
+.hero-field span {
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--color-ink);
+}
+
 .hero-field input,
 .hero-field select {
     font: inherit;
     font-size: 1rem;
     min-height: 48px;
     padding: 0 0.85rem;
-    color: var(--ink);
-    background: #fff;
-    border: 1px solid rgba(23, 40, 58, 0.4);
-    border-radius: 4px;
+    color: var(--color-ink);
+    background: var(--color-card);
+    border: 2px solid var(--color-ink);
+    border-radius: 6px;
 }
-.hero-field input:focus-visible,
-.hero-field select:focus-visible { outline: 2px solid var(--teal); outline-offset: 2px; }
-.hero-field [aria-invalid="true"] { border-color: #A3262A; }
-.hero-field em { font-style: normal; font-size: 0.9rem; color: #A3262A; }
 
-.hero-form-submit { width: 100%; justify-content: center; }
-.hero-form-price { font-size: 0.9rem; line-height: 1.4; color: var(--ink-muted); }
+.hero-field input::placeholder { color: var(--color-muted); }
+
+.hero-field input:focus-visible,
+.hero-field select:focus-visible {
+    outline: 3px solid var(--color-ink);
+    outline-offset: 2px;
+}
+
+.hero-field [aria-invalid="true"] { border-width: 3px; }
+
+/* Errors sit on haldi, so they use ink (sindoor on haldi fails contrast). */
+.hero-field em {
+    font-style: normal;
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--color-ink);
+}
+
+.hero-field em::before { content: '! '; font-weight: 700; }
+
+.hero-form-submit {
+    width: 100%;
+    min-height: 52px;
+    font-family: var(--font-heading);
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--color-on-sindoor);
+    background: var(--color-sindoor);
+    border-radius: 6px;
+    transition: background-color 0.2s ease;
+}
+
+.hero-form-submit:hover { background: var(--color-sindoor-hover); }
+
+.hero-form-submit:focus-visible {
+    outline: 3px solid var(--color-ink);
+    outline-offset: 3px;
+}
+
+/* Service tiles under the hero */
+.hero-services {
+    background: var(--color-bg);
+    padding: 0 0 4.5rem;
+}
+
+.hero-services-title {
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    font-weight: 700;
+    margin-bottom: 1.25rem;
+}
+
+.hero-tiles {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1rem;
+}
+
+.hero-tile {
+    background: var(--color-card);
+    border: 1px solid var(--color-line);
+    border-top: 6px solid var(--color-haldi);
+    border-radius: 8px;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+}
+
+.hero-tile-name {
+    font-size: 1.35rem;
+    font-weight: 800;
+}
+
+.hero-tile-text {
+    color: var(--color-muted);
+    line-height: 1.55;
+    flex: 1;
+}
+
+.hero-tile-price {
+    color: var(--color-ink);
+    font-size: 1.05rem;
+}
+
+.hero-tile-price strong {
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    font-weight: 800;
+}
+
+.hero-tile-price span { color: var(--color-muted); }
+
+.hero-tiles-link {
+    margin-top: 1.25rem;
+    background: none;
+    padding: 0.5rem 0;
+    min-height: 44px;
+    font-size: 1.05rem;
+    font-weight: 500;
+    color: var(--color-sindoor);
+    text-decoration: underline;
+    text-underline-offset: 4px;
+}
+
+.hero-tiles-link:hover { color: var(--color-sindoor-hover); }
 
 @media (max-width: 860px) {
-    .hero {
-        padding: 7rem 0 3.5rem;
-    }
+    .hero { padding: 6.5rem 0 3rem; }
+    .hero-inner { grid-template-columns: 1fr; gap: 1.75rem; }
+    .hero-headline { max-width: 14ch; }
+    .hero-tiles { grid-template-columns: 1fr; }
+}
 
-    .hero-inner {
-        grid-template-columns: 1fr;
-    }
-
-    .hero-headline {
-        max-width: none;
-    }
+@media (max-width: 400px) {
+    .hero-form { padding: 1.5rem 1rem 1.25rem; }
 }

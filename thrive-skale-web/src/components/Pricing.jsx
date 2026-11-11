@@ -148,12 +148,10 @@ const Pricing = () => {
             {/* Header */}
             <div className="pricing-header">
                 <h2 className="pricing-title">
-                    Transparent{' '}
-                    Pricing
+                    Prices, upfront
                 </h2>
                 <p className="pricing-subtitle">
-                    Competitive rates tailored for businesses of every size.
-                    No hidden costs — what you see is what you pay.
+                    Starting prices for every package. Anything extra is quoted before we start.
                 </p>
             </div>
 
@@ -185,7 +183,8 @@ const Pricing = () => {
                             transition: 'opacity 0.5s ease, transform 0.5s ease, border-color 0.3s ease',
                         }}
                     >
-                        <div className="pricing-plan-name">{plan.name}</div>
+                        {plan.popular && <p className="pricing-badge">Recommended</p>}
+                        <h3 className="pricing-plan-name">{plan.name}</h3>
                         <div className="pricing-price">
                             <span className="pricing-currency">{config.currency.symbol}</span>
                             <span className="pricing-amount">{plan.price}</span>
@@ -196,7 +195,7 @@ const Pricing = () => {
                         <ul className="pricing-features">
                             {plan.features.map((feature, idx) => (
                                 <li key={idx} className="pricing-feature">
-                                    <span className="pricing-feature-icon">✓</span>
+                                    <span className="pricing-feature-icon" aria-hidden="true"></span>
                                     <span>{feature}</span>
                                 </li>
                             ))}
@@ -206,7 +205,7 @@ const Pricing = () => {
                             className={`pricing-cta ${plan.popular ? 'pricing-cta--primary' : 'pricing-cta--outline'}`}
                             onClick={() => handleGetStarted(plan.name)}
                         >
-                            Get Started
+                            Get a quote
                         </button>
                     </div>
                 ))}

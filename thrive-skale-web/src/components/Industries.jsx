@@ -13,168 +13,101 @@ const Industries = () => {
     const industries = [
         {
             name: "Salons & Spas",
-            icon: "💇‍♀️",
             category: "Beauty & Wellness",
-            clients: "50+ clients",
-            tag: "Premium",
             image: "/images/industries/salons.webp",
             description: "Transform your salon into a digital powerhouse. Streamline bookings, enhance customer loyalty, and grow your beauty business.",
             services: [
-                { icon: "🌐", name: "Premium Website", desc: "Showcase services & online booking" },
-                { icon: "📱", name: "Mobile App", desc: "Appointment scheduling & loyalty rewards" },
-                { icon: "📊", name: "CRM & Marketing", desc: "Automated reminders & promotions" },
-                { icon: "🤖", name: "AI Chatbot", desc: "24/7 booking assistance" }
-            ],
-            successMetrics: [
-                { label: "Booking Increase", value: "45%" },
-                { label: "Customer Retention", value: "65%" },
-                { label: "No-Show Reduction", value: "30%" }
+                { name: "Premium Website", desc: "Showcase services & online booking" },
+                { name: "Mobile App", desc: "Appointment scheduling & loyalty rewards" },
+                { name: "CRM & Marketing", desc: "Automated reminders & promotions" },
+                { name: "AI Chatbot", desc: "24/7 booking assistance" }
             ]
         },
         {
             name: "Restaurants",
-            icon: "🍽️",
             category: "Food & Beverage",
-            clients: "35+ clients",
-            tag: "Popular",
             image: "/images/industries/restaurants.webp",
             description: "Boost your restaurant's revenue with digital ordering, table management, and customer engagement tools.",
             services: [
-                { icon: "🌐", name: "Restaurant Website", desc: "Menu display & online ordering system" },
-                { icon: "📱", name: "Ordering App", desc: "Mobile ordering & delivery integration" },
-                { icon: "📊", name: "Table Management", desc: "Reservations & waitlist automation" },
-                { icon: "🤖", name: "AI Customer Support", desc: "Order tracking & customer queries" }
-            ],
-            successMetrics: [
-                { label: "Online Orders", value: "2.5x" },
-                { label: "Revenue Growth", value: "35%" },
-                { label: "Customer Satisfaction", value: "90%" }
+                { name: "Restaurant Website", desc: "Menu display & online ordering system" },
+                { name: "Ordering App", desc: "Mobile ordering & delivery integration" },
+                { name: "Table Management", desc: "Reservations & waitlist automation" },
+                { name: "AI Customer Support", desc: "Order tracking & customer queries" }
             ]
         },
         {
             name: "Gyms & Fitness",
-            icon: "💪",
             category: "Health & Wellness",
-            clients: "40+ clients",
-            tag: "Trending",
             image: "/images/industries/gyms.webp",
             description: "Empower your fitness business with membership management, class scheduling, and member engagement solutions.",
             services: [
-                { icon: "🌐", name: "Fitness Website", desc: "Class schedules & membership signup" },
-                { icon: "📱", name: "Member App", desc: "Class booking & progress tracking" },
-                { icon: "📊", name: "Member Portal", desc: "Billing & attendance management" },
-                { icon: "🤖", name: "AI Trainer Bot", desc: "Workout tips & nutrition guidance" }
-            ],
-            successMetrics: [
-                { label: "Member Retention", value: "60%" },
-                { label: "Class Attendance", value: "+40%" },
-                { label: "Revenue per Member", value: "+25%" }
+                { name: "Fitness Website", desc: "Class schedules & membership signup" },
+                { name: "Member App", desc: "Class booking & progress tracking" },
+                { name: "Member Portal", desc: "Billing & attendance management" },
+                { name: "AI Trainer Bot", desc: "Workout tips & nutrition guidance" }
             ]
         },
         {
             name: "Real Estate",
-            icon: "🏠",
             category: "Property & Housing",
-            clients: "25+ clients",
-            tag: "Premium",
             image: "/images/industries/real_estate.webp",
             description: "Showcase properties beautifully, manage leads effectively, and close deals faster with our real estate solutions.",
             services: [
-                { icon: "🌐", name: "Property Portal", desc: "Listings & virtual tours" },
-                { icon: "📱", name: "Agent App", desc: "Lead management & scheduling" },
-                { icon: "📊", name: "CRM System", desc: "Client tracking & automation" },
-                { icon: "🤖", name: "AI Assistant", desc: "Property queries & lead qualification" }
-            ],
-            successMetrics: [
-                { label: "Lead Generation", value: "+55%" },
-                { label: "Conversion Rate", value: "38%" },
-                { label: "Deal Closure Time", value: "-20%" }
+                { name: "Property Portal", desc: "Listings & virtual tours" },
+                { name: "Agent App", desc: "Lead management & scheduling" },
+                { name: "CRM System", desc: "Client tracking & automation" },
+                { name: "AI Assistant", desc: "Property queries & lead qualification" }
             ]
         },
         {
             name: "Healthcare",
-            icon: "⚕️",
             category: "Medical Services",
-            clients: "30+ clients",
-            tag: "Essential",
             image: "/images/industries/healthcare.webp",
             description: "Modernize patient care with appointment scheduling, telemedicine capabilities, and HIPAA-compliant solutions.",
             services: [
-                { icon: "🌐", name: "Medical Website", desc: "Patient portal & appointment booking" },
-                { icon: "📱", name: "Patient App", desc: "Health records & telemedicine" },
-                { icon: "📊", name: "Practice Management", desc: "Scheduling & billing automation" },
-                { icon: "🤖", name: "AI Health Assistant", desc: "Symptom checker & FAQ support" }
-            ],
-            successMetrics: [
-                { label: "Patient Satisfaction", value: "92%" },
-                { label: "Appointment Efficiency", value: "+50%" },
-                { label: "Administrative Time", value: "-35%" }
+                { name: "Medical Website", desc: "Patient portal & appointment booking" },
+                { name: "Patient App", desc: "Health records & telemedicine" },
+                { name: "Practice Management", desc: "Scheduling & billing automation" },
+                { name: "AI Health Assistant", desc: "Symptom checker & FAQ support" }
             ]
         },
         {
             name: "Retail",
-            icon: "🛍️",
             category: "E-commerce & Stores",
-            clients: "45+ clients",
-            tag: "Popular",
             image: "/images/industries/retail.webp",
             description: "Scale your retail business with e-commerce platforms, inventory management, and omnichannel customer experiences.",
             services: [
-                { icon: "🌐", name: "E-commerce Store", desc: "Online shopping & payment processing" },
-                { icon: "📱", name: "Shopping App", desc: "Mobile commerce & loyalty program" },
-                { icon: "📊", name: "Inventory System", desc: "Stock management & analytics" },
-                { icon: "🤖", name: "AI Shopping Assistant", desc: "Product recommendations & support" }
-            ],
-            successMetrics: [
-                { label: "Online Sales", value: "3x" },
-                { label: "Customer Lifetime Value", value: "+45%" },
-                { label: "Cart Abandonment", value: "-28%" }
+                { name: "E-commerce Store", desc: "Online shopping & payment processing" },
+                { name: "Shopping App", desc: "Mobile commerce & loyalty program" },
+                { name: "Inventory System", desc: "Stock management & analytics" },
+                { name: "AI Shopping Assistant", desc: "Product recommendations & support" }
             ]
         },
         {
             name: "Education",
-            icon: "🎓",
             category: "Learning & Training",
-            clients: "20+ clients",
-            tag: "Emerging",
             image: "/images/industries/education.webp",
             description: "Enhance learning experiences with online courses, student portals, and interactive educational platforms.",
             services: [
-                { icon: "🌐", name: "Learning Portal", desc: "Course catalog & enrollment" },
-                { icon: "📱", name: "Student App", desc: "Assignments & progress tracking" },
-                { icon: "📊", name: "Admin Dashboard", desc: "Student management & analytics" },
-                { icon: "🤖", name: "AI Tutor Bot", desc: "Q&A support & study assistance" }
-            ],
-            successMetrics: [
-                { label: "Student Engagement", value: "+70%" },
-                { label: "Course Completion", value: "85%" },
-                { label: "Enrollment Growth", value: "+42%" }
+                { name: "Learning Portal", desc: "Course catalog & enrollment" },
+                { name: "Student App", desc: "Assignments & progress tracking" },
+                { name: "Admin Dashboard", desc: "Student management & analytics" },
+                { name: "AI Tutor Bot", desc: "Q&A support & study assistance" }
             ]
         },
         {
             name: "Home Services",
-            icon: "🔧",
             category: "Repairs & Maintenance",
-            clients: "38+ clients",
-            tag: "Growing",
             image: "/images/industries/home_services.webp",
             description: "Grow your service business with booking systems, technician dispatch, and customer feedback management.",
             services: [
-                { icon: "🌐", name: "Service Website", desc: "Service listings & instant quotes" },
-                { icon: "📱", name: "Technician App", desc: "Job scheduling & route optimization" },
-                { icon: "📊", name: "Dispatch System", desc: "Real-time job tracking & invoicing" },
-                { icon: "🤖", name: "AI Booking Bot", desc: "Quote generation & scheduling" }
-            ],
-            successMetrics: [
-                { label: "Booking Efficiency", value: "+55%" },
-                { label: "Customer Satisfaction", value: "88%" },
-                { label: "Revenue Growth", value: "+40%" }
+                { name: "Service Website", desc: "Service listings & instant quotes" },
+                { name: "Technician App", desc: "Job scheduling & route optimization" },
+                { name: "Dispatch System", desc: "Real-time job tracking & invoicing" },
+                { name: "AI Booking Bot", desc: "Quote generation & scheduling" }
             ]
         }
     ];
-
-    // Height pattern for masonry effect
-    const heights = [400, 480, 520, 450, 400, 480, 520, 450];
 
     // Scroll entrance animation
     useEffect(() => {
@@ -270,8 +203,13 @@ const Industries = () => {
                             key={index}
                             className="ind-card"
                             ref={(el) => (cardsRef.current[index] = el)}
-                            style={{ '--card-h': `${heights[index]}px` }}
                             onClick={() => handleLearnMore(ind)}
+                            onKeyDown={(e) => {
+                                if (e.key === 'Enter' || e.key === ' ') {
+                                    e.preventDefault();
+                                    handleLearnMore(ind);
+                                }
+                            }}
                             tabIndex={0}
                             role="button"
                             aria-label={`Learn more about ${ind.name}`}
@@ -279,24 +217,18 @@ const Industries = () => {
                             {/* Background image */}
                             <img
                                 src={ind.image}
-                                alt={ind.name}
+                                alt=""
                                 className="ind-card-img"
                                 loading="lazy"
                                 onLoad={(e) => e.target.classList.add('loaded')}
                             />
-
-                            {/* Gradient overlay */}
-                            <div className="ind-card-overlay"></div>
 
                             {/* Content */}
                             <div className="ind-card-content">
                                 <h3 className="ind-card-name">{ind.name}</h3>
                                 <p className="ind-card-category">{ind.category}</p>
 
-                                {/* Learn More (reveals on hover) */}
-                                <button className="ind-learn-btn">
-                                    Learn More
-                                </button>
+                                <span className="ind-learn-btn" aria-hidden="true">See what we build</span>
                             </div>
                         </div>
                     );
@@ -320,7 +252,6 @@ const Industries = () => {
                     <>
                         <div className="ind-panel-header">
                             <div className="ind-panel-header-left">
-                                <span className="ind-panel-icon">{selectedIndustry.icon}</span>
                                 <div>
                                     <h3 className="ind-panel-title">{selectedIndustry.name}</h3>
                                     <p className="ind-panel-cat">{selectedIndustry.category}</p>
@@ -338,27 +269,14 @@ const Industries = () => {
                             <p className="ind-panel-desc">{selectedIndustry.description}</p>
 
                             <div className="ind-panel-section">
-                                <h4 className="ind-panel-section-title">Our Services</h4>
+                                <h4 className="ind-panel-section-title">What we build</h4>
                                 <div className="ind-panel-services">
                                     {selectedIndustry.services.map((svc, idx) => (
                                         <div key={idx} className="ind-panel-svc-card">
-                                            <span className="ind-panel-svc-icon">{svc.icon}</span>
                                             <div>
                                                 <h5 className="ind-panel-svc-name">{svc.name}</h5>
                                                 <p className="ind-panel-svc-desc">{svc.desc}</p>
                                             </div>
-                                        </div>
-                                    ))}
-                                </div>
-                            </div>
-
-                            <div className="ind-panel-section">
-                                <h4 className="ind-panel-section-title">Success Metrics</h4>
-                                <div className="ind-panel-metrics">
-                                    {selectedIndustry.successMetrics.map((m, idx) => (
-                                        <div key={idx} className="ind-metric-card">
-                                            <div className="ind-metric-value">{m.value}</div>
-                                            <div className="ind-metric-label">{m.label}</div>
                                         </div>
                                     ))}
                                 </div>
@@ -372,10 +290,10 @@ const Industries = () => {
                                         document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
                                     }}
                                 >
-                                    📞 Book Free Consultation
+                                    Book a free call
                                 </button>
                                 <p className="ind-cta-sub">
-                                    Let's discuss how we can help grow your {selectedIndustry.category.toLowerCase()} business
+                                    We will recommend a package for your business.
                                 </p>
                             </div>
                         </div>

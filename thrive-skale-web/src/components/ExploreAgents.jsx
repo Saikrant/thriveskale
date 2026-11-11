@@ -14,11 +14,10 @@ const ExploreAgents = () => {
     }, [navigate]);
 
     return (
-        <div className="ea-page" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', textAlign: 'center', minHeight: '100vh', flexDirection: 'column' }}>
-            <div className="ea-bg-mesh" />
+        <div className="ea-page">
             <div className="ea-container">
-                <h1 className="ea-title" style={{ marginBottom: '20px' }}>Coming Soon</h1>
-                <p className="ea-subtitle">We are crafting something amazing. Redirecting you to home...</p>
+                <h1 className="ea-title">Coming soon</h1>
+                <p className="ea-subtitle">This page is not ready yet. Taking you back to the home page.</p>
             </div>
         </div>
     );

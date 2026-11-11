@@ -1,8 +1,9 @@
+/* Footer: ink panel. Light text 15.1:1, muted light 11.1:1, haldi headings 8.9:1. */
 .footer {
-    background: var(--ink);
-    padding: 60px 0 20px;
-    border-top: 3px solid var(--accent);
-    color: var(--paper);
+    background: var(--color-ink);
+    color: var(--color-on-ink);
+    padding: 60px 0 24px;
+    border-top: 6px solid var(--color-haldi);
 }
 
 .footer-grid {
@@ -14,95 +15,76 @@
 
 .footer-col h3 {
     font-size: 1.8rem;
-    margin-bottom: 15px;
-    color: var(--surface);
+    font-weight: 800;
+    margin-bottom: 12px;
+    color: var(--color-haldi);
 }
 
 .footer-col h4 {
     font-size: 1.2rem;
-    margin-bottom: 20px;
-    color: var(--accent);
+    font-weight: 700;
+    margin-bottom: 16px;
+    color: var(--color-haldi);
 }
 
 .footer-tagline {
-    color: #C9D3DC;
+    color: var(--color-on-ink-muted);
     line-height: 1.6;
-    max-width: 300px;
+    max-width: 32ch;
 }
 
-.footer-links {
-    list-style: none;
+.footer-links li { margin-bottom: 8px; }
+
+.footer a {
+    color: var(--color-on-ink);
+    text-decoration: underline;
+    text-decoration-color: transparent;
+    text-underline-offset: 4px;
+    transition: text-decoration-color 0.2s ease;
 }
 
-.footer-links li {
-    margin-bottom: 10px;
-}
+.footer a:hover { text-decoration-color: var(--color-haldi); }
 
-.footer-links a {
-    color: #DCE3E9;
-    text-decoration: none;
-    transition: var(--transition-speed);
-}
-
-.footer-links a:hover {
-    color: var(--accent);
-    padding-left: 5px;
-}
+.footer a:focus-visible { outline-color: var(--color-haldi); }
 
 .footer-contact p {
     margin-bottom: 10px;
-    color: #DCE3E9;
-    font-size: 0.95rem;
+    color: var(--color-on-ink);
+    overflow-wrap: anywhere;
 }
 
 .footer-contact strong {
-    color: var(--surface);
-    margin-right: 5px;
+    color: var(--color-on-ink-muted);
+    font-weight: 500;
+    margin-right: 4px;
 }
 
 .footer-bottom {
     text-align: center;
     padding-top: 20px;
-    border-top: 1px solid rgba(251,252,251,0.18);
-    font-size: 0.9rem;
-    color: #B4C0CB;
+    border-top: 1px solid color-mix(in srgb, var(--color-on-ink) 20%, transparent);
+    font-size: 0.95rem;
+    color: var(--color-on-ink-muted);
 }
+
+.footer-bottom p { margin: 0 auto; }
 
 @media (max-width: 768px) {
     .footer {
-        padding: 40px 16px 20px;
+        padding: 40px 0 20px;
         padding-bottom: calc(20px + env(safe-area-inset-bottom));
     }
 
     .footer-grid {
         grid-template-columns: 1fr;
-        gap: 30px;
-        text-align: center;
-    }
-
-    .footer-tagline {
-        margin: 0 auto;
-    }
-
-    .footer-col h3 {
-        font-size: 1.5rem;
-    }
-
-    .footer-col h4 {
-        font-size: 1.1rem;
+        gap: 28px;
     }
 
     .footer-links a {
-        display: inline-block;
+        display: inline-flex;
+        align-items: center;
         min-height: 44px;
-        line-height: 44px;
     }
 
-    .footer-links li {
-        margin-bottom: 4px;
-    }
-
-    .footer-bottom {
-        font-size: 0.8rem;
-    }
+    .footer-links li { margin-bottom: 0; }
 }

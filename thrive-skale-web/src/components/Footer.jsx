@@ -14,11 +14,11 @@ const Footer = () => {
             <div className="container footer-grid">
                 <div className="footer-col reveal rev-up">
                     <h3>ThrivvSkale</h3>
-                    <p className="footer-tagline">Engineering your digital growth with AI-driven strategies and stunning design.</p>
+                    <p className="footer-tagline">Websites, online stores and WhatsApp assistants for businesses in India.</p>
                 </div>
 
                 <div className="footer-col reveal rev-up delay-2">
-                    <h4>Quick Links</h4>
+                    <h4>Pages</h4>
                     <ul className="footer-links">
                         <li><Link to="/">Home</Link></li>
                         <li><Link to="/why-us">Why Us</Link></li>
@@ -28,7 +28,7 @@ const Footer = () => {
                 </div>
 
                 <div className="footer-col reveal rev-up delay-3">
-                    <h4>Contact Us</h4>
+                    <h4>Contact</h4>
                     <div className="footer-contact">
                         <p>
                             <strong>Phone:</strong>{' '}
@@ -39,7 +39,7 @@ const Footer = () => {
                                 {config.contact.phone.display}
                             </a>
                         </p>
-                        <p><strong>Email:</strong> {config.contact.email}</p>
+                        <p><strong>Email:</strong>{' '}<a href={`mailto:${config.contact.email}`} className="footer-link">{config.contact.email}</a></p>
                     </div>
                 </div>
             </div>

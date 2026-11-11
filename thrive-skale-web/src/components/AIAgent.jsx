@@ -33,7 +33,7 @@ const AIAgent = ({ initialData, onClose }) => {
             if (node.action === 'open_whatsapp') {
                 const ownerNumber = CONTACT.whatsappNumber;
                 const link = generateWhatsAppLink(ownerNumber, currentData);
-                action = { label: 'Connect on WhatsApp 💬', url: link };
+                action = { label: 'Connect on WhatsApp', url: link };
             }
 
             addMessage('agent', messageText, node.options, action);
@@ -119,7 +119,7 @@ const AIAgent = ({ initialData, onClose }) => {
             <div className="ai-agent-modal">
                 <div className="agent-header">
                     <div className="agent-identity">
-                        <div className="agent-avatar">🤖</div>
+                        <div className="agent-avatar" aria-hidden="true">TS</div>
                         <div className="agent-info">
                             <h3>ThrivvSkale AI</h3>
                             <span>Online • Typically replies instantly</span>

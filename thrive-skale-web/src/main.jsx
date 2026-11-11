@@ -1,7 +1,9 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { BrowserRouter } from 'react-router-dom'
-import '@fontsource-variable/anek-latin/wdth.css'
+import '@fontsource-variable/bricolage-grotesque/wght.css'
+import '@fontsource/hind/400.css'
+import '@fontsource/hind/500.css'
 import './index.css'
 import App from './App.jsx'
 

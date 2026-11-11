@@ -144,7 +144,6 @@ const Services = ({ onServiceSelect }) => {
 
     return (
         <section id="services" className="services-section" ref={sectionRef}>
-            <div className="services-bg-glow"></div>
 
             {/* Header */}
             <div className="svc-header">
@@ -188,14 +187,13 @@ const Services = ({ onServiceSelect }) => {
                                 <ul className="svc-features">
                                     {service.features.map((feature, idx) => (
                                         <li key={idx} className="svc-feature-item" style={{ transitionDelay: `${idx * 100}ms` }}>
-                                            <span className="svc-check">✓</span>
+                                            <span className="svc-check" aria-hidden="true">✓</span>
                                             {feature}
                                         </li>
                                     ))}
                                 </ul>
                             </div>
 
-                            <div className="svc-card-shine"></div>
                         </div>
                     ))}
                 </div>
@@ -234,7 +232,7 @@ const Services = ({ onServiceSelect }) => {
                                 <ul className="svc-modal-features">
                                     {selectedService.features.map((feature, idx) => (
                                         <li key={idx}>
-                                            <span className="svc-check">✓</span> {feature}
+                                            <span className="svc-check" aria-hidden="true">✓</span> {feature}
                                         </li>
                                     ))}
                                 </ul>
