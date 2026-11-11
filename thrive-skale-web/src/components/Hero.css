@@ -17,7 +17,7 @@
 
 .hero-copy { grid-area: copy; display: grid; gap: var(--s-4); }
 .hero-form { grid-area: form; }
-.hero-grid > .chat { grid-area: chat; align-self: center; }
+.hero-grid > .lead-stack { grid-area: chat; align-self: center; }
 
 .hero-lead {
     font-size: 1.2rem;
