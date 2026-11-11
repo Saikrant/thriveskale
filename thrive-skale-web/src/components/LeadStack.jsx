@@ -31,10 +31,14 @@ const LeadStack = () => {
             frame = 0;
             // Wide screens: the stack stays in view beside the form, so spread from the top.
             // Phones: the stack sits below the form, so start when it nears the screen.
+            // The sticky stack can only stay put for (column height - its own height), so
+            // the spread has to finish within that distance.
+            const travel = wide.matches && el.parentElement ? el.parentElement.offsetHeight - el.offsetHeight : 0;
+            const range = wide.matches ? Math.min(RANGE_PX, Math.max(120, travel * 0.85)) : RANGE_PX;
             const startY = wide.matches
                 ? 0
                 : Math.max(0, el.getBoundingClientRect().top + window.scrollY - 0.7 * window.innerHeight);
-            const t = Math.min(Math.max((window.scrollY - startY) / RANGE_PX, 0), 1);
+            const t = Math.min(Math.max((window.scrollY - startY) / range, 0), 1);
             el.style.setProperty('--p', String(START + (1 - START) * t));
         };
         const onScroll = () => {
