@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { CONTACT } from '../utils/countryConfig';
+import { CONTACT, PACKAGES, GST_NOTE, rupees } from '../utils/countryConfig';
 import { BUSINESS_TYPES, validateContactField } from '../utils/contactValidation';
 import { buildContactWhatsAppUrl } from '../utils/contactLead';
 import { trackLead } from '../utils/gtag';
@@ -40,10 +40,11 @@ const Hero = () => {
         <section id="hero" className="hero">
             <div className="container hero-grid">
                 <div className="hero-copy">
-                    <h1>A lead engine for your business</h1>
+                    <h1>Get more customers messaging you on WhatsApp</h1>
                     <p className="hero-lead">
-                        We build your website, send every enquiry to your CRM, reply on WhatsApp
-                        automatically and run the ads that bring customers in.
+                        We build your website, run the ads, reply to every enquiry instantly and
+                        save each one in your CRM. Made for Hyderabad businesses, from{' '}
+                        <strong>{rupees(PACKAGES[0].price)}</strong> {GST_NOTE}.
                     </p>
                 </div>
 
