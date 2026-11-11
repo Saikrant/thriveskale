@@ -30,18 +30,17 @@ const Footer = () => {
                 <div className="footer-col reveal rev-up delay-3">
                     <h4>Contact Us</h4>
                     <div className="footer-contact">
-                        <p><strong>Founder:</strong> {config.contact?.founder || 'Sai Kranth'}</p>
+                        <p><strong>Founder:</strong> {config.contact.founder}</p>
                         <p>
                             <strong>Phone:</strong>{' '}
                             <a
-                                href={config.contact?.phone?.link || 'tel:+19704122140'}
+                                href={config.contact.phone.link}
                                 className="footer-link"
                             >
-                                {config.contact?.phone?.display || '+1 (970) 412-2140'}
+                                {config.contact.phone.display}
                             </a>
                         </p>
-                        <p><strong>Email:</strong> {config.contact?.email || 'info@thrivvskale.com'}</p>
-                        <p><strong>Location:</strong> {config.contact?.location || 'Hyderabad, India'}</p>
+                        <p><strong>Email:</strong> {config.contact.email}</p>
                     </div>
                 </div>
             </div>

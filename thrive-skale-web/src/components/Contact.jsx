@@ -4,6 +4,7 @@ import './Contact.css';
 import AIAgent from './AIAgent';
 import { BUSINESS_TYPES, getTouchedContactFields, validateContactField, validateContactForm } from '../utils/contactValidation';
 import { buildContactWhatsAppUrl } from '../utils/contactLead';
+import { CONTACT } from '../utils/countryConfig';
 
 /* ============================================
    PARTICLE NETWORK CANVAS
@@ -286,7 +287,7 @@ const Contact = () => {
         setIsSubmitting(true);
 
         try {
-            const whatsappUrl = buildContactWhatsAppUrl('19704122140', formData);
+            const whatsappUrl = buildContactWhatsAppUrl(CONTACT.whatsappNumber, formData);
 
             // Navigate to Thank You page with WhatsApp URL in state
             navigate('/thank-you', { state: { whatsappUrl } });

@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef, useCallback } from 'react';
 import './AIAgent.css';
 import { workflow } from './workflowConfig';
 import { generateWhatsAppLink } from '../utils/whatsappUtils';
+import { CONTACT } from '../utils/countryConfig';
 
 const AIAgent = ({ initialData, onClose }) => {
     const [messages, setMessages] = useState([]);
@@ -30,7 +31,7 @@ const AIAgent = ({ initialData, onClose }) => {
 
             let action = null;
             if (node.action === 'open_whatsapp') {
-                const ownerNumber = '19704122140';
+                const ownerNumber = CONTACT.whatsappNumber;
                 const link = generateWhatsAppLink(ownerNumber, currentData);
                 action = { label: 'Connect on WhatsApp 💬', url: link };
             }

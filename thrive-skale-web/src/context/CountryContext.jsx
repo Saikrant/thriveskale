@@ -63,7 +63,7 @@ export const CountryProvider = ({ children }) => {
                 localStorage.setItem(STORAGE_KEY, detected);
                 setCountry(detected);
             } catch (err) {
-                console.warn('[CountrySwitcher] Auto-detection failed, defaulting to US:', err.message);
+                console.warn('[CountrySwitcher] Auto-detection failed, using default:', err.message);
                 setCountry(DEFAULT_COUNTRY);
             } finally {
                 setIsLoading(false);
