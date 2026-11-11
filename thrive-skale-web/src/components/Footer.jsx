@@ -30,7 +30,6 @@ const Footer = () => {
                 <div className="footer-col reveal rev-up delay-3">
                     <h4>Contact Us</h4>
                     <div className="footer-contact">
-                        <p><strong>Founder:</strong> {config.contact.founder}</p>
                         <p>
                             <strong>Phone:</strong>{' '}
                             <a

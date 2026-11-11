@@ -7,8 +7,6 @@ import { COUNTRY_CONFIG, DEFAULT_COUNTRY, SUPPORTED_COUNTRIES } from '../utils/c
    ============================================================ */
 
 const STORAGE_KEY = 'thrivvskale_country';
-const GEO_API_URL = 'https://ipapi.co/json/';
-const GEO_TIMEOUT_MS = 3000;
 
 const CountryContext = createContext(null);
 
@@ -26,49 +24,13 @@ export const useCountry = () => {
 
 export const CountryProvider = ({ children }) => {
     const [country, setCountry] = useState(DEFAULT_COUNTRY);
-    const [isLoading, setIsLoading] = useState(true);
+    const isLoading = false;
     const [notification, setNotification] = useState(null);
     const notificationTimer = useRef(null);
-    const hasDetected = useRef(false);
 
-    /* ---- Auto-detect on mount ---- */
+    /* Site is India-only for now: no IP lookup and no country switcher. */
     useEffect(() => {
-        if (hasDetected.current) return;
-        hasDetected.current = true;
-
-        (async () => {
-            try {
-                // Step 1: Check localStorage
-                const saved = localStorage.getItem(STORAGE_KEY);
-                if (saved && SUPPORTED_COUNTRIES.includes(saved)) {
-                    console.log('[CountrySwitcher] Using saved preference:', saved);
-                    setCountry(saved);
-                    setIsLoading(false);
-                    return;
-                }
-
-                // Step 2: IP geolocation with timeout
-                const controller = new AbortController();
-                const timeout = setTimeout(() => controller.abort(), GEO_TIMEOUT_MS);
-
-                const response = await fetch(GEO_API_URL, { signal: controller.signal });
-                clearTimeout(timeout);
-
-                if (!response.ok) throw new Error('Geolocation API returned ' + response.status);
-
-                const data = await response.json();
-                const detected = data.country_code === 'IN' ? 'IN' : 'US';
-
-                console.log('[CountrySwitcher] Detected country:', detected);
-                localStorage.setItem(STORAGE_KEY, detected);
-                setCountry(detected);
-            } catch (err) {
-                console.warn('[CountrySwitcher] Auto-detection failed, using default:', err.message);
-                setCountry(DEFAULT_COUNTRY);
-            } finally {
-                setIsLoading(false);
-            }
-        })();
+        localStorage.removeItem(STORAGE_KEY);
     }, []);
 
     /* ---- Notification toast logic ---- */
