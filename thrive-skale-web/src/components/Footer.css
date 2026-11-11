@@ -15,9 +15,7 @@
 .footer-col h3 {
     font-size: 1.8rem;
     margin-bottom: 15px;
-    background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    color: var(--ink);
 }
 
 .footer-col h4 {

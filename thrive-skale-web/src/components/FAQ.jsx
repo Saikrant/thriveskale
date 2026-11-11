@@ -85,7 +85,7 @@ const FAQ = () => {
             <div className="faq-header">
                 <h2 className="faq-title">
                     Frequently Asked{' '}
-                    <span className="faq-title-accent">Questions</span>
+                    Questions
                 </h2>
                 <p className="faq-subtitle">
                     Everything you need to know before we start building together.

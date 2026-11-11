@@ -70,10 +70,7 @@ button {
 }
 
 .gradient-text {
-  background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
+    color: var(--ink);
 }
 
 .section-padding {

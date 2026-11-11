@@ -385,7 +385,7 @@ const Contact = () => {
                 <div className="ct-form-panel">
                     <div className="ct-header">
                         <h2 className="ct-title">
-                            Get in <span className="ct-title-accent">Touch</span>
+                            Get in Touch
                         </h2>
                         <p className="ct-subtitle">
                             Ready to engineer your growth? Let's talk.

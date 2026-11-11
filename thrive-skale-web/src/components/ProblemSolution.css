@@ -1,326 +1,99 @@
-/* =============================================
-   WHY THRIVVSKALE — Comparison Section
-   ============================================= */
-
-
+/* Why us: a plain list of promises. Heading on the left, list on the right. */
 .problem-solution {
-    position: relative;
-    padding: 100px 24px;
     background: var(--paper);
-    color: var(--ink);
-    font-family: var(--font-main);
-    overflow: hidden;
+    padding: 5rem 0;
+    border-top: 1px solid rgba(23, 40, 58, 0.12);
 }
 
-.ps-container {
-    max-width: 1000px;
-    margin: 0 auto;
-    width: 100%;
-}
-
-/* ---- Header ---- */
-.ps-header {
-    text-align: center;
-    margin-bottom: 60px;
-}
-
-.ps-label {
-    display: inline-flex;
-    align-items: center;
-    gap: 12px;
-    margin-bottom: 16px;
-}
-
-.ps-label-line {
-    width: 30px;
-    height: 1px;
-    background: var(--accent);
-}
-
-.ps-label-text {
-    font-size: 11px;
-    font-weight: 800;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--accent-text);
+.ps-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+    gap: 1rem clamp(2rem, 6vw, 5rem);
+    align-items: start;
 }
 
 .ps-title {
-    font-size: clamp(2rem, 5vw, 3rem);
-    font-weight: 800;
-    line-height: 1.1;
-    letter-spacing: -0.02em;
-    color: var(--ink);
-}
-
-/* ---- Comparison Grid ---- */
-.ps-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 30px;
-    align-items: start;
-    margin-bottom: 40px;
-}
-
-/* ---- Card Common Styles ---- */
-.ps-card {
-    border-radius: 20px;
-    padding: 40px 32px;
-    position: relative;
-    overflow: hidden;
-    height: 100%;
-}
-
-.ps-card-header {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    margin-bottom: 32px;
-}
-
-.ps-icon-box {
-    width: 44px;
-    height: 44px;
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-}
-
-.ps-card-title {
-    font-size: 18px;
     font-weight: 700;
-    line-height: 1.2;
-}
-
-.ps-card-subtitle {
-    font-size: 12px;
-    margin-top: 4px;
-    font-weight: 500;
+    font-stretch: 108%;
+    font-size: clamp(1.8rem, 3.4vw, 2.7rem);
+    line-height: 1.12;
+    color: var(--ink);
+    text-wrap: balance;
 }
 
 .ps-list {
-    display: flex;
-    flex-direction: column;
+    grid-column: 2;
 }
 
-.ps-list-item {
-    display: flex;
-    align-items: flex-start;
-    gap: 16px;
-    padding: 16px 0;
-    border-top: 1px solid;
+.ps-item {
+    padding: 1.4rem 0;
+    border-top: 1px solid rgba(23, 40, 58, 0.14);
 }
 
-.ps-list-item:first-child {
+.ps-item:first-child {
     border-top: none;
-    padding-top: 0;
+    padding-top: 0.3rem;
 }
 
-.ps-item-num {
-    font-size: 12px;
-    font-weight: 700;
-    min-width: 20px;
-    padding-top: 4px;
-    font-variant-numeric: tabular-nums;
+.ps-item-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--ink);
 }
 
 .ps-item-text {
-    font-size: 15px;
-    line-height: 1.5;
-    flex: 1;
+    margin-top: 0.4rem;
+    max-width: 52ch;
+    font-size: 1.05rem;
+    line-height: 1.55;
+    color: var(--ink-muted);
 }
 
-/* ---- Left Card: Typical Agencies (Boring/Muted) ---- */
-.ps-card-left {
-    background: rgba(23,40,58,0.012);
-    border: 1px solid rgba(23,40,58,0.04);
-}
-
-.ps-card-left .ps-icon-box {
-    background: rgba(255, 59, 92, 0.08);
-}
-
-.ps-card-left .ps-icon-box svg {
-    color: #ff3b5c;
-    width: 20px;
-    height: 20px;
-}
-
-.ps-card-left .ps-card-title {
-    color: rgba(23,40,58,0.8);
-}
-
-.ps-card-left .ps-card-subtitle {
-    color: rgba(23,40,58,0.59);
-}
-
-.ps-card-left .ps-list-item {
-    border-color: rgba(23,40,58,0.024);
-}
-
-.ps-card-left .ps-item-num {
-    color: rgba(23,40,58,0.499);
-}
-
-.ps-card-left .ps-item-text {
-    color: rgba(23,40,58,0.695);
-}
-
-/* Subtle red blob for left card */
-.ps-card-left::before {
-    content: '';
-    position: absolute;
-    top: -50px;
-    right: -50px;
-    width: 150px;
-    height: 150px;
-    background: radial-gradient(circle, rgba(255, 59, 92, 0.04) 0%, transparent 70%);
-    pointer-events: none;
-    z-index: 0;
-}
-
-/* ---- Right Card: ThrivvSkale (Premium/Teal) ---- */
-.ps-card-right {
-    background: linear-gradient(160deg, rgba(226,162,74,0.03) 0%, rgba(226,162,74,0.01) 100%);
-    border: 1px solid rgba(226,162,74,0.12);
-    box-shadow: 0 0 60px rgba(226,162,74,0.02);
-}
-
-.ps-card-right .ps-icon-box {
-    background: rgba(226,162,74,0.12);
-}
-
-.ps-card-right .ps-icon-box svg {
-    color: var(--accent-text);
-    width: 20px;
-    height: 20px;
-}
-
-.ps-card-right .ps-card-title {
-    color: var(--ink);
-}
-
-.ps-card-right .ps-card-subtitle {
-    color: rgba(138,82,15,0.6);
-}
-
-.ps-card-right .ps-list-item {
-    border-color: rgba(226,162,74,0.06);
-}
-
-.ps-card-right .ps-item-num {
-    color: rgba(138,82,15,0.25);
-}
-
-.ps-card-right .ps-item-text {
-    color: rgba(23,40,58,1);
-    font-weight: 500;
-}
-
-/* Recommended Badge */
-.ps-badge {
-    position: absolute;
-    top: 24px;
-    right: 24px;
-    background: rgba(226,162,74,0.1);
-    border: 1px solid rgba(226,162,74,0.15);
-    padding: 4px 10px;
-    border-radius: 20px;
-    font-size: 9px;
-    font-weight: 800;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--accent-text);
-}
-
-/* Teal glow for right card */
-.ps-card-right::before {
-    content: '';
-    position: absolute;
-    top: -60px;
-    right: -60px;
-    width: 200px;
-    height: 200px;
-    background: radial-gradient(circle, rgba(226,162,74,0.08) 0%, transparent 70%);
-    pointer-events: none;
-    z-index: 0;
-}
-
-/* ---- CTA Strip ---- */
 .ps-cta {
-    background: linear-gradient(90deg, rgba(226,162,74,0.06) 0%, rgba(226,162,74,0.02) 100%);
-    border: 1px solid rgba(226,162,74,0.1);
-    border-radius: 16px;
-    padding: 32px 40px;
+    grid-column: 2;
+    margin-top: 1rem;
+    padding-top: 1.75rem;
+    border-top: 1px solid rgba(23, 40, 58, 0.14);
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
-    justify-content: space-between;
-    gap: 24px;
+    gap: 1rem 1.5rem;
 }
 
-.ps-cta-content h3 {
-    font-size: 20px;
-    font-weight: 700;
+.ps-cta-text {
+    flex: 1 1 18rem;
+    max-width: 40ch;
     color: var(--ink);
-    margin: 0 0 6px;
-}
-
-.ps-cta-content p {
-    font-size: 14px;
-    color: rgba(23,40,58,0.73);
+    font-size: 1.05rem;
+    line-height: 1.5;
 }
 
 .ps-cta-btn {
     background: var(--accent);
     color: var(--ink);
-    border: none;
-    padding: 14px 28px;
-    border-radius: 50px;
-    font-size: 14px;
-    font-weight: 700;
-    cursor: pointer;
-    white-space: nowrap;
-    transition: transform 0.2s, box-shadow 0.2s;
-    text-decoration: none;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
+    font-size: 1.05rem;
+    font-weight: 600;
+    padding: 0.85rem 1.5rem;
+    border-radius: 6px;
+    transition: background-color 0.2s ease;
 }
 
 .ps-cta-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 16px rgba(226,162,74,0.3);
+    background: #D9953A;
 }
 
-/* ---- Responsive ---- */
-@media (max-width: 768px) {
-    .problem-solution {
-        padding: 60px 16px;
-    }
+.ps-cta-btn:focus-visible {
+    outline: 2px solid var(--teal);
+    outline-offset: 3px;
+}
 
-    .ps-header {
-        margin-bottom: 40px;
-    }
-
-    .ps-grid {
+@media (max-width: 860px) {
+    .ps-layout {
         grid-template-columns: 1fr;
-        gap: 20px;
     }
 
-    .ps-card {
-        padding: 30px 24px;
-    }
-
+    .ps-list,
     .ps-cta {
-        flex-direction: column;
-        align-items: stretch;
-        text-align: center;
-        padding: 24px;
-    }
-
-    .ps-cta-btn {
-        width: 100%;
+        grid-column: 1;
     }
 }
