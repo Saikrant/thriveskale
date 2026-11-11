@@ -79,7 +79,6 @@ const FAQ = () => {
 
     return (
         <section id="faq" className="faq-section">
-            <div className="faq-glow" aria-hidden="true" />
 
             {/* Header */}
             <div className="faq-header">

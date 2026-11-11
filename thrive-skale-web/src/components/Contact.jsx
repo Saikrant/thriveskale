@@ -7,157 +7,6 @@ import { buildContactWhatsAppUrl } from '../utils/contactLead';
 import { CONTACT } from '../utils/countryConfig';
 
 /* ============================================
-   PARTICLE NETWORK CANVAS
-   ============================================ */
-const ParticleCanvas = () => {
-    const canvasRef = useRef(null);
-    const mouseRef = useRef({ x: -999, y: -999 });
-    const animRef = useRef(null);
-    const particlesRef = useRef([]);
-
-    useEffect(() => {
-        const canvas = canvasRef.current;
-        if (!canvas) return;
-        const ctx = canvas.getContext('2d');
-
-        const resize = () => {
-            const rect = canvas.parentElement.getBoundingClientRect();
-            canvas.width = rect.width * window.devicePixelRatio;
-            canvas.height = rect.height * window.devicePixelRatio;
-            canvas.style.width = rect.width + 'px';
-            canvas.style.height = rect.height + 'px';
-            ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
-        };
-        resize();
-
-        const W = () => canvas.width / window.devicePixelRatio;
-        const H = () => canvas.height / window.devicePixelRatio;
-
-        // Init particles — fewer on mobile for performance
-        const isMobile = window.innerWidth < 768;
-        const count = isMobile ? 30 : 60;
-        if (particlesRef.current.length === 0) {
-            for (let i = 0; i < count; i++) {
-                particlesRef.current.push({
-                    x: Math.random() * W(),
-                    y: Math.random() * H(),
-                    vx: (Math.random() - 0.5) * 0.6,
-                    vy: (Math.random() - 0.5) * 0.6,
-                    r: Math.random() * 2 + 1,
-                    alpha: Math.random() * 0.5 + 0.3,
-                });
-            }
-        }
-
-        const handleMouseMove = (e) => {
-            const rect = canvas.getBoundingClientRect();
-            mouseRef.current = { x: e.clientX - rect.left, y: e.clientY - rect.top };
-        };
-
-        const handleMouseLeave = () => {
-            mouseRef.current = { x: -999, y: -999 };
-        };
-
-        canvas.parentElement.addEventListener('mousemove', handleMouseMove);
-        canvas.parentElement.addEventListener('mouseleave', handleMouseLeave);
-
-        const draw = () => {
-            const w = W();
-            const h = H();
-            ctx.clearRect(0, 0, w, h);
-
-            const particles = particlesRef.current;
-            const mouse = mouseRef.current;
-
-            // Update & draw particles
-            for (let i = 0; i < particles.length; i++) {
-                const p = particles[i];
-
-                // Mouse attraction
-                const dx = mouse.x - p.x;
-                const dy = mouse.y - p.y;
-                const dist = Math.sqrt(dx * dx + dy * dy);
-                if (dist < 200 && dist > 0) {
-                    const force = (200 - dist) / 200 * 0.015;
-                    p.vx += dx / dist * force;
-                    p.vy += dy / dist * force;
-                }
-
-                // Damping
-                p.vx *= 0.99;
-                p.vy *= 0.99;
-
-                p.x += p.vx;
-                p.y += p.vy;
-
-                // Wrap edges
-                if (p.x < 0) p.x = w;
-                if (p.x > w) p.x = 0;
-                if (p.y < 0) p.y = h;
-                if (p.y > h) p.y = 0;
-
-                ctx.beginPath();
-                ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-                ctx.fillStyle = `rgba(31, 111, 120, ${p.alpha})`;
-                ctx.fill();
-            }
-
-            // Draw connections
-            for (let i = 0; i < particles.length; i++) {
-                for (let j = i + 1; j < particles.length; j++) {
-                    const a = particles[i];
-                    const b = particles[j];
-                    const dx = a.x - b.x;
-                    const dy = a.y - b.y;
-                    const d = Math.sqrt(dx * dx + dy * dy);
-                    if (d < 150) {
-                        ctx.beginPath();
-                        ctx.moveTo(a.x, a.y);
-                        ctx.lineTo(b.x, b.y);
-                        ctx.strokeStyle = `rgba(31, 111, 120, ${0.15 * (1 - d / 150)})`;
-                        ctx.lineWidth = 0.6;
-                        ctx.stroke();
-                    }
-                }
-            }
-
-            animRef.current = isRunning ? requestAnimationFrame(draw) : null;
-        };
-
-        // Only animate while the contact section is actually on screen
-        let isRunning = false;
-        const visibilityObs = new IntersectionObserver(([entry]) => {
-            if (entry.isIntersecting && !isRunning) {
-                isRunning = true;
-                animRef.current = requestAnimationFrame(draw);
-            } else if (!entry.isIntersecting) {
-                isRunning = false;
-                if (animRef.current) cancelAnimationFrame(animRef.current);
-                animRef.current = null;
-            }
-        });
-        visibilityObs.observe(canvas.parentElement);
-
-        const resizeObs = new ResizeObserver(resize);
-        resizeObs.observe(canvas.parentElement);
-
-        return () => {
-            visibilityObs.disconnect();
-            cancelAnimationFrame(animRef.current);
-            canvas.parentElement.removeEventListener('mousemove', handleMouseMove);
-            canvas.parentElement.removeEventListener('mouseleave', handleMouseLeave);
-            resizeObs.disconnect();
-        };
-    }, []);
-
-    return (
-        <div className="ct-particles">
-            <canvas ref={canvasRef} />
-        </div>
-    );
-};
-
-/* ============================================
    CUSTOM DROPDOWN
    ============================================ */
 const CustomDropdown = ({ value, onChange, error, isVisible, options, label }) => {
@@ -196,7 +45,7 @@ const CustomDropdown = ({ value, onChange, error, isVisible, options, label }) =
             >
                 <span>{value || ''}</span>
                 <svg className="ct-dropdown-chevron" viewBox="0 0 24 24" fill="none"
-                    stroke="#1F6F78" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <polyline points="6 9 12 15 18 9" />
                 </svg>
             </button>
@@ -322,21 +171,6 @@ const Contact = () => {
         }
     };
 
-    /* ---------- Ripple ---------- */
-    const handleRipple = (e) => {
-        const btn = submitBtnRef.current;
-        if (!btn || isSubmitting) return;
-        const rect = btn.getBoundingClientRect();
-        const size = Math.max(rect.width, rect.height) * 2;
-        const x = e.clientX - rect.left - size / 2;
-        const y = e.clientY - rect.top - size / 2;
-        const ripple = document.createElement('span');
-        ripple.className = 'ct-ripple';
-        ripple.style.cssText = `width:${size}px;height:${size}px;left:${x}px;top:${y}px;`;
-        btn.appendChild(ripple);
-        setTimeout(() => ripple.remove(), 600);
-    };
-
     /* ---------- Field helper ---------- */
     const fieldCls = (name) => {
         const classes = ['ct-field'];
@@ -350,14 +184,14 @@ const Contact = () => {
         if (!touched[name]) return null;
         if (errors[name]) {
             return (
-                <span className="ct-validation-icon ct-validation-icon--show" style={{ color: '#B83232' }}>
+                <span className="ct-validation-icon ct-validation-icon--show ct-validation-icon--error" aria-hidden="true">
                     ✕
                 </span>
             );
         }
         if (formData[name]) {
             return (
-                <span className="ct-validation-icon ct-validation-icon--show" style={{ color: '#1E7F52' }}>
+                <span className="ct-validation-icon ct-validation-icon--show" aria-hidden="true">
                     ✓
                 </span>
             );
@@ -370,12 +204,12 @@ const Contact = () => {
         if (isSubmitting) {
             return (
                 <>
-                    <span className="ct-submit-text" style={{ opacity: 0 }}>SEND MESSAGE</span>
+                    <span className="ct-submit-text" style={{ opacity: 0 }}>Send on WhatsApp</span>
                     <span className="ct-spinner" style={{ display: 'block' }} />
                 </>
             );
         }
-        return <span className="ct-submit-text">SEND ON WHATSAPP</span>;
+        return <span className="ct-submit-text">Send on WhatsApp</span>;
     };
 
     return (
@@ -385,15 +219,15 @@ const Contact = () => {
                 <div className="ct-form-panel">
                     <div className="ct-header">
                         <h2 className="ct-title">
-                            Get in Touch
+                            Tell us about your project
                         </h2>
                         <p className="ct-subtitle">
-                            Ready to engineer your growth? Let's talk.
+                            Fill in the form and we will reply on WhatsApp.
                         </p>
                     </div>
 
                     <div className="ct-form-box" ref={formRef}>
-                        <h3 className="ct-form-title">Start Your Journey</h3>
+                        <h3 className="ct-form-title">Your details</h3>
 
                         <form onSubmit={handleSubmit} noValidate>
                             {/* Full Name */}
@@ -504,7 +338,6 @@ const Contact = () => {
                                 type="submit"
                                 className={`ct-submit ${isSubmitting ? 'ct-submit--loading' : ''}`}
                                 disabled={isSubmitting}
-                                onClick={handleRipple}
                             >
                                 {submitContent()}
                             </button>
@@ -518,10 +351,24 @@ const Contact = () => {
                     </div>
                 </div>
 
-                {/* ------- RIGHT: Particle Network ------- */}
-                <div className="ct-canvas-panel">
-                    <ParticleCanvas />
-                </div>
+                {/* ------- RIGHT: Direct contact ------- */}
+                <aside className="ct-direct" aria-labelledby="ct-direct-title">
+                    <h3 id="ct-direct-title" className="ct-direct-title">Prefer to reach us directly?</h3>
+                    <dl className="ct-direct-list">
+                        <div>
+                            <dt>WhatsApp</dt>
+                            <dd><a href={`https://wa.me/${CONTACT.whatsappNumber}`} target="_blank" rel="noopener noreferrer">{CONTACT.phone.display}</a></dd>
+                        </div>
+                        <div>
+                            <dt>Phone</dt>
+                            <dd><a href={CONTACT.phone.link}>{CONTACT.phone.display}</a></dd>
+                        </div>
+                        <div>
+                            <dt>Email</dt>
+                            <dd><a href={`mailto:${CONTACT.email}`}>{CONTACT.email}</a></dd>
+                        </div>
+                    </dl>
+                </aside>
             </div>
 
             {/* AI Agent modal (preserved) */}

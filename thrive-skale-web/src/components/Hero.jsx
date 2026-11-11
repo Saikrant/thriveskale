@@ -14,7 +14,25 @@ const scrollToId = (id) => {
 const Hero = () => {
     const { config } = useCountry();
     const { symbol } = config.currency;
-    const { website } = config.pricing;
+    const { website, ai } = config.pricing;
+
+    const services = [
+        {
+            name: 'Website',
+            text: 'A fast, mobile-friendly site that tells customers what you do and how to reach you.',
+            price: website.plans[0].price,
+        },
+        {
+            name: 'Online store',
+            text: 'Product pages, cart and payments, so customers can order from you directly.',
+            price: website.plans[2].price,
+        },
+        {
+            name: 'WhatsApp assistant',
+            text: 'Answers common questions on WhatsApp and passes real enquiries to you.',
+            price: ai.plans[0].price,
+        },
+    ];
 
     const navigate = useNavigate();
     const [form, setForm] = useState({ name: '', phone: '', businessType: '' });
@@ -42,19 +60,15 @@ const Hero = () => {
     };
 
     return (
+        <>
         <section id="hero" className="hero">
             <div className="hero-inner container">
                 <div className="hero-copy">
-                    <h1 className="hero-headline">
-                        Websites, online stores and WhatsApp assistants, with prices upfront
-                    </h1>
+                    <h1 className="hero-headline">Your business, online and selling.</h1>
                     <p className="hero-lead">
-                        We build it, launch it and support it. Tell us about your business and we will
-                        recommend the right package.
+                        We build websites, online stores and WhatsApp assistants for Indian businesses,
+                        with the price shown upfront.
                     </p>
-                    <button type="button" className="hero-cta-secondary" onClick={() => scrollToId('pricing')}>
-                        See all prices
-                    </button>
                 </div>
 
                 <form className="hero-form" onSubmit={handleSubmit} noValidate aria-labelledby="hero-form-title">
@@ -80,13 +94,31 @@ const Hero = () => {
                         </select>
                         {errors.businessType && <em role="alert">{errors.businessType}</em>}
                     </label>
-                    <button type="submit" className="hero-cta-primary hero-form-submit">Get my free quote</button>
-                    <p className="hero-form-price">
-                        Websites from {symbol}{website.plans[0].price}. Online stores from {symbol}{website.plans[2].price}. Excluding GST.
-                    </p>
+                    <button type="submit" className="hero-form-submit">Get my free quote</button>
                 </form>
             </div>
         </section>
+
+        <section className="hero-services" aria-labelledby="hero-services-title">
+            <div className="container">
+                <h2 id="hero-services-title" className="hero-services-title">What we build</h2>
+                <ul className="hero-tiles">
+                    {services.map((s) => (
+                        <li key={s.name} className="hero-tile">
+                            <h3 className="hero-tile-name">{s.name}</h3>
+                            <p className="hero-tile-text">{s.text}</p>
+                            <p className="hero-tile-price">
+                                From <strong>{symbol}{s.price}</strong> <span>+ GST</span>
+                            </p>
+                        </li>
+                    ))}
+                </ul>
+                <button type="button" className="hero-tiles-link" onClick={() => scrollToId('pricing')}>
+                    See all packages and prices
+                </button>
+            </div>
+        </section>
+        </>
     );
 };
 

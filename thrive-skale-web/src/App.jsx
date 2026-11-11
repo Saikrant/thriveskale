@@ -21,7 +21,6 @@ import ScrollAnimations from './components/ScrollAnimations';
 import TextReveal from './components/TextReveal';
 import PageLoader from './components/PageLoader';
 import { CountryProvider } from './context/CountryContext';
-import './components/CountrySwitcher.css';
 
 import * as gtag from './utils/gtag';
 
@@ -39,7 +38,7 @@ const ScrollToSection = () => {
   useEffect(() => {
     const pathMap = {
       '/': 'hero',
-      '/why-us': 'reality-vision',
+      '/why-us': 'why-us',
       '/services': 'services',
       '/pricing': 'pricing',
       '/industries': 'industries',

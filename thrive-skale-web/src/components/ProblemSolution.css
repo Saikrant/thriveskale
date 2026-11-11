@@ -1,8 +1,8 @@
 /* Why us: a plain list of promises. Heading on the left, list on the right. */
 .problem-solution {
-    background: var(--paper);
+    background: var(--color-bg);
     padding: 5rem 0;
-    border-top: 1px solid rgba(23, 40, 58, 0.12);
+    border-top: 1px solid var(--color-line);
 }
 
 .ps-layout {
@@ -13,11 +13,10 @@
 }
 
 .ps-title {
-    font-weight: 700;
-    font-stretch: 108%;
+    font-weight: 800;
     font-size: clamp(1.8rem, 3.4vw, 2.7rem);
     line-height: 1.12;
-    color: var(--ink);
+    color: var(--color-ink);
     text-wrap: balance;
 }
 
@@ -27,7 +26,7 @@
 
 .ps-item {
     padding: 1.4rem 0;
-    border-top: 1px solid rgba(23, 40, 58, 0.14);
+    border-top: 1px solid var(--color-line);
 }
 
 .ps-item:first-child {
@@ -36,9 +35,9 @@
 }
 
 .ps-item-title {
-    font-size: 1.25rem;
-    font-weight: 600;
-    color: var(--ink);
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--color-ink);
 }
 
 .ps-item-text {
@@ -46,14 +45,14 @@
     max-width: 52ch;
     font-size: 1.05rem;
     line-height: 1.55;
-    color: var(--ink-muted);
+    color: var(--color-muted);
 }
 
 .ps-cta {
     grid-column: 2;
     margin-top: 1rem;
     padding-top: 1.75rem;
-    border-top: 1px solid rgba(23, 40, 58, 0.14);
+    border-top: 1px solid var(--color-line);
     display: flex;
     flex-wrap: wrap;
     align-items: center;
@@ -63,27 +62,29 @@
 .ps-cta-text {
     flex: 1 1 18rem;
     max-width: 40ch;
-    color: var(--ink);
+    color: var(--color-ink);
     font-size: 1.05rem;
     line-height: 1.5;
 }
 
 .ps-cta-btn {
-    background: var(--accent);
-    color: var(--ink);
+    background: var(--color-sindoor);
+    color: var(--color-on-sindoor);
+    font-family: var(--font-heading);
+    min-height: 48px;
     font-size: 1.05rem;
-    font-weight: 600;
-    padding: 0.85rem 1.5rem;
+    font-weight: 700;
+    padding: 0.75rem 1.5rem;
     border-radius: 6px;
     transition: background-color 0.2s ease;
 }
 
 .ps-cta-btn:hover {
-    background: #D9953A;
+    background: var(--color-sindoor-hover);
 }
 
 .ps-cta-btn:focus-visible {
-    outline: 2px solid var(--teal);
+    outline: 2px solid var(--color-focus);
     outline-offset: 3px;
 }
 

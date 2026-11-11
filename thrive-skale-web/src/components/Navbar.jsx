@@ -9,7 +9,7 @@ const Navbar = () => {
 
     // Scroll spy - detect which section is in view
     useEffect(() => {
-        const sections = ['hero', 'reality-vision', 'services', 'industries', 'pricing', 'contact'];
+        const sections = ['hero', 'why-us', 'services', 'industries', 'pricing', 'contact'];
         const observers = [];
 
         sections.forEach((sectionId) => {
@@ -79,11 +79,17 @@ const Navbar = () => {
                     </div>
                 </Link>
 
-                <div className={`hamburger ${isOpen ? 'active' : ''}`} onClick={toggleMenu}>
+                <button
+                    type="button"
+                    className={`hamburger ${isOpen ? 'active' : ''}`}
+                    onClick={toggleMenu}
+                    aria-label={isOpen ? 'Close menu' : 'Open menu'}
+                    aria-expanded={isOpen}
+                >
                     <span className="bar"></span>
                     <span className="bar"></span>
                     <span className="bar"></span>
-                </div>
+                </button>
 
                 <div className={`nav-menu ${isOpen ? 'active' : ''}`}>
                     {isOpen && (
@@ -93,7 +99,7 @@ const Navbar = () => {
                     )}
                     <ul className="nav-links">
                         <li><Link to="/" onClick={() => handleNavClick('hero')} className={isActive('hero') ? 'active' : ''}>Home</Link></li>
-                        <li><Link to="/why-us" onClick={() => handleNavClick('reality-vision')} className={isActive('reality-vision') ? 'active' : ''}>Why Us</Link></li>
+                        <li><Link to="/why-us" onClick={() => handleNavClick('why-us')} className={isActive('why-us') ? 'active' : ''}>Why Us</Link></li>
                         <li><Link to="/services" onClick={() => handleNavClick('services')} className={isActive('services') ? 'active' : ''}>Services</Link></li>
                         <li><Link to="/industries" onClick={() => handleNavClick('industries')} className={isActive('industries') ? 'active' : ''}>Industries</Link></li>
                         <li><Link to="/pricing" onClick={() => handleNavClick('pricing')} className={isActive('pricing') ? 'active' : ''}>Pricing</Link></li>

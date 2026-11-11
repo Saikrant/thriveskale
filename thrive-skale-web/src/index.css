@@ -1,22 +1,53 @@
 :root {
-  /* Pearl and Brass: placeholder palette until the brand team decides */
-  --paper: #F2F4F3;          /* cool pearl background */
-  --surface: #FBFCFB;        /* raised surfaces, cards */
-  --ink: #17283A;            /* blue-slate text */
-  --ink-muted: #5A6B7B;      /* secondary text (4.97:1 on paper) */
-  --accent: #E2A24A;         /* brass fill; ink text on it is 6.8:1 */
-  --accent-text: #8A520F;    /* deep brass for text (5.8:1 on paper) */
-  --teal: #1F6F78;           /* sea-teal secondary (5.3:1 on paper) */
+  /* Haldi & Ink: placeholder palette until the brand team decides.
+     Swap the six brand values below; everything else derives from them.
+     Contrast (WCAG 2.x), verified:
+       ink on bg 15.1, ink on card 16.0, ink on haldi 8.9,
+       muted on bg 7.2, muted on card 7.6,
+       white on sindoor 6.6, sindoor on bg 6.2, sindoor on card 6.6,
+       on-ink text on ink 15.1, on-ink-muted on ink 11.1, haldi on ink 8.9.
+     Rules: only ink text on haldi (muted on haldi is 4.26, sindoor on haldi 3.67: both fail).
+     White text only on sindoor. Haldi is for fills and blocks, never text on light. */
+  --color-bg: #FFF8EC;
+  --color-card: #FFFFFF;
+  --color-ink: #1E1B4B;
+  --color-muted: #57534E;
+  --color-haldi: #F5B800;
+  --color-sindoor: #B42318;
 
-  --bg-color: var(--paper);
-  --text-color: var(--ink);
-  --primary-color: var(--accent-text);
-  --secondary-color: var(--ink);
-  --accent-color: var(--accent);
-  --glass-bg: rgba(251, 252, 251, 0.7);
-  --glass-border: rgba(23, 40, 58, 0.12);
-  --font-main: 'Anek Latin Variable', 'Anek Latin', system-ui, sans-serif;
-  --transition-speed: 0.3s;
+  --color-sindoor-hover: #8F1C13;            /* white on it 9.0 */
+  --color-on-sindoor: #FFFFFF;
+  --color-on-ink: var(--color-bg);           /* light text on ink panels */
+  --color-on-ink-muted: #D9D4E8;             /* 11.1 on ink */
+  --color-line: color-mix(in srgb, var(--color-ink) 14%, transparent);
+  --color-line-strong: color-mix(in srgb, var(--color-ink) 45%, transparent);
+  --color-tint: color-mix(in srgb, var(--color-ink) 5%, transparent);
+  --color-scrim: color-mix(in srgb, var(--color-ink) 55%, transparent);
+  --color-focus: var(--color-ink);
+  --color-error: var(--color-sindoor);       /* on bg/card only; on haldi use ink */
+
+  /* Fonts: placeholders, swap here and in main.jsx imports */
+  --font-heading: 'Bricolage Grotesque Variable', 'Bricolage Grotesque', system-ui, sans-serif;
+  --font-body: 'Hind', system-ui, sans-serif;
+  --measure: 65ch;
+
+  /* Legacy aliases still used by some components */
+  --paper: var(--color-bg);
+  --surface: var(--color-card);
+  --ink: var(--color-ink);
+  --ink-muted: var(--color-muted);
+  --accent: var(--color-haldi);
+  --accent-text: var(--color-sindoor);
+  --teal: var(--color-ink);
+  --bg-color: var(--color-bg);
+  --text-color: var(--color-ink);
+  --primary-color: var(--color-sindoor);
+  --secondary-color: var(--color-ink);
+  --accent-color: var(--color-haldi);
+  --glass-bg: var(--color-card);
+  --glass-border: var(--color-line);
+  --font-main: var(--font-body);
+  --transition-speed: 0.2s;
 }
 
 * {
@@ -31,6 +62,8 @@ body {
   background-color: var(--bg-color);
   color: var(--text-color);
   overflow-x: hidden;
+  font-size: 1.0625rem;
+  line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   -webkit-text-size-adjust: 100%;
   -moz-text-size-adjust: 100%;
@@ -38,9 +71,27 @@ body {
   touch-action: manipulation;
 }
 
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.015em;
+  color: var(--color-ink);
+  text-wrap: balance;
+}
+
+p {
+  max-width: var(--measure);
+}
+
 a {
   text-decoration: none;
   color: inherit;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 3px;
 }
 
 ul {
@@ -63,14 +114,12 @@ button {
 
 .glass {
   background: var(--glass-bg);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
   border: 1px solid var(--glass-border);
-  border-radius: 16px;
+  border-radius: 8px;
 }
 
 .gradient-text {
-    color: var(--ink);
+  color: var(--color-ink);
 }
 
 .section-padding {
@@ -85,7 +134,7 @@ button {
 
 .section-subtitle {
   font-size: 1.5rem;
-  color: rgba(23,40,58,1);
+  color: var(--color-muted);
   margin-bottom: 60px;
   max-width: 800px;
   margin-left: auto;
@@ -231,11 +280,6 @@ button {
 /* CSS containment for performance */
 .glass {
   contain: content;
-  background: var(--glass-bg);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border: 1px solid var(--glass-border);
-  border-radius: 16px;
 }
 
 /* Lazy load images */
@@ -286,12 +330,6 @@ img[loading="lazy"][complete] {
   /* Safe area insets for notched devices */
   body {
     padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
-  }
-
-  /* Performance: reduce blur filters on mobile */
-  .glass {
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
   }
 
   /* Disable will-change on mobile to reduce memory */
