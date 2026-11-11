@@ -1,11 +1,11 @@
 import { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { CONTACT } from '../utils/countryConfig';
+import { CONTACT, PACKAGES, GST_NOTE, rupees } from '../utils/countryConfig';
 import { BUSINESS_TYPES, validateContactField } from '../utils/contactValidation';
 import { buildContactWhatsAppUrl } from '../utils/contactLead';
 import { trackLead } from '../utils/gtag';
 import { focusFirstInvalid } from '../utils/contactPrefill';
-import ChatDemo from './ChatDemo';
+import LeadStack from './LeadStack';
 import './Hero.css';
 
 const FIELDS = ['name', 'phone', 'businessType'];
@@ -47,11 +47,11 @@ const Hero = () => {
         <section id="hero" className="hero">
             <div className="container hero-grid">
                 <div className="hero-copy">
-                    <h1>A lead engine for your business</h1>
+                    <h1>One system from ad click to WhatsApp reply</h1>
                     <p className="hero-lead">
-                        <strong>More enquiries, and none of them missed.</strong> We build your website,
-                        send every enquiry to your CRM, reply on WhatsApp automatically and run the ads
-                        that bring customers in.
+                        We build your website, run your ads, save every enquiry in your CRM and
+                        reply on WhatsApp. You own all of it. Made for Hyderabad businesses, from{' '}
+                        <strong>{rupees(PACKAGES[0].price)}</strong> {GST_NOTE}.
                     </p>
                 </div>
 
@@ -83,7 +83,7 @@ const Hero = () => {
                     </button>
                 </form>
 
-                <ChatDemo />
+                <LeadStack />
             </div>
         </section>
     );
