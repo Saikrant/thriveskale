@@ -1,156 +1,71 @@
-import { useState, useCallback, useEffect } from 'react';
+import { CONTACT, LEAD_GROWTH, PACKAGES, rupees } from '../utils/countryConfig';
 import './FAQ.css';
+
+const pkg = (id) => PACKAGES.find((p) => p.id === id);
+const terms = (p) => p.payment.map((s) => `${s.share}% ${s.when}`).join(', ');
 
 const FAQ_DATA = [
     {
-        q: 'How long does it take to build a website?',
-        a: "Timelines depend on the plan you choose. Our Starter websites are delivered in 7 days, Business sites in 14 days, and Enterprise projects in about 30 days. We'll confirm an exact timeline after our initial consultation.",
+        q: 'What is a lead engine?',
+        a: 'It is your website, enquiry forms, CRM, WhatsApp replies and ads set up to work together. Every enquiry is caught, saved and followed up, and you can see where it came from.',
     },
     {
-        q: 'Do you offer ongoing support after the project is delivered?',
-        a: 'Yes! Every project includes a post-launch support window. Enterprise clients receive extended support, and we also offer monthly maintenance plans for updates, hosting management, and performance monitoring.',
+        q: 'Which package should I choose?',
+        a: `Choose the ${pkg('lead-website').name} if you mainly need a website that sends enquiries to your WhatsApp. Choose the ${pkg('lead-system').name} if you also want a simple lead tool (a quote request, booking form or calculator), a CRM, automatic WhatsApp replies and ad tracking. Complex tools are quoted separately. Choose the ${pkg('online-store').name} if you want to sell products online.`,
     },
     {
-        q: 'What makes your AI Agents different from basic chatbots?',
-        a: 'Our AI Agents are custom-trained on your business data, not generic templates. They understand your products, services, and processes — enabling them to handle bookings, answer complex queries, qualify leads, and integrate with your CRM or WhatsApp, all 24/7.',
+        q: 'How long does it take?',
+        a: 'It depends on the package, the number of pages and how ready your content is. We give you a timeline in your quote before you pay anything.',
     },
     {
-        q: 'Can I see a demo or example of your work before committing?',
-        a: 'Absolutely. During our free consultation call, we walk you through relevant case studies and live demos tailored to your industry. We want you to feel confident before making any commitment.',
+        q: 'How do payments work?',
+        a: `You pay in stages. ${pkg('lead-website').name} (${rupees(pkg('lead-website').price)}): ${terms(pkg('lead-website'))}. ${pkg('lead-system').name} (${rupees(pkg('lead-system').price)}): ${terms(pkg('lead-system'))}. ${pkg('online-store').name} (from ${rupees(pkg('online-store').price)}): ${terms(pkg('online-store'))}. All prices exclude 18% GST.`,
     },
     {
-        q: 'Do you build mobile apps for both iOS and Android?',
-        a: 'Yes. We offer cross-platform development (iOS + Android from a single codebase) as well as fully native apps depending on your needs and budget. Our Growth and Enterprise mobile plans cover both platforms.',
+        q: 'What will I pay to other companies?',
+        a: 'Ad spend, your domain name, hosting, the WhatsApp API provider and Meta message fees, and Zoho CRM licences. You pay these directly. The table above shows rough costs.',
     },
     {
-        q: 'What industries do you specialize in?',
-        a: 'We serve restaurants, salons & spas, gyms, real estate, healthcare, retail, education, and home services — though our solutions are adaptable to virtually any industry that needs a digital presence or automation.',
+        q: 'Do I have to take a monthly plan?',
+        a: `No. Monthly plans are optional. If you choose ${LEAD_GROWTH.name}, the minimum is ${LEAD_GROWTH.minimumMonths} months.`,
     },
     {
-        q: 'Are there any hidden fees beyond the listed prices?',
-        a: 'No. Our pricing is transparent — what you see is what you pay. Domain registration, premium third-party integrations, or ongoing hosting are separate but always communicated upfront. No surprises.',
-    },
-    {
-        q: 'How do I get started?',
-        a: "Just click \"Book a Call\" or fill out our contact form. We'll schedule a free 30-minute consultation to understand your goals, recommend the best package, and outline next steps. It's that simple.",
+        q: 'Can you build a mobile app?',
+        a: 'Yes. Mobile apps are quoted separately. Tell us what you need in the contact form.',
     },
 ];
 
-const PlusIcon = () => (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <line x1="12" y1="5" x2="12" y2="19" />
-        <line x1="5" y1="12" x2="19" y2="12" />
-    </svg>
-);
-
-const FAQ = () => {
-    const [openIndex, setOpenIndex] = useState(null);
-
-    const toggle = useCallback((i) => {
-        setOpenIndex((prev) => (prev === i ? null : i));
-    }, []);
-
-    /* JSON-LD structured data for SEO */
-    useEffect(() => {
-        const schema = {
-            '@context': 'https://schema.org',
-            '@type': 'FAQPage',
-            mainEntity: FAQ_DATA.map((item) => ({
-                '@type': 'Question',
-                name: item.q,
-                acceptedAnswer: {
-                    '@type': 'Answer',
-                    text: item.a,
-                },
-            })),
-        };
-
-        const script = document.createElement('script');
-        script.type = 'application/ld+json';
-        script.textContent = JSON.stringify(schema);
-        script.id = 'faq-schema';
-        document.head.appendChild(script);
-
-        return () => {
-            const existing = document.getElementById('faq-schema');
-            if (existing) existing.remove();
-        };
-    }, []);
-
-    return (
-        <section id="faq" className="faq-section">
-            <div className="faq-glow" aria-hidden="true" />
-
-            {/* Header */}
-            <div className="faq-header">
-                <h2 className="faq-title">
-                    Frequently Asked{' '}
-                    <span className="faq-title-accent">Questions</span>
-                </h2>
-                <p className="faq-subtitle">
-                    Everything you need to know before we start building together.
-                </p>
-            </div>
-
-            {/* Accordion */}
-            <div className="faq-list" role="list">
-                {FAQ_DATA.map((item, i) => {
-                    const isOpen = openIndex === i;
-                    const panelId = `faq-answer-${i}`;
-                    const triggerId = `faq-trigger-${i}`;
-
-                    return (
-                        <div
-                            key={i}
-                            className={`faq-item ${isOpen ? 'faq-item--open' : ''}`}
-                            role="listitem"
-                        >
-                            <button
-                                id={triggerId}
-                                className="faq-question"
-                                onClick={() => toggle(i)}
-                                aria-expanded={isOpen}
-                                aria-controls={panelId}
-                            >
-                                <span className="faq-question-text">{item.q}</span>
-                                <span className="faq-icon" aria-hidden="true">
-                                    <PlusIcon />
-                                </span>
-                            </button>
-
-                            <div
-                                id={panelId}
-                                className="faq-answer-wrapper"
-                                role="region"
-                                aria-labelledby={triggerId}
-                            >
-                                <div className="faq-answer">
-                                    <div className="faq-answer-inner">
-                                        {item.a}
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    );
-                })}
-            </div>
-
-            {/* CTA */}
-            <div className="faq-cta">
-                <p className="faq-cta-text">Still have questions?</p>
-                <button
-                    className="faq-cta-btn"
-                    onClick={() => {
-                        const el = document.getElementById('contact');
-                        if (el) el.scrollIntoView({ behavior: 'smooth' });
-                    }}
+const FAQ = () => (
+    <section id="faq" className="section">
+        <div className="container faq">
+            <div className="faq-side" data-reveal>
+                <div className="section-head">
+                    <h2>Questions</h2>
+                    <p>Plain answers. If yours is not here, ask us on WhatsApp.</p>
+                </div>
+                <a
+                    className="btn btn--secondary"
+                    href={`https://wa.me/${CONTACT.whatsappNumber}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
                 >
-                    Get in Touch
-                    <span aria-hidden="true">→</span>
-                </button>
+                    Ask on WhatsApp
+                </a>
             </div>
-        </section>
-    );
-};
+
+            <div className="faq-list">
+                {FAQ_DATA.map((item, i) => (
+                    <details key={item.q} className="faq-item" data-reveal style={{ '--i': i }}>
+                        <summary>
+                            <h3>{item.q}</h3>
+                            <span className="faq-icon" aria-hidden="true" />
+                        </summary>
+                        <p>{item.a}</p>
+                    </details>
+                ))}
+            </div>
+        </div>
+    </section>
+);
 
 export default FAQ;

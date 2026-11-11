@@ -1,0 +1,94 @@
+/* Lead System sits in a wider middle column and stands taller than the others. */
+.packages {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr) minmax(0, 1fr);
+    gap: var(--s-5);
+    align-items: center;
+}
+
+.package--featured {
+    padding: var(--s-6);
+    gap: var(--s-4);
+}
+
+.package--featured .price { font-size: 2.5rem; }
+
+.pay {
+    margin-top: auto;
+    padding-top: var(--s-3);
+    border-top: 1px solid var(--line);
+    display: grid;
+    gap: var(--s-2);
+}
+
+.pay-title { font-weight: 500; }
+
+.pay-bar {
+    display: flex;
+    gap: 3px;
+    height: 32px;
+}
+
+/* Ink text on every segment: haldi 8.9, haldi-pale 14.2, white 16.0 */
+.pay-seg {
+    display: grid;
+    place-items: center;
+    min-width: 0;
+    border-radius: 4px;
+    font-family: var(--font-heading);
+    font-size: var(--text-small);
+    font-weight: 700;
+    color: var(--ink);
+}
+
+.pay-seg--0 { background: var(--haldi); }
+.pay-seg--1 { background: var(--haldi-pale); border: 1px solid var(--haldi); }
+.pay-seg--2 { background: var(--card); border: 1px solid var(--line-strong); }
+
+.pay-steps { display: grid; gap: var(--s-1); }
+
+.pay-steps li { display: flex; align-items: center; gap: var(--s-2); }
+
+.pay-key {
+    width: 12px;
+    height: 12px;
+    flex-shrink: 0;
+    border-radius: 3px;
+}
+
+.pay-steps strong {
+    font-family: var(--font-heading);
+    font-weight: 700;
+}
+
+@media (max-width: 960px) {
+    .packages { grid-template-columns: minmax(0, 1fr); max-width: 560px; }
+    .package--featured { order: -1; }
+}
+
+/* Package "includes": open list on wide screens, tap to open on phones */
+.includes summary {
+    display: flex;
+    align-items: center;
+    gap: var(--s-2);
+    min-height: 44px;
+    font-weight: 500;
+    cursor: pointer;
+    list-style: none;
+}
+
+.includes summary::-webkit-details-marker { display: none; }
+
+.includes-chevron {
+    margin-left: auto;
+    transition: transform var(--dur) var(--ease-out);
+}
+
+.includes[open] .includes-chevron { transform: rotate(180deg); }
+
+.includes[open] > .ticks { animation: fade-down var(--dur) var(--ease-out); }
+
+@keyframes fade-down {
+    from { opacity: 0; transform: translateY(-6px); }
+    to { opacity: 1; transform: none; }
+}

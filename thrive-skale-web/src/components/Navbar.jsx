@@ -1,116 +1,87 @@
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import './Navbar.css';
 
+const LINKS = [
+    { to: '/how-it-works', id: 'how-it-works', label: 'How it works' },
+    { to: '/packages', id: 'packages', label: 'Packages' },
+    { to: '/monthly', id: 'monthly', label: 'Monthly' },
+    { to: '/faq', id: 'faq', label: 'FAQ' },
+    { to: '/contact', id: 'contact', label: 'Contact' },
+];
+
 const Navbar = () => {
-    const [scrolled, setScrolled] = useState(false);
-    const [isOpen, setIsOpen] = useState(false);
-    const [activeSection, setActiveSection] = useState('hero');
+    const [open, setOpen] = useState(false);
+    const [current, setCurrent] = useState('');
+    const { pathname } = useLocation();
 
-    // Scroll spy - detect which section is in view
+    /* Highlight the section in the middle of the screen. One observer, no scroll listener. */
     useEffect(() => {
-        const sections = ['hero', 'reality-vision', 'services', 'industries', 'pricing', 'contact'];
-        const observers = [];
-
-        sections.forEach((sectionId) => {
-            const element = document.getElementById(sectionId);
-            if (!element) return;
-
-            const observer = new IntersectionObserver(
-                (entries) => {
-                    entries.forEach((entry) => {
-                        if (entry.isIntersecting) {
-                            setActiveSection(sectionId);
-                        }
-                    });
-                },
-                { threshold: 0.3 }
-            );
-
-            observer.observe(element);
-            observers.push(observer);
-        });
-
-        return () => observers.forEach((obs) => obs.disconnect());
-    }, []);
+        const sections = LINKS.map((l) => document.getElementById(l.id)).filter(Boolean);
+        if (!sections.length || !('IntersectionObserver' in window)) return undefined;
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) setCurrent(entry.target.id);
+            });
+        }, { rootMargin: '-45% 0px -50% 0px' });
+        sections.forEach((s) => observer.observe(s));
+        return () => observer.disconnect();
+    }, [pathname]);
 
     useEffect(() => {
-        const handleScroll = () => {
-            setScrolled(window.scrollY > 50);
-        };
+        document.body.style.overflow = open ? 'hidden' : '';
+        if (!open) return undefined;
+        const onKey = (e) => { if (e.key === 'Escape') setOpen(false); };
+        window.addEventListener('keydown', onKey);
+        return () => window.removeEventListener('keydown', onKey);
+    }, [open]);
 
-        window.addEventListener('scroll', handleScroll);
-        return () => window.removeEventListener('scroll', handleScroll);
-    }, []);
-
-    const toggleMenu = () => {
-        const next = !isOpen;
-        setIsOpen(next);
-        if (window.__lenis) {
-            next ? window.__lenis.stop() : window.__lenis.start();
-        }
-        document.body.classList.toggle('menu-open', next);
+    /* Clicking a link to the section already in the URL still scrolls to it. */
+    const go = (link) => {
+        setOpen(false);
+        if (pathname === link.to) document.getElementById(link.id)?.scrollIntoView();
     };
-
-    const closeMenu = () => {
-        setIsOpen(false);
-        if (window.__lenis) window.__lenis.start();
-        document.body.classList.remove('menu-open');
-    };
-
-    const handleNavClick = (sectionId) => {
-        closeMenu();
-        const element = document.getElementById(sectionId);
-        if (element) {
-            element.scrollIntoView({ behavior: 'smooth' });
-        } else {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-    };
-
-    const isActive = (sectionId) => activeSection === sectionId;
 
     return (
-        <nav className={`navbar ${scrolled ? 'scrolled' : ''}`}>
-            <div className="container navbar-container">
-                <Link to="/" className="logo-container" onClick={closeMenu}>
-                    <div className="logo-text">
-                        thrivv<span>Skale</span>
-                    </div>
+        <header className="nav">
+            <div className="container nav-inner">
+                <Link to="/" className="nav-logo" onClick={() => setOpen(false)} aria-label="ThrivvSkale home">
+                    thrivv<span>Skale</span>
                 </Link>
 
-                <div className={`hamburger ${isOpen ? 'active' : ''}`} onClick={toggleMenu}>
-                    <span className="bar"></span>
-                    <span className="bar"></span>
-                    <span className="bar"></span>
-                </div>
+                <button
+                    type="button"
+                    className="nav-toggle"
+                    aria-expanded={open}
+                    aria-controls="nav-menu"
+                    onClick={() => setOpen((v) => !v)}
+                >
+                    <span className="visually-hidden">{open ? 'Close menu' : 'Open menu'}</span>
+                    <span className="nav-toggle-bar" aria-hidden="true" />
+                    <span className="nav-toggle-bar" aria-hidden="true" />
+                    <span className="nav-toggle-bar" aria-hidden="true" />
+                </button>
 
-                <div className={`nav-menu ${isOpen ? 'active' : ''}`}>
-                    {isOpen && (
-                        <button className="mobile-close" onClick={closeMenu} aria-label="Close menu">
-                            ✕
-                        </button>
-                    )}
+                <nav id="nav-menu" className={`nav-menu ${open ? 'is-open' : ''}`} aria-label="Main">
                     <ul className="nav-links">
-                        <li><Link to="/" onClick={() => handleNavClick('hero')} className={isActive('hero') ? 'active' : ''}>Home</Link></li>
-                        <li><Link to="/why-us" onClick={() => handleNavClick('reality-vision')} className={isActive('reality-vision') ? 'active' : ''}>Why Us</Link></li>
-                        <li><Link to="/services" onClick={() => handleNavClick('services')} className={isActive('services') ? 'active' : ''}>Services</Link></li>
-                        <li><Link to="/industries" onClick={() => handleNavClick('industries')} className={isActive('industries') ? 'active' : ''}>Industries</Link></li>
-                        <li><Link to="/pricing" onClick={() => handleNavClick('pricing')} className={isActive('pricing') ? 'active' : ''}>Pricing</Link></li>
-                        <li><Link to="/contact" onClick={() => handleNavClick('contact')} className={isActive('contact') ? 'active' : ''}>Contact</Link></li>
+                        {LINKS.map((link) => (
+                            <li key={link.id}>
+                                <Link
+                                    to={link.to}
+                                    onClick={() => go(link)}
+                                    aria-current={current === link.id ? 'location' : undefined}
+                                >
+                                    {link.label}
+                                </Link>
+                            </li>
+                        ))}
                     </ul>
-                    {isOpen && (
-                        <>
-                            <Link to="/contact" onClick={() => handleNavClick('contact')} className="mobile-cta">Book a Call</Link>
-                        </>
-                    )}
-                </div>
-
-                <div className="nav-extras">
-                    <Link to="/contact" onClick={() => handleNavClick('contact')} className="cta-btn">Book a Call</Link>
-                </div>
+                    <Link to="/contact" className="btn btn--primary nav-cta" onClick={() => go(LINKS[4])}>
+                        Get a quote
+                    </Link>
+                </nav>
             </div>
-        </nav>
+        </header>
     );
 };
 

@@ -1,122 +1,85 @@
-import { useState, useEffect, lazy, Suspense } from 'react'
-import { Routes, Route, useLocation } from 'react-router-dom'
+import { useEffect } from 'react';
+import { Routes, Route, useLocation } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
-// Lazy load heavier components
-const ExploreAgents = lazy(() => import('./components/ExploreAgents'));
-
-import ProblemSolution from './components/ProblemSolution';
-import Industries from './components/Industries';
-import Services from './components/Services';
-import Pricing from './components/Pricing';
+import HowItWorks from './components/HowItWorks';
+import Packages from './components/Packages';
+import MonthlyPlans from './components/MonthlyPlans';
+import AddOns from './components/AddOns';
+import PaidDirectly from './components/PaidDirectly';
 import FAQ from './components/FAQ';
 import Contact from './components/Contact';
-import ThankYou from './components/ThankYou';
-import ScrollNavigator from './components/ScrollNavigator';
-
 import Footer from './components/Footer';
-
-// Global enhancements
-import ScrollProgress from './components/ScrollProgress';
-import ScrollAnimations from './components/ScrollAnimations';
-import TextReveal from './components/TextReveal';
-import PageLoader from './components/PageLoader';
-import { CountryProvider } from './context/CountryContext';
-import './components/CountrySwitcher.css';
-
+import ThankYou from './components/ThankYou';
+import MobileCTA from './components/MobileCTA';
+import useScrollReveal from './hooks/useScrollReveal';
+import { PrivacyPolicy, Terms } from './components/LegalPages';
 import * as gtag from './utils/gtag';
 
-// Helper component to handle scrolling based on route
-const ScrollToSection = () => {
-  const { pathname } = useLocation();
-
-  // Prevent browser from restoring scroll on refresh
-  useEffect(() => {
-    if ('scrollRestoration' in window.history) {
-      window.history.scrollRestoration = 'manual';
-    }
-  }, []);
-
-  useEffect(() => {
-    const pathMap = {
-      '/': 'hero',
-      '/why-us': 'reality-vision',
-      '/services': 'services',
-      '/pricing': 'pricing',
-      '/industries': 'industries',
-      '/contact': 'contact'
-    };
-
-    const sectionId = pathMap[pathname];
-    if (sectionId) {
-      const element = document.getElementById(sectionId);
-      if (element) {
-        setTimeout(() => {
-          element.scrollIntoView({ behavior: 'smooth' });
-        }, 100);
-      }
-    } else if (pathname === '/') {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-  }, [pathname]);
-
-  return null;
+/* Old URLs still land on the right part of the page. */
+const PATH_TO_SECTION = {
+    '/how-it-works': 'how-it-works',
+    '/packages': 'packages',
+    '/services': 'packages',
+    '/pricing': 'packages',
+    '/monthly': 'monthly',
+    '/faq': 'faq',
+    '/contact': 'contact',
 };
 
-const MainContent = ({ contactService, setContactService }) => (
-  <>
-    <ScrollToSection />
-    <Hero />
-    <ProblemSolution />
-    <Services onServiceSelect={setContactService} />
-    <Industries />
-    <Pricing />
-    <FAQ />
-    <Contact initialService={contactService} />
-  </>
-);
+const ScrollToSection = () => {
+    const { pathname } = useLocation();
 
+    useEffect(() => {
+        const id = PATH_TO_SECTION[pathname];
+        const el = id && document.getElementById(id);
+        if (el) el.scrollIntoView();
+        else window.scrollTo(0, 0);
+    }, [pathname]);
 
+    return null;
+};
+
+const Home = () => {
+    useScrollReveal();
+    return (
+    <>
+    <main id="main">
+        <ScrollToSection />
+        <Hero />
+        <HowItWorks />
+        <Packages />
+        <MonthlyPlans />
+        <AddOns />
+        <PaidDirectly />
+        <FAQ />
+        <Contact />
+    </main>
+    <MobileCTA />
+    </>
+    );
+};
 
 function App() {
-  const [contactService, setContactService] = useState(null);
-  const location = useLocation();
+    const location = useLocation();
 
-  useEffect(() => {
-    gtag.pageview(location.pathname + location.search);
-  }, [location]);
+    useEffect(() => {
+        gtag.pageview(location.pathname + location.search);
+    }, [location]);
 
-  return (
-    <PageLoader>
-      <CountryProvider>
-        <div className="app">
-          <ScrollProgress />
-          <ScrollAnimations />
-          <TextReveal />
-          <ScrollNavigator />
-          <Navbar />
-          <Routes>
-            <Route path="/" element={
-              <MainContent contactService={contactService} setContactService={setContactService} />
-            } />
-            <Route path="/why-us" element={<MainContent contactService={contactService} setContactService={setContactService} />} />
-            <Route path="/services" element={<MainContent contactService={contactService} setContactService={setContactService} />} />
-            <Route path="/industries" element={<MainContent contactService={contactService} setContactService={setContactService} />} />
-            <Route path="/pricing" element={<MainContent contactService={contactService} setContactService={setContactService} />} />
-            <Route path="/contact" element={<MainContent contactService={contactService} setContactService={setContactService} />} />
-            <Route path="/thank-you" element={<ThankYou />} />
-            <Route path="/explore-agents" element={
-              <Suspense fallback={<PageLoader />}>
-                <ExploreAgents />
-              </Suspense>
-            } />
-            <Route path="*" element={<MainContent contactService={contactService} setContactService={setContactService} />} />
-          </Routes>
-          <Footer />
-        </div>
-      </CountryProvider>
-    </PageLoader>
-  );
+    return (
+        <>
+            <a className="skip-link" href="#main">Skip to content</a>
+            <Navbar />
+            <Routes>
+                <Route path="/thank-you" element={<ThankYou />} />
+                <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+                <Route path="/terms" element={<Terms />} />
+                <Route path="*" element={<Home />} />
+            </Routes>
+            <Footer />
+        </>
+    );
 }
 
-export default App
+export default App;

@@ -1,0 +1,174 @@
+/* A connected flow of six steps. Across the page on wide screens, down it on narrow ones.
+   Coverage is shown with words (Included / Partly / Not included), not only colour. */
+.flow-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: var(--s-5);
+    margin-bottom: var(--s-5);
+}
+
+.flow-head .section-head { margin-bottom: 0; }
+
+.flow-picker { border: none; display: grid; gap: var(--s-2); }
+
+.flow-summary { margin-bottom: var(--s-6); }
+
+.flow {
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: var(--s-4);
+}
+
+.flow-step {
+    position: relative;
+    display: grid;
+    align-content: start;
+    gap: var(--s-4);
+}
+
+/* Connector line between nodes */
+.flow-step::before {
+    content: '';
+    position: absolute;
+    top: 21px;
+    left: 44px;
+    right: calc(-1 * var(--s-4));
+    height: 2px;
+    background: var(--line-strong);
+}
+
+/* Filled line: scales in from the left when this step and the next are both covered.
+   transform only, so switching packages never triggers layout. */
+.flow-step::after {
+    content: '';
+    position: absolute;
+    top: 20px;
+    left: 44px;
+    right: calc(-1 * var(--s-4));
+    height: 4px;
+    border-radius: 2px;
+    background: var(--haldi);
+    transform: scaleX(0);
+    transform-origin: left center;
+    transition: transform 0.45s var(--ease-out);
+    transition-delay: calc(var(--i, 0) * 60ms);
+}
+
+.flow-step--linked::after { transform: scaleX(1); }
+
+.flow-step:last-child::before,
+.flow-step:last-child::after { display: none; }
+
+.flow-icon {
+    display: inline-grid;
+    place-items: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    background: var(--haldi-pale);
+    color: var(--ink);
+    transition: background-color var(--dur) ease, color var(--dur) ease;
+}
+
+.flow-step--none .flow-icon {
+    background: var(--tint);
+    color: var(--muted);
+}
+
+.flow-node {
+    position: relative;
+    z-index: 1;
+    width: 44px;
+    height: 44px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    font-family: var(--font-heading);
+    font-size: 1.15rem;
+    font-weight: 800;
+    border: 2px solid var(--haldi);
+    background: var(--haldi);
+    color: var(--ink);
+    transition: background-color 0.25s ease, border-color 0.25s ease, color 0.25s ease, transform 0.4s var(--ease-pop);
+}
+
+.flow-body { display: grid; gap: var(--s-2); }
+
+.flow-body h3 {
+    font-size: 1.1rem;
+    transition: color 0.25s ease;
+}
+
+.flow-text {
+    font-size: var(--text-small);
+    color: var(--muted);
+}
+
+.flow-status {
+    justify-self: start;
+    padding: 0 var(--s-2);
+    border-radius: 4px;
+    font-weight: 500;
+    background: var(--haldi-pale);
+    color: var(--ink);
+    transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+/* Partly covered */
+.flow-step--partial .flow-node {
+    background: var(--haldi-pale);
+}
+
+/* Not covered: quieter, still readable (muted on white 7.6:1) */
+.flow-step--none .flow-node {
+    background: var(--card);
+    border: 2px dashed var(--line-strong);
+    color: var(--muted);
+    transform: scale(0.9);
+}
+
+.flow-step--none h3 { color: var(--muted); }
+
+.flow-step--none .flow-status {
+    background: transparent;
+    color: var(--muted);
+    padding: 0;
+}
+
+@media (max-width: 1040px) {
+    .flow {
+        grid-template-columns: minmax(0, 1fr);
+        gap: var(--s-5);
+    }
+
+    .flow-step {
+        grid-template-columns: 44px minmax(0, 1fr);
+        gap: var(--s-4);
+    }
+
+    /* Vertical connector */
+    .flow-step::before,
+    .flow-step::after {
+        top: 44px;
+        bottom: calc(-1 * var(--s-5));
+        left: 21px;
+        right: auto;
+        width: 2px;
+        height: auto;
+    }
+
+    .flow-step::after {
+        left: 20px;
+        width: 4px;
+        transform: scaleY(0);
+        transform-origin: center top;
+    }
+
+    .flow-step--linked::after { transform: scaleY(1); }
+}
+
+@media (max-width: 640px) {
+    .segmented { display: grid; width: 100%; }
+}

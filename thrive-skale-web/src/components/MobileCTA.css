@@ -1,0 +1,24 @@
+.mobile-cta { display: none; }
+
+@media (max-width: 900px) {
+    .mobile-cta {
+        position: fixed;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 900;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: var(--s-2);
+        padding: var(--s-2) var(--gutter) calc(var(--s-2) + env(safe-area-inset-bottom));
+        background: var(--bg);
+        border-top: 1px solid var(--line);
+        transform: translateY(110%);
+        transition: transform var(--dur) var(--ease-out);
+    }
+
+    .mobile-cta.is-shown { transform: none; }
+
+    /* Room so the bar never covers the end of the footer */
+    .footer { padding-bottom: calc(var(--s-5) + 72px + env(safe-area-inset-bottom)); }
+}

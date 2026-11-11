@@ -1,0 +1,63 @@
+.addons {
+    display: grid;
+    grid-template-columns: minmax(0, 0.7fr) minmax(0, 1.3fr);
+    gap: var(--s-7);
+    align-items: start;
+}
+
+.rate-card {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-top: 4px solid var(--haldi);
+    border-radius: var(--radius);
+    padding: var(--s-5) var(--s-6);
+    display: grid;
+    gap: var(--s-6);
+}
+
+.rate-group h3 {
+    display: flex;
+    align-items: center;
+    gap: var(--s-2);
+    font-size: 1.05rem;
+    padding-bottom: var(--s-2);
+    margin-bottom: var(--s-2);
+    border-bottom: 2px solid var(--ink);
+}
+
+.rate-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0 var(--s-2);
+    max-width: none;
+    padding: var(--s-2) 0;
+}
+
+.rate-row { border-radius: 4px; transition: background-color var(--dur-fast) ease; }
+
+@media (hover: hover) {
+    .rate-row:hover { background: var(--haldi-pale); }
+}
+
+.rate-name { font-weight: 500; }
+
+/* Dotted leader between name and price; collapses when the row wraps. */
+.rate-leader {
+    flex: 1 1 2rem;
+    min-width: 2rem;
+    border-bottom: 2px dotted var(--line-strong);
+    transform: translateY(-4px);
+}
+
+.rate-price {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    text-align: right;
+    margin-left: auto;
+}
+
+@media (max-width: 860px) {
+    .addons { grid-template-columns: minmax(0, 1fr); gap: 0; }
+    .rate-card { padding: var(--s-5); }
+}

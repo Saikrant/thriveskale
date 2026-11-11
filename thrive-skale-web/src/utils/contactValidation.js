@@ -11,13 +11,16 @@ export const BUSINESS_TYPES = [
 ];
 
 export const CONTACT_FIELDS = ['name', 'email', 'phone', 'businessType', 'message'];
+/** Email and message are optional: fewer required fields, more enquiries. */
+export const OPTIONAL_CONTACT_FIELDS = ['email', 'message'];
+export const isOptionalContactField = (name) => OPTIONAL_CONTACT_FIELDS.includes(name);
 
 export const normalizePhoneNumber = (value = '') => String(value).replace(/[\s()-]/g, '');
 
 export const validateContactField = (name, value) => {
     const textValue = String(value ?? '').trim();
 
-    if (!textValue) return 'This field is required';
+    if (!textValue) return isOptionalContactField(name) ? '' : 'This field is required';
 
     if (name === 'email') {
         const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
