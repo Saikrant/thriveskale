@@ -1,4 +1,9 @@
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useCountry } from '../context/CountryContext';
+import { CONTACT } from '../utils/countryConfig';
+import { BUSINESS_TYPES, validateContactField } from '../utils/contactValidation';
+import { buildContactWhatsAppUrl } from '../utils/contactLead';
 import './Hero.css';
 
 const scrollToId = (id) => {
@@ -9,15 +14,32 @@ const scrollToId = (id) => {
 const Hero = () => {
     const { config } = useCountry();
     const { symbol } = config.currency;
-    const { website, mobile, ai } = config.pricing;
+    const { website } = config.pricing;
 
-    // Real tiers from the pricing config; delivery times match the pricing section.
-    const rates = [
-        { name: 'Business website', detail: 'Single page, ready in 7 days', price: website.plans[0].price },
-        { name: 'Online store or booking site', detail: 'Payments and admin dashboard, ready in 30 days', price: website.plans[2].price },
-        { name: 'WhatsApp assistant', detail: `Answers enquiries and books calls, set up in 10 days. ${config.offers.aiAgentsDiscount} off for early customers`, price: ai.plans[0].price },
-        { name: 'Mobile app', detail: 'One platform, up to 5 screens', price: mobile.plans[0].price },
-    ];
+    const navigate = useNavigate();
+    const [form, setForm] = useState({ name: '', phone: '', businessType: '' });
+    const [errors, setErrors] = useState({});
+
+    const onChange = (e) => {
+        const { name, value } = e.target;
+        setForm((p) => ({ ...p, [name]: value }));
+        setErrors((p) => ({ ...p, [name]: '' }));
+    };
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        const next = {};
+        ['name', 'phone', 'businessType'].forEach((f) => {
+            const err = validateContactField(f, form[f]);
+            if (err) next[f] = err;
+        });
+        setErrors(next);
+        if (Object.keys(next).length) return;
+        const whatsappUrl = buildContactWhatsAppUrl(CONTACT.whatsappNumber, {
+            ...form, email: 'Not given', message: 'Free quote request from the home page',
+        });
+        navigate('/thank-you', { state: { whatsappUrl } });
+    };
 
     return (
         <section id="hero" className="hero">
@@ -27,36 +49,42 @@ const Hero = () => {
                         Websites, online stores and WhatsApp assistants, with prices upfront
                     </h1>
                     <p className="hero-lead">
-                        We build it, launch it and support it. Book a free 30-minute call and we will
-                        recommend the right package for your business.
+                        We build it, launch it and support it. Tell us about your business and we will
+                        recommend the right package.
                     </p>
-                    <div className="hero-ctas">
-                        <button type="button" className="hero-cta-primary" onClick={() => scrollToId('contact')}>
-                            Book a free call
-                        </button>
-                        <button type="button" className="hero-cta-secondary" onClick={() => scrollToId('pricing')}>
-                            See all prices
-                        </button>
-                    </div>
+                    <button type="button" className="hero-cta-secondary" onClick={() => scrollToId('pricing')}>
+                        See all prices
+                    </button>
                 </div>
 
-                <aside className="hero-rates" aria-labelledby="hero-rates-title">
-                    <h2 id="hero-rates-title" className="hero-rates-title">Starting prices</h2>
-                    <p className="hero-rates-note">In rupees, excluding GST</p>
-                    <dl className="hero-rates-list">
-                        {rates.map((r) => (
-                            <div className="hero-rate" key={r.name}>
-                                <div className="hero-rate-text">
-                                    <dt>{r.name}</dt>
-                                    <dd>{r.detail}</dd>
-                                </div>
-                                <div className="hero-rate-price">
-                                    <span className="hero-rate-from">from</span> {symbol}{r.price}
-                                </div>
-                            </div>
-                        ))}
-                    </dl>
-                </aside>
+                <form className="hero-form" onSubmit={handleSubmit} noValidate aria-labelledby="hero-form-title">
+                    <h2 id="hero-form-title" className="hero-form-title">Get a free quote on WhatsApp</h2>
+                    <p className="hero-form-note">
+                        Three details, then we message you on WhatsApp with a price for your business.
+                    </p>
+                    <label className="hero-field">
+                        <span>Your name</span>
+                        <input name="name" value={form.name} onChange={onChange} autoComplete="name" aria-invalid={!!errors.name} />
+                        {errors.name && <em role="alert">{errors.name}</em>}
+                    </label>
+                    <label className="hero-field">
+                        <span>Phone number</span>
+                        <input name="phone" type="tel" inputMode="tel" value={form.phone} onChange={onChange} autoComplete="tel" placeholder="+91" aria-invalid={!!errors.phone} />
+                        {errors.phone && <em role="alert">{errors.phone}</em>}
+                    </label>
+                    <label className="hero-field">
+                        <span>Your business</span>
+                        <select name="businessType" value={form.businessType} onChange={onChange} aria-invalid={!!errors.businessType}>
+                            <option value="">Choose one</option>
+                            {BUSINESS_TYPES.map((t) => <option key={t} value={t}>{t}</option>)}
+                        </select>
+                        {errors.businessType && <em role="alert">{errors.businessType}</em>}
+                    </label>
+                    <button type="submit" className="hero-cta-primary hero-form-submit">Get my free quote</button>
+                    <p className="hero-form-price">
+                        Websites from {symbol}{website.plans[0].price}. Online stores from {symbol}{website.plans[2].price}. Excluding GST.
+                    </p>
+                </form>
             </div>
         </section>
     );

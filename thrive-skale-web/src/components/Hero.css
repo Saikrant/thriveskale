@@ -71,66 +71,39 @@
     outline-offset: 3px;
 }
 
-/* Rate card */
-.hero-rates {
+/* Lead form */
+.hero-form {
     background: var(--surface);
     border: 1px solid rgba(23, 40, 58, 0.14);
     border-radius: 6px;
-    padding: 1.5rem 1.5rem 0.5rem;
+    padding: 1.75rem 1.5rem 1.5rem;
+    display: grid;
+    gap: 1rem;
 }
 
-.hero-rates-title {
-    font-size: 1.25rem;
-    font-weight: 700;
+.hero-form-title { font-size: 1.3rem; font-weight: 700; color: var(--ink); }
+.hero-form-note { font-size: 0.95rem; line-height: 1.45; color: var(--ink-muted); margin-top: -0.5rem; }
+
+.hero-field { display: grid; gap: 0.35rem; }
+.hero-field span { font-size: 0.95rem; font-weight: 600; color: var(--ink); }
+.hero-field input,
+.hero-field select {
+    font: inherit;
+    font-size: 1rem;
+    min-height: 48px;
+    padding: 0 0.85rem;
     color: var(--ink);
+    background: #fff;
+    border: 1px solid rgba(23, 40, 58, 0.4);
+    border-radius: 4px;
 }
+.hero-field input:focus-visible,
+.hero-field select:focus-visible { outline: 2px solid var(--teal); outline-offset: 2px; }
+.hero-field [aria-invalid="true"] { border-color: #A3262A; }
+.hero-field em { font-style: normal; font-size: 0.9rem; color: #A3262A; }
 
-.hero-rates-note {
-    margin-top: 0.15rem;
-    font-size: 0.95rem;
-    color: var(--ink-muted);
-}
-
-.hero-rates-list {
-    margin-top: 1rem;
-}
-
-.hero-rate {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    gap: 1.25rem;
-    padding: 1rem 0;
-    border-top: 1px solid rgba(23, 40, 58, 0.12);
-}
-
-.hero-rate dt {
-    font-weight: 600;
-    font-size: 1.05rem;
-    color: var(--ink);
-}
-
-.hero-rate dd {
-    margin-top: 0.2rem;
-    font-size: 0.92rem;
-    line-height: 1.4;
-    color: var(--ink-muted);
-}
-
-.hero-rate-price {
-    flex-shrink: 0;
-    font-weight: 700;
-    font-size: 1.3rem;
-    font-variant-numeric: tabular-nums;
-    color: var(--accent-text);
-    white-space: nowrap;
-}
-
-.hero-rate-from {
-    font-weight: 400;
-    font-size: 0.9rem;
-    color: var(--ink-muted);
-}
+.hero-form-submit { width: 100%; justify-content: center; }
+.hero-form-price { font-size: 0.9rem; line-height: 1.4; color: var(--ink-muted); }
 
 @media (max-width: 860px) {
     .hero {
