@@ -1,11 +1,11 @@
 /* ExploreAgents.css */
 :root {
     --ea-bg: #050510;
-    --ea-card-bg: rgba(255, 255, 255, 0.03);
-    --ea-border: rgba(255, 255, 255, 0.08);
-    --ea-accent: #48d5b1;
-    --ea-text: #ffffff;
-    --ea-text-muted: #8b9bb4;
+    --ea-card-bg: rgba(23, 40, 58, 0.03);
+    --ea-border: rgba(23, 40, 58, 0.12);
+    --ea-accent: #8A520F;
+    --ea-text: #17283A;
+    --ea-text-muted: #5A6B7B;
 }
 
 .ea-page {
@@ -204,7 +204,7 @@
     background: rgba(23,40,58,0.04);
     padding: 4px 8px;
     border-radius: 4px;
-    color: #cbd5e1;
+    color: #5A6B7B;
 }
 
 /* Action Button */

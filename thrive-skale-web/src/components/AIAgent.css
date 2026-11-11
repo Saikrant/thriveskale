@@ -20,7 +20,7 @@
     max-width: 500px;
     height: 600px;
     max-height: 90vh;
-    background: rgba(15, 25, 40, 0.95);
+    background: rgba(251, 252, 251, 0.98);
     border: 1px solid rgba(31,111,120,0.3);
     border-radius: 20px;
     box-shadow: 0 0 60px rgba(31,111,120,0.2);
@@ -69,7 +69,7 @@
     height: 10px;
     background: #00ff88;
     border-radius: 50%;
-    border: 2px solid #0f1928;
+    border: 2px solid var(--paper);
 }
 
 .agent-info h3 {

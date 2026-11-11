@@ -248,7 +248,7 @@
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     border-left: 1px solid rgba(226,162,74,0.2);
-    box-shadow: -10px 0 40px rgba(23,40,58,0.175);
+    box-shadow: none;
     z-index: 1001;
     transform: translateX(100%);
     transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
@@ -258,13 +258,14 @@
 
 .ind-panel--open {
     transform: translateX(0);
+    box-shadow: -10px 0 40px rgba(23,40,58,0.175);
 }
 
 /* Panel Header */
 .ind-panel-header {
     position: sticky;
     top: 0;
-    background: rgba(10, 20, 40, 0.95);
+    background: rgba(251, 252, 251, 0.97);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     padding: 24px;
@@ -317,7 +318,7 @@
 .ind-panel-close:hover {
     background: rgba(239, 68, 68, 0.15);
     border-color: rgba(239, 68, 68, 0.4);
-    color: #ef4444;
+    color: #B83232;
     transform: rotate(90deg);
 }
 

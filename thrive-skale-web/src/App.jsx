@@ -12,7 +12,6 @@ import Pricing from './components/Pricing';
 import FAQ from './components/FAQ';
 import Contact from './components/Contact';
 import ThankYou from './components/ThankYou';
-import ScrollNavigator from './components/ScrollNavigator';
 
 import Footer from './components/Footer';
 
@@ -93,7 +92,6 @@ function App() {
           <ScrollProgress />
           <ScrollAnimations />
           <TextReveal />
-          <ScrollNavigator />
           <Navbar />
           <Routes>
             <Route path="/" element={

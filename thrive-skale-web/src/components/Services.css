@@ -289,7 +289,7 @@
     max-height: 90vh;
     overflow-y: auto;
     position: relative;
-    background: rgba(15, 20, 35, 0.95);
+    background: rgba(251, 252, 251, 0.97);
     border: 1px solid rgba(23,40,58,0.08);
     backdrop-filter: blur(40px);
     -webkit-backdrop-filter: blur(40px);
