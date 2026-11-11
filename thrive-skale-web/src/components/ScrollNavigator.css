@@ -55,8 +55,8 @@
     justify-content: center;
     color: #48d5b1;
     font-size: 16px;
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
     transition: transform 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
 }
 

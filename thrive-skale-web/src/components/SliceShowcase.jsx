@@ -16,7 +16,7 @@ const SliceShowcase = () => {
                 <div className="slice-container reveal">
                     {[1, 2, 3, 4, 5].map((num) => (
                         <div key={num} className={`slice slice-${num}`}>
-                            <div className="slice-inner" style={{ backgroundImage: 'url("/assets/showcase-bg.png")' }}></div>
+                            <div className="slice-inner" style={{ backgroundImage: 'url("/assets/showcase-bg.webp")' }}></div>
                         </div>
                     ))}
                     <div className="slice-overlay">

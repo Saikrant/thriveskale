@@ -17,7 +17,7 @@ const Industries = () => {
             category: "Beauty & Wellness",
             clients: "50+ clients",
             tag: "Premium",
-            image: "/images/industries/salons.png",
+            image: "/images/industries/salons.webp",
             description: "Transform your salon into a digital powerhouse. Streamline bookings, enhance customer loyalty, and grow your beauty business.",
             services: [
                 { icon: "🌐", name: "Premium Website", desc: "Showcase services & online booking" },
@@ -37,7 +37,7 @@ const Industries = () => {
             category: "Food & Beverage",
             clients: "35+ clients",
             tag: "Popular",
-            image: "/images/industries/restaurants.png",
+            image: "/images/industries/restaurants.webp",
             description: "Boost your restaurant's revenue with digital ordering, table management, and customer engagement tools.",
             services: [
                 { icon: "🌐", name: "Restaurant Website", desc: "Menu display & online ordering system" },
@@ -57,7 +57,7 @@ const Industries = () => {
             category: "Health & Wellness",
             clients: "40+ clients",
             tag: "Trending",
-            image: "/images/industries/gyms.png",
+            image: "/images/industries/gyms.webp",
             description: "Empower your fitness business with membership management, class scheduling, and member engagement solutions.",
             services: [
                 { icon: "🌐", name: "Fitness Website", desc: "Class schedules & membership signup" },
@@ -77,7 +77,7 @@ const Industries = () => {
             category: "Property & Housing",
             clients: "25+ clients",
             tag: "Premium",
-            image: "/images/industries/real_estate.png",
+            image: "/images/industries/real_estate.webp",
             description: "Showcase properties beautifully, manage leads effectively, and close deals faster with our real estate solutions.",
             services: [
                 { icon: "🌐", name: "Property Portal", desc: "Listings & virtual tours" },
@@ -97,7 +97,7 @@ const Industries = () => {
             category: "Medical Services",
             clients: "30+ clients",
             tag: "Essential",
-            image: "/images/industries/healthcare.png",
+            image: "/images/industries/healthcare.webp",
             description: "Modernize patient care with appointment scheduling, telemedicine capabilities, and HIPAA-compliant solutions.",
             services: [
                 { icon: "🌐", name: "Medical Website", desc: "Patient portal & appointment booking" },
@@ -117,7 +117,7 @@ const Industries = () => {
             category: "E-commerce & Stores",
             clients: "45+ clients",
             tag: "Popular",
-            image: "/images/industries/retail.png",
+            image: "/images/industries/retail.webp",
             description: "Scale your retail business with e-commerce platforms, inventory management, and omnichannel customer experiences.",
             services: [
                 { icon: "🌐", name: "E-commerce Store", desc: "Online shopping & payment processing" },
@@ -137,7 +137,7 @@ const Industries = () => {
             category: "Learning & Training",
             clients: "20+ clients",
             tag: "Emerging",
-            image: "/images/industries/education.png",
+            image: "/images/industries/education.webp",
             description: "Enhance learning experiences with online courses, student portals, and interactive educational platforms.",
             services: [
                 { icon: "🌐", name: "Learning Portal", desc: "Course catalog & enrollment" },
@@ -157,7 +157,7 @@ const Industries = () => {
             category: "Repairs & Maintenance",
             clients: "38+ clients",
             tag: "Growing",
-            image: "/images/industries/home_services.png",
+            image: "/images/industries/home_services.webp",
             description: "Grow your service business with booking systems, technician dispatch, and customer feedback management.",
             services: [
                 { icon: "🌐", name: "Service Website", desc: "Service listings & instant quotes" },

@@ -15,15 +15,10 @@ import ThankYou from './components/ThankYou';
 import ScrollNavigator from './components/ScrollNavigator';
 
 import Footer from './components/Footer';
-import SmoothScroll from './components/SmoothScroll';
-import AbstractWaves from './components/AbstractWaves';
 
 // Global enhancements
-import CustomCursor from './components/CustomCursor';
 import ScrollProgress from './components/ScrollProgress';
 import ScrollAnimations from './components/ScrollAnimations';
-import MagneticButtons from './components/MagneticButtons';
-import ParallaxManager from './components/ParallaxManager';
 import TextReveal from './components/TextReveal';
 import PageLoader from './components/PageLoader';
 import { CountryProvider } from './context/CountryContext';
@@ -70,7 +65,6 @@ const ScrollToSection = () => {
 
 const MainContent = ({ contactService, setContactService }) => (
   <>
-    <AbstractWaves />
     <ScrollToSection />
     <Hero />
     <ProblemSolution />
@@ -96,12 +90,8 @@ function App() {
     <PageLoader>
       <CountryProvider>
         <div className="app">
-          <SmoothScroll />
-          <CustomCursor />
           <ScrollProgress />
           <ScrollAnimations />
-          <MagneticButtons />
-          <ParallaxManager />
           <TextReveal />
           <ScrollNavigator />
           <Navbar />
