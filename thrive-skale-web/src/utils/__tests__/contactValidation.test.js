@@ -41,8 +41,20 @@ describe('contact validation', () => {
             email: 'Please enter a valid email',
             phone: 'Please enter a valid phone number',
             businessType: 'Please select a valid industry',
-            message: 'This field is required',
         });
+    });
+
+    it('treats email and message as optional, but still checks an email that is given', () => {
+        expect(validateContactField('email', '')).toBe('');
+        expect(validateContactField('message', '   ')).toBe('');
+        expect(validateContactField('email', 'nope')).toBe('Please enter a valid email');
+        expect(validateContactForm({
+            name: 'Sai', email: '', phone: '+91 90143 53465', businessType: BUSINESS_TYPES[0], message: '',
+        })).toEqual({});
+    });
+
+    it('still requires name, phone and business type', () => {
+        ['name', 'phone', 'businessType'].forEach((f) => expect(validateContactField(f, '')).toBe('This field is required'));
     });
 
     it('marks all contact fields as touched', () => {

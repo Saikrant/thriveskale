@@ -18,8 +18,8 @@
 /* Large tap targets for calling, WhatsApp and email. */
 .contact-row-link {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) auto;
-    grid-template-areas: "label arrow" "value arrow";
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    grid-template-areas: "icon label arrow" "icon value arrow";
     align-items: center;
     column-gap: var(--s-3);
     min-height: 64px;
@@ -34,6 +34,17 @@
 
 .contact-row-link .small { grid-area: label; }
 
+.contact-row-icon {
+    grid-area: icon;
+    display: grid;
+    place-items: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--haldi-pale);
+    color: var(--ink);
+}
+
 .contact-row-value {
     grid-area: value;
     font-family: var(--font-heading);
@@ -44,9 +55,9 @@
 
 .contact-row-arrow {
     grid-area: arrow;
-    font-size: 1.25rem;
+    display: flex;
     color: var(--sindoor);
-    transition: transform 0.15s ease;
+    transition: transform var(--dur) var(--ease-out);
 }
 
 .contact-row-link:hover {
@@ -54,7 +65,7 @@
     border-color: var(--ink);
 }
 
-.contact-row-link:hover .contact-row-arrow { transform: translateX(3px); }
+.contact-row-link:hover .contact-row-arrow { transform: translateX(4px); }
 .contact-row-link:active { transform: translateY(1px); }
 
 @media (max-width: 900px) {

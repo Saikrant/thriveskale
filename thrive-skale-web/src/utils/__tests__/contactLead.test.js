@@ -49,6 +49,12 @@ describe('contact lead helpers', () => {
         expect(message).toContain('*Message:* Need a lead capture website');
     });
 
+    it('says "Not given" for an empty optional email or message', () => {
+        const message = buildContactWhatsAppMessage({ name: 'Sai', phone: '9014353465', businessType: 'Retail' });
+        expect(message).toContain('*Email:* Not given');
+        expect(message).toContain('*Message:* Not given');
+    });
+
     it('builds an encoded WhatsApp URL', () => {
         const url = buildContactWhatsAppUrl('919014353465', {
             name: 'Sai',

@@ -39,6 +39,7 @@
 }
 
 .nav-links a {
+    position: relative;
     display: inline-flex;
     align-items: center;
     min-height: 44px;
@@ -46,13 +47,27 @@
     color: var(--ink);
     font-weight: 500;
     text-decoration: none;
-    border-bottom: 3px solid transparent;
 }
 
-.nav-links a:hover {
-    color: var(--ink);
-    border-bottom-color: var(--haldi);
+/* Haldi underline grows on hover and stays on the current section (transform only) */
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    left: var(--s-3);
+    right: var(--s-3);
+    bottom: 4px;
+    height: 3px;
+    border-radius: 2px;
+    background: var(--haldi);
+    transform: scaleX(0);
+    transform-origin: left center;
+    transition: transform var(--dur) var(--ease-out);
 }
+
+.nav-links a:hover { color: var(--ink); }
+
+.nav-links a:hover::after,
+.nav-links a[aria-current="location"]::after { transform: scaleX(1); }
 
 .nav-toggle {
     display: none;
@@ -104,6 +119,15 @@
         font-size: 1.4rem;
         font-weight: 700;
         border-bottom: 1px solid var(--line);
+    }
+
+    .nav-links a::after { left: 0; right: auto; width: 40px; bottom: 8px; }
+
+    .nav-menu.is-open { animation: menu-in var(--dur) var(--ease-out); }
+
+    @keyframes menu-in {
+        from { opacity: 0; transform: translateY(-8px); }
+        to { opacity: 1; transform: none; }
     }
 
     .nav-cta { width: 100%; }

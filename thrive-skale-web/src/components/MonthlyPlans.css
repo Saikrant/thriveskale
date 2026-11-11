@@ -12,6 +12,10 @@
 
 .fee-label { font-weight: 500; }
 
+/* Fixed-width digits so rolling numbers don't make the text wobble */
+.fee-spend,
+.fee-result .price { font-variant-numeric: tabular-nums; }
+
 .fee-spend {
     font-family: var(--font-heading);
     font-size: 2rem;

@@ -1,5 +1,7 @@
 import { useId, useState } from 'react';
 import { GST_NOTE, GST_RATE, LEAD_GROWTH, leadGrowthFee, rupees } from '../utils/countryConfig';
+import { requestContact } from '../utils/contactPrefill';
+import useTweenedNumber from '../hooks/useTweenedNumber';
 import './MonthlyPlans.css';
 
 const MIN = 10000;
@@ -14,6 +16,10 @@ const MonthlyPlans = () => {
     const [spend, setSpend] = useState(START);
     const fee = leadGrowthFee(spend);
     const withGst = Math.round(fee * (1 + GST_RATE));
+    /* Displayed numbers roll to their new value; the slider's aria-valuetext keeps the exact figures. */
+    const shownSpend = useTweenedNumber(spend, 180);
+    const shownFee = useTweenedNumber(fee);
+    const shownWithGst = useTweenedNumber(withGst);
     const [low, mid] = LEAD_GROWTH.tiers;
 
     const bands = [
@@ -25,12 +31,12 @@ const MonthlyPlans = () => {
     return (
         <section id="monthly" className="section section--haldi">
             <div className="container">
-                <div className="section-head">
+                <div className="section-head" data-reveal>
                     <h2>Monthly plans</h2>
                     <p>Once your site is live, we can run the ads that bring enquiries to it.</p>
                 </div>
 
-                <div className="card monthly">
+                <div className="card monthly" data-reveal style={{ '--i': 1 }}>
                     <div className="monthly-about">
                         <h3>{LEAD_GROWTH.name}</h3>
                         <p className="muted">{LEAD_GROWTH.summary}</p>
@@ -44,7 +50,7 @@ const MonthlyPlans = () => {
 
                     <div className="fee">
                         <label className="fee-label" htmlFor={`${id}-spend`}>Your monthly ad spend</label>
-                        <p className="fee-spend" aria-hidden="true">{rupees(spend)}</p>
+                        <p className="fee-spend" aria-hidden="true">{rupees(shownSpend)}</p>
 
                         <div className="fee-track">
                             <input
@@ -68,12 +74,19 @@ const MonthlyPlans = () => {
 
                         <div className="fee-result">
                             <p className="small">Our monthly fee</p>
-                            <p className="price">{rupees(fee)} <small>{GST_NOTE}</small></p>
-                            <p className="small muted">{rupees(withGst)} a month including GST</p>
+                            <p className="price">
+                                <span aria-hidden="true">{rupees(shownFee)}</span>
+                                <span className="visually-hidden">{rupees(fee)}</span> <small>{GST_NOTE}</small>
+                            </p>
+                            <p className="small muted">
+                                <span aria-hidden="true">{rupees(shownWithGst)}</span>
+                                <span className="visually-hidden">{rupees(withGst)}</span> a month including GST
+                            </p>
                         </div>
 
                         <p id={`${id}-more`} className={`fee-more small ${spend === MAX ? 'fee-more--on' : ''}`}>
-                            Spending more than {rupees(MAX)} a month? <a href="#contact">Ask us</a> for a quote.
+                            Spending more than {rupees(MAX)} a month?{' '}
+                            <a href="#contact" onClick={(e) => { e.preventDefault(); requestContact(`Lead Growth with more than ${rupees(MAX)} a month in ad spend`); }}>Ask us</a> for a quote.
                         </p>
 
                         <ul className="fee-bands" aria-label="Fee by monthly ad spend">

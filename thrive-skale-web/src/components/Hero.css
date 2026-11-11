@@ -1,7 +1,7 @@
 /* Hero: copy and form on the left, sample chat on the right.
    On mobile: headline, form, then chat. */
 .hero {
-    padding: var(--s-8) 0 var(--s-9);
+    padding: var(--s-6) 0 var(--s-8);
 }
 
 .hero-grid {
@@ -11,18 +11,20 @@
         "copy chat"
         "form chat";
     column-gap: var(--s-8);
-    row-gap: var(--s-6);
+    row-gap: var(--s-5);
     align-items: start;
 }
 
-.hero-copy { grid-area: copy; display: grid; gap: var(--s-4); }
+.hero-copy { grid-area: copy; display: grid; gap: var(--s-3); }
 .hero-form { grid-area: form; }
 .hero-grid > .chat { grid-area: chat; align-self: center; }
 
+.hero-lead strong { color: var(--ink); font-weight: 500; }
+
 .hero-lead {
-    font-size: 1.2rem;
+    font-size: 1.15rem;
     color: var(--muted);
-    max-width: 46ch;
+    max-width: 54ch;
 }
 
 .hero-form {
@@ -30,10 +32,12 @@
     border: 1px solid var(--line);
     border-radius: var(--radius);
     padding: var(--s-5);
-    max-width: 480px;
+    max-width: 520px;
 }
 
-.hero-form-title { font-size: 1.4rem; }
+.hero-form-title { font-size: 1.3rem; }
+
+.hero-form.form { gap: var(--s-3); }
 
 @media (max-width: 900px) {
     .hero { padding: var(--s-6) 0 var(--s-8); }

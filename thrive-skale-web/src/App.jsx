@@ -11,6 +11,8 @@ import FAQ from './components/FAQ';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
 import ThankYou from './components/ThankYou';
+import MobileCTA from './components/MobileCTA';
+import useScrollReveal from './hooks/useScrollReveal';
 import { PrivacyPolicy, Terms } from './components/LegalPages';
 import * as gtag from './utils/gtag';
 
@@ -38,7 +40,10 @@ const ScrollToSection = () => {
     return null;
 };
 
-const Home = () => (
+const Home = () => {
+    useScrollReveal();
+    return (
+    <>
     <main id="main">
         <ScrollToSection />
         <Hero />
@@ -50,7 +55,10 @@ const Home = () => (
         <FAQ />
         <Contact />
     </main>
-);
+    <MobileCTA />
+    </>
+    );
+};
 
 function App() {
     const location = useLocation();

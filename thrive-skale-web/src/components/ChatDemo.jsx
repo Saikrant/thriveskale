@@ -1,3 +1,5 @@
+import { useState } from 'react';
+import Icon from './Icon';
 import './ChatDemo.css';
 
 /*
@@ -5,7 +7,9 @@ import './ChatDemo.css';
  * Messages are always in the layout (no layout shift); CSS animations only fade
  * and slide them in, once, on load. With reduced motion the final state shows.
  */
-const ChatDemo = () => (
+const ChatDemo = () => {
+    const [run, setRun] = useState(0);
+    return (
     <figure className="chat" aria-label="Sample WhatsApp conversation">
         <div className="chat-top">
             <span className="chat-avatar" aria-hidden="true">YB</span>
@@ -13,9 +17,13 @@ const ChatDemo = () => (
                 <p className="chat-name">Your Business</p>
                 <p className="chat-status">Sample chat</p>
             </div>
+            <button type="button" className="chat-replay" onClick={() => setRun((n) => n + 1)}>
+                <Icon name="replay" size={18} />
+                <span>Replay</span>
+            </button>
         </div>
 
-        <ol className="chat-body">
+        <ol className="chat-body" key={run}>
             <li className="chat-msg chat-msg--in" style={{ '--d': '0.4s' }}>
                 Hi, I saw your ad. Can I get a price for your service?
                 <time>10:02</time>
@@ -45,6 +53,7 @@ const ChatDemo = () => (
             and offers to book a call. The lead is saved in the CRM and the team is alerted.
         </figcaption>
     </figure>
-);
+    );
+};
 
 export default ChatDemo;

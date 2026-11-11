@@ -25,11 +25,31 @@
 .footer-links { display: grid; gap: var(--s-1); }
 
 .footer-links a {
+    position: relative;
     display: inline-flex;
     align-items: center;
     min-height: 40px;
     overflow-wrap: anywhere;
+    color: var(--ink);
+    text-decoration: none;
 }
+
+/* Same treatment as the navbar: ink text, haldi underline that grows on hover (transform only) */
+.footer-links a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 6px;
+    height: 3px;
+    background: var(--haldi);
+    transform: scaleX(0);
+    transform-origin: left center;
+    transition: transform var(--dur) var(--ease-out);
+}
+
+.footer-links a:hover { color: var(--ink); }
+.footer-links a:hover::after { transform: scaleX(1); }
 
 .footer-bottom {
     margin-top: var(--s-7);

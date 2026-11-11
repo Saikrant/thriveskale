@@ -17,4 +17,4 @@
     border-radius: var(--radius);
 }
 
-.thanks-redirect p:first-child { font-weight: 500; }
+.thanks-redirect { display: grid; gap: var(--s-2); }

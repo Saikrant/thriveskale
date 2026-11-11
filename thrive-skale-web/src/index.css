@@ -399,6 +399,44 @@ img, svg { display: block; max-width: 100%; }
   .grid { --cols: 1; }
 }
 
+/* ---------- Motion ----------
+   Everything here animates only opacity and transform (compositor-only),
+   so it never triggers layout. Off entirely under reduced motion. */
+:root {
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-pop: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --dur-fast: 0.15s;
+  --dur: 0.3s;
+  --dur-reveal: 0.6s;
+}
+
+.icon { flex-shrink: 0; }
+
+/* Scroll-in reveal (see hooks/useScrollReveal.js). Hidden only when JS opted in. */
+.js-reveal [data-reveal]:not([data-revealed]) {
+  opacity: 0;
+  transform: translateY(18px);
+}
+
+.js-reveal [data-reveal] {
+  transition: opacity var(--dur-reveal) var(--ease-out), transform var(--dur-reveal) var(--ease-out);
+  transition-delay: calc(min(var(--i, 0), 5) * 70ms);
+}
+
+/* Page change cross-fade (React Router viewTransition) */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 0.22s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) { animation: none !important; }
+
+  .js-reveal [data-reveal]:not([data-revealed]) { opacity: 1; transform: none; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;

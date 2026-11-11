@@ -29,7 +29,30 @@
     font-weight: 700;
 }
 
+.chat-top > div { flex: 1; }
+
 .chat-name { font-weight: 500; line-height: 1.3; }
+
+.chat-replay {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--s-1);
+    min-height: 44px;
+    padding: 0 var(--s-3);
+    border-radius: 999px;
+    color: var(--ink);
+    font-weight: 500;
+    transition: background-color var(--dur-fast) ease;
+}
+
+.chat-replay:hover { background: var(--tint); }
+.chat-replay:active .icon { transform: rotate(-90deg); }
+.chat-replay .icon { transition: transform var(--dur) var(--ease-out); }
+
+/* Nothing to replay without motion */
+@media (prefers-reduced-motion: reduce) {
+    .chat-replay { display: none; }
+}
 .chat-status { font-size: var(--text-small); color: var(--muted); line-height: 1.3; }
 
 .chat-body {

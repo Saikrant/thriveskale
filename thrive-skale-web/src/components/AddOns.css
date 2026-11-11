@@ -16,6 +16,9 @@
 }
 
 .rate-group h3 {
+    display: flex;
+    align-items: center;
+    gap: var(--s-2);
     font-size: 1.05rem;
     padding-bottom: var(--s-2);
     margin-bottom: var(--s-2);
@@ -29,6 +32,12 @@
     gap: 0 var(--s-2);
     max-width: none;
     padding: var(--s-2) 0;
+}
+
+.rate-row { border-radius: 4px; transition: background-color var(--dur-fast) ease; }
+
+@media (hover: hover) {
+    .rate-row:hover { background: var(--haldi-pale); }
 }
 
 .rate-name { font-weight: 500; }

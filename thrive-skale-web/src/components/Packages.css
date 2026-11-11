@@ -65,3 +65,30 @@
     .packages { grid-template-columns: minmax(0, 1fr); max-width: 560px; }
     .package--featured { order: -1; }
 }
+
+/* Package "includes": open list on wide screens, tap to open on phones */
+.includes summary {
+    display: flex;
+    align-items: center;
+    gap: var(--s-2);
+    min-height: 44px;
+    font-weight: 500;
+    cursor: pointer;
+    list-style: none;
+}
+
+.includes summary::-webkit-details-marker { display: none; }
+
+.includes-chevron {
+    margin-left: auto;
+    transition: transform var(--dur) var(--ease-out);
+}
+
+.includes[open] .includes-chevron { transform: rotate(180deg); }
+
+.includes[open] > .ticks { animation: fade-down var(--dur) var(--ease-out); }
+
+@keyframes fade-down {
+    from { opacity: 0; transform: translateY(-6px); }
+    to { opacity: 1; transform: none; }
+}

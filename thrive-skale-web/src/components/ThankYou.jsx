@@ -11,16 +11,24 @@ function ThankYou() {
         window.scrollTo(0, 0);
     }, []);
 
-    /* Open WhatsApp with the prepared message after a short countdown. */
+    /* Open WhatsApp once after a short countdown. If the visitor comes back
+       (for example with the back button), do not send them away again. */
+    const alreadyOpened = (() => {
+        try { return whatsappUrl && sessionStorage.getItem('wa-opened') === whatsappUrl; } catch { return false; }
+    })();
+
     useEffect(() => {
-        if (!whatsappUrl) return undefined;
+        if (!whatsappUrl || alreadyOpened) return undefined;
         const timer = setInterval(() => setCountdown((n) => Math.max(0, n - 1)), 1000);
-        const redirect = setTimeout(() => { window.location.href = whatsappUrl; }, 3000);
+        const redirect = setTimeout(() => {
+            try { sessionStorage.setItem('wa-opened', whatsappUrl); } catch { /* storage blocked: fine */ }
+            window.location.href = whatsappUrl;
+        }, 3000);
         return () => {
             clearInterval(timer);
             clearTimeout(redirect);
         };
-    }, [whatsappUrl]);
+    }, [whatsappUrl, alreadyOpened]);
 
     return (
         <main id="main" className="section thanks">
@@ -30,15 +38,17 @@ function ThankYou() {
                     <p className="muted">We have your details. Send the WhatsApp message that opens next and we will reply there.</p>
 
                     {whatsappUrl && (
-                        <div className="thanks-redirect" role="status">
-                            <p>Opening WhatsApp in {countdown}…</p>
-                            <p className="small">
-                                Not opening? <a href={whatsappUrl}>Open WhatsApp</a>
-                            </p>
+                        <div className="thanks-redirect">
+                            <a className="btn btn--primary btn--block" href={whatsappUrl}>
+                                Open WhatsApp and send
+                            </a>
+                            {!alreadyOpened && (
+                                <p className="small muted" role="status">Opening automatically in {countdown}…</p>
+                            )}
                         </div>
                     )}
 
-                    <Link to="/" className="btn btn--secondary">Back to home</Link>
+                    <Link to="/" viewTransition className="btn btn--secondary">Back to home</Link>
                 </div>
             </div>
         </main>

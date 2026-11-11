@@ -12,7 +12,21 @@ const LINKS = [
 
 const Navbar = () => {
     const [open, setOpen] = useState(false);
+    const [current, setCurrent] = useState('');
     const { pathname } = useLocation();
+
+    /* Highlight the section in the middle of the screen. One observer, no scroll listener. */
+    useEffect(() => {
+        const sections = LINKS.map((l) => document.getElementById(l.id)).filter(Boolean);
+        if (!sections.length || !('IntersectionObserver' in window)) return undefined;
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) setCurrent(entry.target.id);
+            });
+        }, { rootMargin: '-45% 0px -50% 0px' });
+        sections.forEach((s) => observer.observe(s));
+        return () => observer.disconnect();
+    }, [pathname]);
 
     useEffect(() => {
         document.body.style.overflow = open ? 'hidden' : '';
@@ -52,7 +66,13 @@ const Navbar = () => {
                     <ul className="nav-links">
                         {LINKS.map((link) => (
                             <li key={link.id}>
-                                <Link to={link.to} onClick={() => go(link)}>{link.label}</Link>
+                                <Link
+                                    to={link.to}
+                                    onClick={() => go(link)}
+                                    aria-current={current === link.id ? 'location' : undefined}
+                                >
+                                    {link.label}
+                                </Link>
                             </li>
                         ))}
                     </ul>

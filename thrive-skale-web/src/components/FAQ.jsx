@@ -38,7 +38,7 @@ const FAQ_DATA = [
 const FAQ = () => (
     <section id="faq" className="section">
         <div className="container faq">
-            <div className="faq-side">
+            <div className="faq-side" data-reveal>
                 <div className="section-head">
                     <h2>Questions</h2>
                     <p>Plain answers. If yours is not here, ask us on WhatsApp.</p>
@@ -54,8 +54,8 @@ const FAQ = () => (
             </div>
 
             <div className="faq-list">
-                {FAQ_DATA.map((item) => (
-                    <details key={item.q} className="faq-item">
+                {FAQ_DATA.map((item, i) => (
+                    <details key={item.q} className="faq-item" data-reveal style={{ '--i': i }}>
                         <summary>
                             <h3>{item.q}</h3>
                             <span className="faq-icon" aria-hidden="true" />

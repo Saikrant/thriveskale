@@ -4,12 +4,12 @@ import './PaidDirectly.css';
 const PaidDirectly = () => (
     <section id="paid-directly" className="section section--white">
         <div className="container">
-            <div className="section-head">
+            <div className="section-head" data-reveal>
                 <h2>What you pay, and to whom</h2>
                 <p>Some costs come to us. Others go straight to the provider. Here is the split.</p>
             </div>
 
-            <div className="split">
+            <div className="split" data-reveal style={{ '--i': 1 }}>
                 <div className="split-side split-side--us">
                     <h3>Paid to us</h3>
                     <p>Everything with a price on this page: packages, monthly plans and add-ons.</p>

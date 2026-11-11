@@ -11,10 +11,10 @@ export const buildContactWhatsAppMessage = (formData) => {
 
     return `*New Inquiry from Website*\n\n` +
         `*Name:* ${lead.name}\n` +
-        `*Email:* ${lead.email}\n` +
+        `*Email:* ${lead.email || 'Not given'}\n` +
         `*Phone:* ${lead.phone}\n` +
         `*Industry:* ${lead.businessType}\n` +
-        `*Message:* ${lead.message}`;
+        `*Message:* ${lead.message || 'Not given'}`;
 };
 
 export const buildContactWhatsAppUrl = (ownerNumber, formData) => {
