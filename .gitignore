@@ -11,3 +11,6 @@ thrive-skale-web-backup/
 .env.local
 .env.*.local
 npm-debug.log
+
+# Impeccable engine binary (platform-specific, ~18 MB). Each person runs: npx impeccable install
+.claude/skills/impeccable/scripts/bin/
