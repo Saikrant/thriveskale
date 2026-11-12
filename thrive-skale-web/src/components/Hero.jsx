@@ -9,6 +9,8 @@ import LeadStack from './LeadStack';
 import './Hero.css';
 
 const FIELDS = ['name', 'phone', 'businessType'];
+/* The package that includes Zoho CRM and WhatsApp auto-reply. */
+const LEAD_SYSTEM = PACKAGES.find((p) => p.id === 'lead-system');
 
 const Hero = () => {
     const navigate = useNavigate();
@@ -50,8 +52,9 @@ const Hero = () => {
                     <h1>One system from ad click to WhatsApp reply</h1>
                     <p className="hero-lead">
                         We build your website, run your ads, save every enquiry in your CRM and
-                        reply on WhatsApp. You own all of it. Made for Hyderabad businesses, from{' '}
-                        <strong>{rupees(PACKAGES[0].price)}</strong> {GST_NOTE}.
+                        reply on WhatsApp. You own all of it. Made for Hyderabad businesses. Websites from{' '}
+                        <strong>{rupees(PACKAGES[0].price)}</strong>, the full lead engine from{' '}
+                        <strong>{rupees(LEAD_SYSTEM.price)}</strong> {GST_NOTE}.
                     </p>
                 </div>
 
