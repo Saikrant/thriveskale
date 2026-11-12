@@ -150,8 +150,8 @@ export const ADD_ON_GROUPS = [
 /** Costs the client pays to the provider directly, not to us. */
 export const PAID_DIRECTLY = [
     { item: 'Ad spend', cost: 'You set the budget', paidTo: 'Meta and Google' },
-    { item: 'Domain name', cost: 'About ₹500 to ₹1,500 a year', paidTo: 'Domain registrar' },
-    { item: 'Hosting', cost: '₹0 to ₹6,000 a year', paidTo: 'Hosting provider' },
+    { item: 'Domain name', cost: 'Estimate: about ₹500 to ₹1,500 a year. Varies by provider.', paidTo: 'Domain registrar' },
+    { item: 'Hosting', cost: 'Estimate: about ₹0 to ₹6,000 a year. Varies by provider.', paidTo: 'Hosting provider' },
     { item: 'WhatsApp API', cost: 'Provider plan plus Meta message fees', paidTo: 'WhatsApp API provider and Meta' },
     { item: 'Zoho CRM', cost: 'Per-user licence', paidTo: 'Zoho' },
 ];

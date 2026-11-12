@@ -39,7 +39,7 @@ One accountable lead engine rather than separate tools: website, lead capture, Z
 - Do not merge PR #4 (`redesign-light-theme`) without Sai Kranth's approval.
 
 Undecided or open:
-- Approved add-ons table (groups and prices) for `ADD_ON_GROUPS`.
+- Add-on prices in `ADD_ON_GROUPS` are approved. The yearly domain and hosting ranges in `PAID_DIRECTLY` are estimates paid directly to the provider and vary; they must never read as fixed prices.
 - Google Ads lead conversion label (`VITE_GADS_LEAD_LABEL` in Cloudflare Pages; no conversion is sent until it is set).
 - Privacy Policy and Terms need owner and legal review.
 - GitHub organization and repo transfer.

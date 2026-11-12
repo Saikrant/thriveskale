@@ -23,4 +23,4 @@ Owner/CTO: Sai Kranth. A junior developer and a business person work alongside. 
 - Do not merge PR #4 (`redesign-light-theme`) without Sai Kranth's approval.
 
 ## Open items
-Approved add-ons table (groups and prices) still to be added to `ADD_ON_GROUPS` in countryConfig.js; Google Ads lead conversion label: set `VITE_GADS_LEAD_LABEL` in Cloudflare Pages (no conversion is sent until then); Privacy Policy and Terms pages need owner/legal review; GitHub organization + repo transfer; CMS and leads admin/CRM; real Indian imagery to replace AI-generated Western images.
+Add-on prices in `ADD_ON_GROUPS` are approved; the yearly domain and hosting ranges in `PAID_DIRECTLY` are estimates paid directly to the provider and vary, so they must never read as fixed prices; Google Ads lead conversion label: set `VITE_GADS_LEAD_LABEL` in Cloudflare Pages (no conversion is sent until then); Privacy Policy and Terms pages need owner/legal review; GitHub organization + repo transfer; CMS and leads admin/CRM; real Indian imagery to replace AI-generated Western images.
