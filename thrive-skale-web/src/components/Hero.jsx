@@ -49,10 +49,10 @@ const Hero = () => {
         <section id="hero" className="hero">
             <div className="container hero-grid">
                 <div className="hero-copy">
-                    <h1>One system from ad click to WhatsApp reply</h1>
+                    <h1>Turn ad clicks into customer conversations on WhatsApp</h1>
                     <p className="hero-lead">
-                        We build your website, run your ads, save every enquiry in your CRM and
-                        reply on WhatsApp. You own all of it. Made for Hyderabad businesses. Websites from{' '}
+                        We build your website, run your ads, save every enquiry in one list (a CRM) and
+                        reply on WhatsApp. Everything is set up in your own accounts. Made for Hyderabad businesses. Websites from{' '}
                         <strong>{rupees(PACKAGES[0].price)}</strong>, the full lead engine from{' '}
                         <strong>{rupees(LEAD_SYSTEM.price)}</strong> {GST_NOTE}.
                     </p>
