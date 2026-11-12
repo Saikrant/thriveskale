@@ -28,7 +28,7 @@
     position: relative;
     display: inline-flex;
     align-items: center;
-    min-height: 40px;
+    min-height: 44px;
     overflow-wrap: anywhere;
     color: var(--ink);
     text-decoration: none;
