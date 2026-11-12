@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, Navigate, useLocation } from 'react-router-dom';
 import './ThankYou.css';
 
 function ThankYou() {
@@ -30,12 +30,15 @@ function ThankYou() {
         };
     }, [whatsappUrl, alreadyOpened]);
 
+    /* Nothing was submitted (direct visit or refresh without state): go home. */
+    if (!whatsappUrl) return <Navigate to="/" replace />;
+
     return (
         <main id="main" className="section thanks">
             <div className="container">
                 <div className="card thanks-card">
-                    <h1>Thank you</h1>
-                    <p className="muted">We have your details. Send the WhatsApp message that opens next and we will reply there.</p>
+                    <h1>Your message is ready</h1>
+                    <p className="muted">Your message is ready in WhatsApp. Tap Send there so it reaches us; we reply in the same chat.</p>
 
                     {whatsappUrl && (
                         <div className="thanks-redirect">
