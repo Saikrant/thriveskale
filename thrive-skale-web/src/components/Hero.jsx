@@ -49,7 +49,7 @@ const Hero = () => {
         <section id="hero" className="hero">
             <div className="container hero-grid">
                 <div className="hero-copy">
-                    <h1>Turn ad clicks into customer conversations on WhatsApp</h1>
+                    <h1>Turn ad clicks into customer conversations on <span className="hero-mark">WhatsApp</span></h1>
                     <p className="hero-lead">
                         We build your website, run your ads, save every enquiry in one list (a CRM) and
                         reply on WhatsApp. Everything is set up in your own accounts. Made for Hyderabad businesses. Websites from{' '}
@@ -85,6 +85,12 @@ const Hero = () => {
                         {sending ? 'Opening WhatsApp…' : 'Get my quote'}
                     </button>
                 </form>
+
+                <ul className="hero-points ticks hero-in">
+                    <li>Prices published up front</li>
+                    <li>Pay in stages, not all at once</li>
+                    <li>Based in {CONTACT.city}</li>
+                </ul>
 
                 <LeadStack />
             </div>

@@ -9,7 +9,8 @@
     grid-template-columns: minmax(0, 1fr) minmax(0, 0.9fr);
     grid-template-areas:
         "copy chat"
-        "form chat";
+        "form chat"
+        "points chat";
     column-gap: var(--s-8);
     row-gap: var(--s-5);
     align-items: start;
@@ -17,12 +18,16 @@
 
 .hero-copy { grid-area: copy; display: grid; gap: var(--s-3); }
 .hero-form { grid-area: form; }
+.hero-points { grid-area: points; }
 .hero-grid > .lead-stack {
     grid-area: chat;
     align-self: start;
     position: sticky;
     top: 88px;
 }
+
+/* Desktop headline: a step below the global h1 so the longer outcome headline sits on three lines. */
+.hero h1 { font-size: clamp(2rem, 3.6vw, 3rem); }
 
 .hero-lead strong { color: var(--ink); font-weight: 500; }
 
@@ -49,7 +54,7 @@
 
     .hero-grid {
         grid-template-columns: minmax(0, 1fr);
-        grid-template-areas: "copy" "form" "chat";
+        grid-template-areas: "copy" "form" "points" "chat";
         row-gap: var(--s-5);
     }
 
@@ -67,4 +72,59 @@
     .hero-grid { row-gap: var(--s-4); }
     .hero-form { padding: var(--s-4); }
     .hero-form.form { gap: var(--s-2); }
+}
+
+/* Selling points under the form */
+.hero-points {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-2) var(--s-5);
+    max-width: 520px;
+    font-weight: 500;
+}
+
+/* ---------- Entrance (opacity and transform only, CSS only, plays once on load) ----------
+   Only the selling points and the LeadStack animate in. The headline, lead paragraph and
+   form are visible from first paint with no hidden start state. Reduced motion: the global
+   rule in index.css makes every animation instant. */
+@keyframes hero-rise {
+    from { opacity: 0; transform: translateY(14px); }
+}
+
+@keyframes hero-fade {
+    from { opacity: 0; }
+}
+
+@keyframes hero-mark {
+    from { transform: scaleX(0); }
+}
+
+.hero-in {
+    animation: hero-rise 0.6s var(--ease-out) both;
+    animation-delay: 0.3s;
+}
+
+.hero-grid > .lead-stack {
+    animation: hero-fade 0.9s var(--ease-out) both;
+    animation-delay: 0.45s;
+}
+
+/* A haldi highlight draws in behind the key word. Ink text on haldi only. */
+.hero-mark {
+    position: relative;
+    isolation: isolate;
+    white-space: nowrap;
+}
+
+.hero-mark::before {
+    content: '';
+    position: absolute;
+    left: -0.04em;
+    right: -0.04em;
+    bottom: 0.04em;
+    height: 0.34em;
+    z-index: -1;
+    background: var(--haldi);
+    transform-origin: left center;
+    animation: hero-mark 0.7s var(--ease-out) 0.5s both;
 }
