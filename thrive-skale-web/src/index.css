@@ -9,6 +9,7 @@
      sindoor on bg 6.2 · sindoor on card 6.6 · sindoor on haldi-pale 5.8
      white on sindoor 6.6 · white on sindoor-hover 9.0
      ink on chat-bg 13.0 · muted on chat-bg 6.2
+     line-strong on card 3.7 · on bg 3.7 · on haldi-pale 3.6
    Rules: ink is for text only (no ink backgrounds). Only ink text on haldi.
    White text only on sindoor. No gradients, glows or emoji.
    ========================================================= */
@@ -28,7 +29,7 @@
 
   /* Derived */
   --line: color-mix(in srgb, var(--ink) 14%, transparent);
-  --line-strong: color-mix(in srgb, var(--ink) 45%, transparent);
+  --line-strong: color-mix(in srgb, var(--ink) 55%, transparent);
   --tint: color-mix(in srgb, var(--ink) 5%, transparent);
   --focus: var(--ink);
   --error: var(--sindoor);
