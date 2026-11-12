@@ -34,7 +34,7 @@ One accountable lead engine rather than separate tools: website, lead capture, Z
 - Do not invent claims: no client counts, ratings or response times.
 - No Industries section. No stock photos until real Indian imagery exists. Current AI-generated Western images are placeholders to replace.
 - Performance is a product constraint. Heavy effects were removed on purpose and must not return: no smooth scroll, no custom cursor, no video hero.
-- Motion: animate only opacity and transform. Use IntersectionObserver and reveal each element once. The only allowed scroll listener is the hero LeadStack. Turn everything off under prefers-reduced-motion. Content must stay visible without JS. (As of this writing no LeadStack or scroll listener exists in `src/`; the allowance is for when it is built.)
+- Motion: animate only opacity and transform. Use IntersectionObserver and reveal each element once. Turn everything off under prefers-reduced-motion. Content must stay visible without JS. The hero LeadStack (`components/LeadStack.jsx`, an exploded CSS 3D view of Ads, Website, CRM and WhatsApp reply) exists and uses one passive, rAF-throttled scroll listener that only sets a CSS variable, because its spread is tied to scroll distance. Everything else uses IntersectionObserver; nothing else may add scroll listeners.
 - Hero is a 3-field lead form that opens the WhatsApp thank-you flow, with a CSS-only sample chat that plays once.
 - Do not merge PR #4 (`redesign-light-theme`) without Sai Kranth's approval.
 
