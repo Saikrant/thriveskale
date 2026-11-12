@@ -112,7 +112,7 @@
     text-align: center;
     font-family: var(--font-heading);
     font-size: 0.95rem;
-    color: #fff;
+    color: var(--on-sindoor);
 }
 
 .ls-caption {
