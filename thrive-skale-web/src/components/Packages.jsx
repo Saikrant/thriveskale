@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { GST_NOTE, PACKAGES, rupees } from '../utils/countryConfig';
 import { requestContact } from '../utils/contactPrefill';
 import useMediaQuery from '../hooks/useMediaQuery';
@@ -29,16 +28,19 @@ const PaymentBar = ({ payment }) => (
 
 /* Always open on wide screens; a tap-to-open list on phones to keep the page short. */
 const Includes = ({ items, wide }) => {
-    const [open, setOpen] = useState(wide);
-    /* Follow screen-size changes by adjusting state during render (no effect, no extra pass). */
-    const [prevWide, setPrevWide] = useState(wide);
-    if (wide !== prevWide) {
-        setPrevWide(wide);
-        setOpen(wide);
+    /* Wide screens: a plain list, no hidden control. Phones: a visible tap-to-open summary. */
+    if (wide) {
+        return (
+            <div className="includes">
+                <ul className="ticks">
+                    {items.map((item) => <li key={item}>{item}</li>)}
+                </ul>
+            </div>
+        );
     }
     return (
-        <details className="includes" open={open} onToggle={(e) => setOpen(e.currentTarget.open)}>
-            <summary className={wide ? 'visually-hidden' : ''}>
+        <details className="includes">
+            <summary>
                 What's included <span className="muted">({items.length})</span>
                 <Icon name="chevron" size={20} className="includes-chevron" />
             </summary>
