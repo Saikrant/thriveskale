@@ -11,6 +11,7 @@ import FAQ from './components/FAQ';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
 import ThankYou from './components/ThankYou';
+import NotFound from './components/NotFound';
 import MobileCTA from './components/MobileCTA';
 import useScrollReveal from './hooks/useScrollReveal';
 import { PrivacyPolicy, Terms } from './components/LegalPages';
@@ -75,7 +76,11 @@ function App() {
                 <Route path="/thank-you" element={<ThankYou />} />
                 <Route path="/privacy-policy" element={<PrivacyPolicy />} />
                 <Route path="/terms" element={<Terms />} />
-                <Route path="*" element={<Home />} />
+                <Route path="/" element={<Home />} />
+                {Object.keys(PATH_TO_SECTION).map((path) => (
+                    <Route key={path} path={path} element={<Home />} />
+                ))}
+                <Route path="*" element={<NotFound />} />
             </Routes>
             <Footer />
         </>
