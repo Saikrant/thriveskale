@@ -4,8 +4,7 @@ import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import HowItWorks from './components/HowItWorks';
 import Packages from './components/Packages';
-import MonthlyPlans from './components/MonthlyPlans';
-import AddOns from './components/AddOns';
+import Plans from './components/Plans';
 import PaidDirectly from './components/PaidDirectly';
 import FAQ from './components/FAQ';
 import Contact from './components/Contact';
@@ -29,14 +28,15 @@ const PATH_TO_SECTION = {
 };
 
 const ScrollToSection = () => {
-    const { pathname } = useLocation();
+    const { pathname, hash } = useLocation();
 
     useEffect(() => {
-        const id = PATH_TO_SECTION[pathname];
+        /* An old path, or a #section in the URL (for example /#add-ons), scrolls to that element. */
+        const id = PATH_TO_SECTION[pathname] || hash.slice(1);
         const el = id && document.getElementById(id);
         if (el) el.scrollIntoView();
         else window.scrollTo(0, 0);
-    }, [pathname]);
+    }, [pathname, hash]);
 
     return null;
 };
@@ -50,8 +50,7 @@ const Home = () => {
         <Hero />
         <HowItWorks />
         <Packages />
-        <MonthlyPlans />
-        <AddOns />
+        <Plans />
         <PaidDirectly />
         <FAQ />
         <Contact />

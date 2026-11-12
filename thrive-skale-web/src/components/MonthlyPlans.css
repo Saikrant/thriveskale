@@ -1,12 +1,16 @@
 .monthly {
     display: grid;
-    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
-    gap: var(--s-7);
-    padding: var(--s-6);
-    align-items: start;
+    gap: var(--s-5);
+    padding: var(--s-5);
 }
 
-.monthly-about { display: grid; gap: var(--s-3); }
+.monthly-about { display: grid; gap: var(--s-2); }
+
+/* Four short items fit two to a row, which keeps the card compact. */
+.monthly-about .ticks {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--s-1) var(--s-4);
+}
 
 .fee { display: grid; gap: var(--s-2); }
 
@@ -101,6 +105,6 @@
     border-left-color: var(--haldi);
 }
 
-@media (max-width: 860px) {
-    .monthly { grid-template-columns: minmax(0, 1fr); gap: var(--s-6); padding: var(--s-5); }
+@media (max-width: 480px) {
+    .monthly-about .ticks { grid-template-columns: minmax(0, 1fr); }
 }

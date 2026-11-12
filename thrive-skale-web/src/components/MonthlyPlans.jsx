@@ -29,13 +29,6 @@ const MonthlyPlans = () => {
     ];
 
     return (
-        <section id="monthly" className="section section--haldi">
-            <div className="container">
-                <div className="section-head" data-reveal>
-                    <h2>Monthly plans</h2>
-                    <p>Once your site is live, we can run the ads that bring enquiries to it.</p>
-                </div>
-
                 <div className="card monthly" data-reveal style={{ '--i': 1 }}>
                     <div className="monthly-about">
                         <h3>{LEAD_GROWTH.name}</h3>
@@ -100,8 +93,6 @@ const MonthlyPlans = () => {
                         </ul>
                     </div>
                 </div>
-            </div>
-        </section>
     );
 };
 
